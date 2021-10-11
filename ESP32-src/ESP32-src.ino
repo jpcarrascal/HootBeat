@@ -16,16 +16,18 @@ Adafruit_NeoPixel right = Adafruit_NeoPixel(12, PINR);
 uint8_t  anim       = 100,  // Current animation
          offset     = 0,  // Position of spinny eyes
          dly        = 41, // Time delay
-         colorCount = 3,  // For color fade
+         colorCount = 3,  // For color envelope
          maxCount   = 3;
-float fade = 0;
-uint32_t baseColor      = 0x080808,
+float fade = 0, fade2 = 0, fade3 = 0; // Color intensities
+uint32_t baseColor      = 0x080000,
          highlightColor = 0x777777,
          drumColor      = 0x000000,
          bdColor        = 0x0044FF,
          sdColor        = 0xFF0000;
 uint32_t prevTime;
-bool isRunning = true;
+bool isRunning = true,
+     bdOn      = true,
+     sdOn      = true;
 
 //uint32_t levels[] = {0x333333, 0x777777, 0xFFFFFF}; 
 
@@ -35,11 +37,11 @@ void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestam
 {
   isRunning = true;
   if(velocity > 0) {
-    if(note == 36) {
+    if(note == 36 && bdOn) {
       drumColor = bdColor;
       colorCount = maxCount;   
     }
-    else if(note == 38) {
+    else if(note == 38 && sdOn) {
       drumColor = sdColor;
       colorCount = maxCount;    
     }
@@ -62,12 +64,13 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
     isRunning = false;
     switch(value) {
       case 9: // This body
-        anim = 1;
-        baseColor = 0x0000FF;
+        anim = 5;
+        baseColor = 0xFF00FF;
         break;
       case 3: // Lullaby
         baseColor = 0x0F0500, highlightColor = 0xFF5500, bdColor = 0xFF7700, sdColor = 0xFF1100;
         anim = 4;
+        maxCount = 3;
         break;
       case 11: // No place for us
         anim = 1;
@@ -83,14 +86,20 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
         break;
       case 7: // Sex Tape
         baseColor = 0x03000B, highlightColor = 0x370097, bdColor = 0x4600FF, sdColor = 0x505050;
+        bdOn = true, sdOn = true;
+        maxCount = 3;
         anim = 100;
         break;
-      case 1:
+      case 1: //Si algun dia todo falla
         baseColor = 0x080808, highlightColor = 0x777777, bdColor = 0xFF0000, sdColor = 0x0000FF;
+        bdOn = true, sdOn = false;
+        maxCount = 3;
         anim = 100;
         break;   
       default:
         baseColor = 0x080808, highlightColor = 0x777777, bdColor = 0x0044FF, sdColor = 0xFF0000;
+        bdOn = true, sdOn = true;
+        maxCount = 3;
         anim = 100;
         break;
     }
@@ -100,6 +109,7 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
 void connected()
 {
   Serial.println("Connected");
+  baseColor = 0x080808;
 }
 
 void setup() {
@@ -171,7 +181,6 @@ void loop() {
       }
       break;
     case 4: // Drums only
-      maxCount = 5;
       for(i=0; i<12; i++) {
         uint32_t c = 0;
         fade = (float) colorCount / 3;
@@ -182,9 +191,19 @@ void loop() {
         right.setPixelColor(11-i, c); // Second eye (flipped)
       }
       break;
+    case 5: // Alternating colors
+      fade =  sin( ((float) millis())/1200 );
+      fade2 = cos( ((float) millis())/1200 );
+      fade  *= fade;
+      fade2 *= fade2;
+      for(i=0; i<12; i++) {
+        uint32_t c = dimColor(baseColor, fade, 0, fade2);
+        left.setPixelColor (   i, c); // First eye
+        right.setPixelColor(11-i, c); // Second eye
+      }
+      break;
     case 100:
     default: // Rotation + BD + SD
-      maxCount = 3;
       for(i=0; i<12; i++) {
         uint32_t c = 0;
         fade = (float) colorCount / 3;
@@ -224,6 +243,14 @@ uint32_t dimColor(uint32_t color, float fade) {
     uint8_t r = fade * (float) ((color >> 16) & 0x0000FF);
     uint8_t g = fade * (float) ((color >> 8) & 0x0000FF);
     uint8_t b = fade * (float) (color & 0x0000FF);
+    uint32_t dimmedColor = (r<<16) + (g<<8) + (b);
+    return (dimmedColor);
+}
+
+uint32_t dimColor(uint32_t color, float fade1, float fade2, float fade3) {
+    uint8_t r = fade1 * (float) ((color >> 16) & 0x0000FF);
+    uint8_t g = fade2 * (float) ((color >> 8) & 0x0000FF);
+    uint8_t b = fade3 * (float) (color & 0x0000FF);
     uint32_t dimmedColor = (r<<16) + (g<<8) + (b);
     return (dimmedColor);
 }
