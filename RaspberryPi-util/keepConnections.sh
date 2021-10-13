@@ -38,5 +38,5 @@ then
 fi
 echo "================"
 
-sleep 5
+#sleep 5
 #done # Loop ends
