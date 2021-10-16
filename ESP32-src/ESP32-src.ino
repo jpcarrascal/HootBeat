@@ -7,8 +7,17 @@
 #include <BLEMidi.h>
 #include <Adafruit_NeoPixel.h>
 
+#ifdef ESP32
+  #include <WiFi.h>
+#else
+  #include <ESP8266WiFi.h>
+#endif
+
 #define PINL 16
 #define PINR 17
+#define BOARD2 "94:B9:7E:D4:D1:50"
+#define BOARD3 "7C:9E:BD:4B:30:44" 
+
 
 Adafruit_NeoPixel left  = Adafruit_NeoPixel(12, PINL);
 Adafruit_NeoPixel right = Adafruit_NeoPixel(12, PINR);
@@ -19,7 +28,9 @@ uint8_t  anim       = 100,  // Current animation
          colorCount = 3,  // For color envelope
          maxCount   = 3;
 float fade = 0, fade2 = 0, fade3 = 0; // Color intensities
-uint32_t baseColor      = 0x080000,
+uint32_t connColor      = 0x080808,
+         disconnColor   = 0x080000,
+         baseColor      = disconnColor,
          highlightColor = 0x777777,
          drumColor      = 0x000000,
          bdColor        = 0x0044FF,
@@ -29,7 +40,7 @@ bool isRunning = true,
      bdOn      = true,
      sdOn      = true;
 
-//uint32_t levels[] = {0x333333, 0x777777, 0xFFFFFF}; 
+String addr;
 
 void connected();
 
@@ -91,13 +102,13 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
         anim = 100;
         break;
       case 1: //Si algun dia todo falla
-        baseColor = 0x080808, highlightColor = 0x777777, bdColor = 0xFF0000, sdColor = 0x0000FF;
+        baseColor = connColor, highlightColor = 0x777777, bdColor = 0xFF0000, sdColor = 0x0000FF;
         bdOn = true, sdOn = false;
         maxCount = 3;
         anim = 100;
         break;   
       default:
-        baseColor = 0x080808, highlightColor = 0x777777, bdColor = 0x0044FF, sdColor = 0xFF0000;
+        baseColor = connColor, highlightColor = 0x777777, bdColor = 0x0044FF, sdColor = 0xFF0000;
         bdOn = true, sdOn = true;
         maxCount = 3;
         anim = 100;
@@ -109,15 +120,24 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
 void connected()
 {
   Serial.println("Connected");
-  baseColor = 0x080808;
+  baseColor = connColor;
 }
 
 void setup() {
   Serial.begin(115200);
-  BLEMidiServer.begin("BT Goggle 1");
+  addr = WiFi.macAddress();
+  Serial.println(addr);
+  if(addr == BOARD2) {
+      BLEMidiServer.begin("BT Goggle 2");
+  } else if(addr == BOARD3) {
+    BLEMidiServer.begin("BT Goggle 3");
+  } else {
+    BLEMidiServer.begin("BT Goggle 1");
+  }
   BLEMidiServer.setOnConnectCallback(connected);
   BLEMidiServer.setOnDisconnectCallback([](){     // To show how to make a callback with a lambda function
     Serial.println("Disconnected");
+    baseColor = disconnColor;
   });
   BLEMidiServer.setNoteOnCallback(onNoteOn);
   BLEMidiServer.setNoteOffCallback(onNoteOff);
