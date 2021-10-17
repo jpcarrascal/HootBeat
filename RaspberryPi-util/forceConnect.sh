@@ -7,8 +7,11 @@ then
 fi
 
 /usr/bin/touch $lockfile
-source "devices.txt"
-echo $btwi
+
+btwi="E4:E1:12:5D:54:F9" # WIDI Jack
+btg1="7C:9E:BD:4B:07:A6" # BT Goggle 1
+btg2="94:B9:7E:D4:D1:52" # BT Goggle 2
+btg3="7C:9E:BD:4B:30:46" # BT Goggle 3
 /usr/bin/bluetoothctl trust $btwi
 /usr/bin/bluetoothctl trust $btg1
 /usr/bin/bluetoothctl trust $btg2
