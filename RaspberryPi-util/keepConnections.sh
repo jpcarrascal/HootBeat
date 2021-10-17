@@ -2,11 +2,11 @@
 # Monitors BT Goggle devices and connects them when they show up
 
 #while true
-#do # Loop begins
+#do # Loop begins. Not necessary if service is automatically restarted
 
-usb=`/usr/bin/sudo aconnect -l | /usr/bin/tr -d "\n" | /usr/bin/awk -Fclient 'BEGIN {OFS="\n"}; {$1=$1; print$0}' | /usr/bin/grep "USB MIDI" | awk -F "\'" '{print $2}'`
-widi=`/usr/bin/sudo aconnect -l | /usr/bin/tr -d "\n" | /usr/bin/awk -Fclient 'BEGIN {OFS="\n"}; {$1=$1; print$0}' | /usr/bin/grep "WIDI Jack" | awk -F "\'" '{print $2}'`
-tmp=`/usr/bin/sudo aconnect -l | /usr/bin/tr -d "\n" | /usr/bin/awk -Fclient 'BEGIN {OFS="\n"}; {$1=$1; print$0}' | /usr/bin/grep "BT Goggle"`
+usb=`/usr/bin/aconnect -l | /usr/bin/tr -d "\n" | /usr/bin/awk -Fclient 'BEGIN {OFS="\n"}; {$1=$1; print$0}' | /usr/bin/grep "USB MIDI" | awk -F "\'" '{print $2}'`
+widi=`/usr/bin/aconnect -l | /usr/bin/tr -d "\n" | /usr/bin/awk -Fclient 'BEGIN {OFS="\n"}; {$1=$1; print$0}' | /usr/bin/grep "WIDI Jack" | awk -F "\'" '{print $2}'`
+tmp=`/usr/bin/aconnect -l | /usr/bin/tr -d "\n" | /usr/bin/awk -Fclient 'BEGIN {OFS="\n"}; {$1=$1; print$0}' | /usr/bin/grep "BT Goggle"`
 # From: https://stackoverflow.com/questions/19771965/split-bash-string-by-newline-characters
 IFS=$'\n' goggles=($tmp)
 
