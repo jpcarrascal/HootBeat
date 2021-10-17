@@ -1,4 +1,12 @@
 #!/usr/bin/bash
+lockfile="/tmp/.forceConnectXYZ666"
+if [[ -f $lockfile ]]
+then
+    echo "Already in progress. Exiting..."
+    exit
+fi
+
+/usr/bin/touch $lockfile
 source "devices.txt"
 echo $btwi
 /usr/bin/bluetoothctl trust $btwi
@@ -10,3 +18,4 @@ echo $btwi
 /usr/bin/bluetoothctl connect $btg1
 /usr/bin/bluetoothctl connect $btg2
 /usr/bin/bluetoothctl connect $btg3
+rm $lockfile
