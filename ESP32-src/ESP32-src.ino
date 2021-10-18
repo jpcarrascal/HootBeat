@@ -16,7 +16,7 @@
 #define PINL 16
 #define PINR 17
 #define BOARD2 "94:B9:7E:D4:D1:50"
-#define BOARD3 "7C:9E:BD:4B:30:44" 
+#define BOARD3 "7C:9E:BD:4B:30:44" //"C8:C9:A3:D1:F5:88" 
 
 
 Adafruit_NeoPixel left  = Adafruit_NeoPixel(12, PINL);
