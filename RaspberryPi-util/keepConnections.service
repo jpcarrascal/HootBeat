@@ -3,8 +3,8 @@ Description=Keeps necessary MIDI connections active (aconnect)
 
 [Service]
 User=root
-WorkingDirectory=/home/jp/BLE-MIDI-Goggles/RaspberryPi-util
-ExecStart=/usr/bin/bash /home/jp/BLE-MIDI-Goggles/RaspberryPi-util/keepConnections.sh
+WorkingDirectory=/usr/local/sbin
+ExecStart=/usr/bin/bash /usr/local/sbin/keepConnections.sh
 RestartSec=5
 Restart=always
 

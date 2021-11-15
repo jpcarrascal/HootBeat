@@ -8,3 +8,4 @@ install:
 	chown root:root $(DEST)$(EXEC2)
 	chmod 755 $(DEST)$(EXEC1)
 	chmod 755 $(DEST)$(EXEC2)
+	cp keepConnections.service /etc/systemd/system/keepConnections.service
