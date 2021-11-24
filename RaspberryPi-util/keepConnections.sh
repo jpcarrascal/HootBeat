@@ -1,8 +1,9 @@
 #!/bin/bash
 # Monitors BT Goggle devices and connects them when they show up
-
-#while true
-#do # Loop begins. Not necessary if service is automatically restarted
+# This is meant to be run every minute via Crontab
+# It will loop 4 times, every 10 seconds
+for VARIABLE in 1 2 3 4
+do
 
 usb=`/usr/bin/aconnect -l | /usr/bin/tr -d "\n" | /usr/bin/awk -Fclient 'BEGIN {OFS="\n"}; {$1=$1; print$0}' | /usr/bin/grep "USB MIDI" | awk -F "\'" '{print $2}'`
 widi=`/usr/bin/aconnect -l | /usr/bin/tr -d "\n" | /usr/bin/awk -Fclient 'BEGIN {OFS="\n"}; {$1=$1; print$0}' | /usr/bin/grep "WIDI Jack" | awk -F "\'" '{print $2}'`
@@ -38,5 +39,5 @@ then
 fi
 echo "================"
 
-#sleep 5
-#done # Loop ends
+sleep 10
+done
