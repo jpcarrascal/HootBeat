@@ -80,6 +80,7 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
         break;
       case 3: // Lullaby
         baseColor = 0x0F0500, highlightColor = 0xFF5500, bdColor = 0xFF7700, sdColor = 0xFF1100;
+        bdOn = true, sdOn = true;
         anim = 4;
         maxCount = 3;
         break;
@@ -93,20 +94,26 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
         break;
       case 0: // Clone
         anim = 2;
-        baseColor = 0x000099;
+        baseColor = 0x220099;
         break;
       case 7: // Sex Tape
-        baseColor = 0x03000B, highlightColor = 0x370097, bdColor = 0x4600FF, sdColor = 0x505050;
+        baseColor = 0x03000B, highlightColor = 0x370097, bdColor = 0x4600FF, sdColor = 0x4600FF;
         bdOn = true, sdOn = true;
         maxCount = 3;
-        anim = 100;
+        anim = 4;
         break;
       case 1: //Si algun dia todo falla
         baseColor = connColor, highlightColor = 0x777777, bdColor = 0xFF0000, sdColor = 0x0000FF;
         bdOn = true, sdOn = false;
         maxCount = 3;
-        anim = 100;
+        anim = 4;
         break;   
+      case 2: // One with the machine
+        baseColor = connColor, highlightColor = 0x777777, bdColor = 0x00FF00, sdColor = 0x00FFFF;
+        bdOn = true, sdOn = true;
+        maxCount = 3;
+        anim = 4;
+        break; 
       default:
         baseColor = connColor, highlightColor = 0x777777, bdColor = 0x0044FF, sdColor = 0xFF0000;
         bdOn = true, sdOn = true;
@@ -138,6 +145,8 @@ void setup() {
   BLEMidiServer.setOnDisconnectCallback([](){     // To show how to make a callback with a lambda function
     Serial.println("Disconnected");
     baseColor = disconnColor;
+    isRunning = true;
+    anim = 100;
   });
   BLEMidiServer.setNoteOnCallback(onNoteOn);
   BLEMidiServer.setNoteOffCallback(onNoteOff);
@@ -257,6 +266,23 @@ void loop() {
   if(colorCount>0) colorCount--;
   delay(dly);
 
+}
+
+void startAnim(uint32_t color) {
+  uint32_t c;
+  for(int offset=0; offset<12; offset++) {
+      for(uint8_t i=0; i<12; i++) {
+        if(i==offset || i==offset+6 || i==offset-6)
+          c = color;
+        else
+          c = 0x000000;
+        left.setPixelColor (   i, c); // First eye
+        right.setPixelColor(11-i, c); // Second eye (flipped)
+    }
+    left.show();
+    right.show();
+    delay(dly);
+  }
 }
 
 uint32_t dimColor(uint32_t color, float fade) {
