@@ -2,6 +2,8 @@
 
 ESP32-based BLE-MIDI controlled goggles and Raspberry Pi service to manage the system.
 
+https://github.com/jpcarrascal/BLE-MIDI-Goggles/blob/main/mauro.mov?raw=true
+
 [![BLE-MIDI Goggles demo](mauro.gif)](https://www.youtube.com/watch?v=fSSJu2f_Yg4)
 
 - _Python-MIDI-util_. Requires python-rtmidi (https://spotlightkid.github.io/python-rtmidi/)
