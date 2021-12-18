@@ -8,7 +8,7 @@ Examples (images link to Youtube videos):
 
 [![BLE-MIDI Goggles demo](mauro.gif)](https://www.youtube.com/watch?v=fSSJu2f_Yg4)
 
-* See them in action in [Spacebarman](http://www.spacebarman.com)'s music video "FOMO":
+* See them in action in [Spacebarman](http://www.spacebarman.com)'s music video [FOMO](https://www.youtube.com/watch?v=7elgfIqfh_I):
 
 [![Spacebarman - FOMO - music video](band.jpg)](https://www.youtube.com/watch?v=7elgfIqfh_I)
 
