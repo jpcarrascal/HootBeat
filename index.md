@@ -6,7 +6,7 @@ Great for enhancing live music performances. Github repository: <a href="https:/
 ## Block diagram
 <img src="https://github.com/jpcarrascal/HootBeat/blob/main/HootBeat-block_diagram.jpg?raw=true" style="width:560px" />
 
-## Examples (images link to Youtube videos):
+## Demos
 
 * [Drums demo](https://www.youtube.com/watch?v=fSSJu2f_Yg4):
 
