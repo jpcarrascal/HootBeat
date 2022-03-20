@@ -1,37 +1,22 @@
-## Welcome to GitHub Pages
+# HOOTBEAT
 
-You can use the [editor on GitHub](https://github.com/jpcarrascal/HootBeat/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+ESP32-based BLE-MIDI controlled goggles and Raspberry Pi service to manage the system.
+Great for enhancing live music performances.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Block diagram
+![HootBeat block diagram](HootBeat-block_diagram.jpg)
 
-### Markdown
+## Examples (images link to Youtube videos):
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+* [Drums demo](https://www.youtube.com/watch?v=fSSJu2f_Yg4):
 
-```markdown
-Syntax highlighted code block
+[![HootBeat demo](mauro.gif)](https://www.youtube.com/watch?v=fSSJu2f_Yg4)
 
-# Header 1
-## Header 2
-### Header 3
+* See them in action in [Spacebarman](http://www.spacebarman.com)'s music video [FOMO](https://www.youtube.com/watch?v=7elgfIqfh_I):
 
-- Bulleted
-- List
+[![Spacebarman - FOMO - music video](band.jpg)](https://www.youtube.com/watch?v=7elgfIqfh_I)
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/jpcarrascal/HootBeat/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Directories:
+- _ESP32-src_. Arduino code for goggles
+- _Python-MIDI-util_. Requires python-rtmidi (https://spotlightkid.github.io/python-rtmidi/)
+- _RaspberryPi-util_. Utilities to maintain BLE MIDI connections active
