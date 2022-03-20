@@ -16,7 +16,4 @@ Great for enhancing live music performances.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7elgfIqfh_I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Directories:
-- _ESP32-src_. Arduino code for goggles
-- _Python-MIDI-util_. Requires python-rtmidi (https://spotlightkid.github.io/python-rtmidi/)
-- _RaspberryPi-util_. Utilities to maintain BLE MIDI connections active
+Github repository: <a href="https://github.com/jpcarrascal/HootBeat">https://github.com/jpcarrascal/HootBeat</a>
