@@ -4,17 +4,17 @@ ESP32-based BLE-MIDI controlled goggles and Raspberry Pi service to manage the s
 Great for enhancing live music performances.
 
 ## Block diagram
-![HootBeat block diagram](HootBeat-block_diagram.jpg)
+![HootBeat block diagram](https://github.com/jpcarrascal/HootBeat/blob/main/HootBeat-block_diagram.jpg?raw=true)
 
 ## Examples (images link to Youtube videos):
 
 * [Drums demo](https://www.youtube.com/watch?v=fSSJu2f_Yg4):
 
-[![HootBeat demo](mauro.gif)](https://www.youtube.com/watch?v=fSSJu2f_Yg4)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSSJu2f_Yg4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 * See them in action in [Spacebarman](http://www.spacebarman.com)'s music video [FOMO](https://www.youtube.com/watch?v=7elgfIqfh_I):
 
-[![Spacebarman - FOMO - music video](band.jpg)](https://www.youtube.com/watch?v=7elgfIqfh_I)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7elgfIqfh_I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Directories:
 - _ESP32-src_. Arduino code for goggles
