@@ -1,4 +1,4 @@
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7elgfIqfh_I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8htsaXEAMQc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ESP32-based BLE-MIDI controlled goggles and Raspberry Pi service to manage the system.
 Great for enhancing live music performances. <!--Github repository: <a href="https://github.com/jpcarrascal/HootBeat">https://github.com/jpcarrascal/HootBeat</a>-->
