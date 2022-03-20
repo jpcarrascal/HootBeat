@@ -4,7 +4,7 @@ ESP32-based BLE-MIDI controlled goggles and Raspberry Pi service to manage the s
 Great for enhancing live music performances.
 
 ## Block diagram
-![HootBeat block diagram](https://github.com/jpcarrascal/HootBeat/blob/main/HootBeat-block_diagram.jpg?raw=true)
+<img src="https://github.com/jpcarrascal/HootBeat/blob/main/HootBeat-block_diagram.jpg?raw=true" style="width:560px" />
 
 ## Examples (images link to Youtube videos):
 
