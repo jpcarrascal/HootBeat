@@ -18,7 +18,9 @@ The prototype consists of these elements:
 
 ## Demos
 
-* [Spacebarman, live in Barcelona](https://www.youtube.com/watch?v=2ACxdybIOLA)
+* [Spacebarman](http://www.spacebarman.com), live in Barcelona (Festes de Maig, May 21st, 2022)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2ACxdybIOLA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 The demos below used an electronic drum kit as opposed to an acoustice one with triggers.
 * [Drums only](https://www.youtube.com/watch?v=fSSJu2f_Yg4):
