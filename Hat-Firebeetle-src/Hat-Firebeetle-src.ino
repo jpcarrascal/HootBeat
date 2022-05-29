@@ -15,23 +15,48 @@
 
 #define PINL 16
 #define OUTERRING 16
+#define NUMLEDS 23
 
 
-Adafruit_NeoPixel left  = Adafruit_NeoPixel(OUTERRING, PINL);
+Adafruit_NeoPixel hat  = Adafruit_NeoPixel(NUMLEDS, PINL);
 
 uint8_t  anim       = 100,  // Current animation
          offset     = 0,  // Position of spinny eyes
          dly        = 41, // Time delay
-         colorCount = 3,  // For color envelope
-         maxCount   = 3;
+         maxCount   = 4;
+
+uint8_t colorCount[NUMLEDS];
+uint32_t colors[NUMLEDS] = {
+                            0xFF00FF, //0
+                            0x0000FF,
+                            0x00DDFF,
+                            0x0000FF,
+                            0xFF00FF, //4
+                            0x0000FF,
+                            0x00DDFF,
+                            0x0000FF,
+                            0xFF00FF, //8
+                            0x0000FF,
+                            0x00DDFF,
+                            0x0000FF,
+                            0xFF00FF, //12
+                            0x0000FF,
+                            0x00DDFF,
+                            0x0000FF,
+                            0x111111, //16
+                            0x111111,
+                            0x111111,
+                            0x111111,
+                            0x111111,
+                            0x111111,
+                            0xFFFFFF //center
+                           };
+
 float fade = 0, fade2 = 0, fade3 = 0; // Color intensities
 uint32_t connColor      = 0x080808,
          disconnColor   = 0x040008,
-         baseColor      = disconnColor,
-         highlightColor = 0x777777,
-         drumColor      = 0x000000,
-         bdColor        = 0x0044FF,
-         sdColor        = 0xFF0000;
+         stepColor      = 0x0F00FF;
+
 uint32_t prevTime;
 bool isRunning = true,
      bdOn      = true,
@@ -44,14 +69,24 @@ void connected();
 void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
 {
   isRunning = true;
+  uint8_t index;
   if(velocity > 0) {
-    if(note == 36 && bdOn) {
-      drumColor = bdColor;
-      colorCount = maxCount;   
+    if(note >= 36 && note < 36+NUMLEDS) {
+      if(note < 36+12)
+        index = note-32;
+      else
+        index = note - 48;
+      colorCount[index] = maxCount;   
     }
-    else if(note == 38 && sdOn) {
-      drumColor = sdColor;
-      colorCount = maxCount;    
+    index = note - 36;
+    if(index==0) {
+      colorCount[22] = maxCount; 
+    }
+    if(index==0 || index == 8) {
+      colorCount[21] = maxCount, colorCount[16] = maxCount, colorCount[17] = maxCount;
+    }
+    if(index==4 || index == 12) {
+      colorCount[18] = maxCount, colorCount[19] = maxCount, colorCount[20] = maxCount;
     }
   }
   //Serial.printf("Received note on : channel %d, note %d, velocity %d (timestamp %dms)\n", channel, note, velocity, timestamp);
@@ -72,19 +107,15 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
     isRunning = false;
     switch(value) {
       default:
-        baseColor = connColor, highlightColor = 0x777777, bdColor = 0x0044FF, sdColor = 0xFF0000;
-        bdOn = true, sdOn = true;
-        maxCount = 3;
-        anim = 100;
         break;
     }
-    Serial.printf("Received program change : channel %d, value %d (timestamp %dms)\n", channel, value, timestamp);
+    //Serial.printf("Received program change : channel %d, value %d (timestamp %dms)\n", channel, value, timestamp);
 }
 
 void connected()
 {
   Serial.println("Connected");
-  baseColor = connColor;
+  stepColor = connColor;
 }
 
 void setup() {
@@ -95,7 +126,7 @@ void setup() {
   BLEMidiServer.setOnConnectCallback(connected);
   BLEMidiServer.setOnDisconnectCallback([](){     // To show how to make a callback with a lambda function
     Serial.println("Disconnected");
-    baseColor = disconnColor;
+    stepColor = disconnColor;
     isRunning = true;
     anim = 100;
   });
@@ -105,8 +136,8 @@ void setup() {
   BLEMidiServer.setProgramChangeCallback(onProgramChange);
   //BLEMidiServer.enableDebugging();
 
-  left.begin();
-  left.setBrightness(100);
+  hat.begin();
+  hat.setBrightness(100);
   prevTime = millis();
 }
 
@@ -120,52 +151,43 @@ void loop() {
       */
   }
 
-
   uint8_t  i;
-  switch (anim) {
-    default: // Rotation + BD + SD
-      for(i=0; i<OUTERRING; i++) {
-        uint32_t c = 0;
-        fade = (float) colorCount / 3;
-        fade *= fade;
-        if(colorCount > 0) {
-          c = dimColor(drumColor, fade);
-        if(i==offset || i==offset+OUTERRING/2 || i==offset-OUTERRING/2)
-          c = dimColor(highlightColor, fade);
-        } 
-        else if(i==offset || i==offset+OUTERRING/2 || i==offset-OUTERRING/2)
-          c = baseColor;
-        left.setPixelColor (   i, c); // First eye
-      }
-      break;
+  for(i=0; i<NUMLEDS; i++) {
+    stepColor = colors[i];
+    uint32_t c = 0;
+    fade = (float) colorCount[i] / maxCount;
+    fade *= fade;
+    if(colorCount[i] > 0)
+      c = dimColor(stepColor, fade);
+    hat.setPixelColor (i, c);
   }
   if(isRunning) { 
-    left.show();
+    hat.show();
   } else {
       uint32_t c = 0;
-      for(i=0; i<OUTERRING; i++) {
-        left.setPixelColor (   i, c); // First eye
+      for(i=0; i<NUMLEDS; i++) {
+        hat.setPixelColor (i, c);
       }
-    left.show();
+    hat.show();
   }
-  offset++;
-  if(offset>=OUTERRING) offset = 0;
-  if(colorCount>0) colorCount--;
+  for(i=0; i<NUMLEDS; i++) {
+     if(colorCount[i]>0) colorCount[i]--; 
+  }
   delay(dly);
 
 }
 
 void startAnim(uint32_t color) {
   uint32_t c;
-  for(int offset=0; offset<OUTERRING; offset++) {
-      for(uint8_t i=0; i<OUTERRING; i++) {
-        if(i==offset || i==offset+OUTERRING/2 || i==offset-OUTERRING/2)
+  for(int offset=0; offset<NUMLEDS; offset++) {
+      for(uint8_t i=0; i<NUMLEDS; i++) {
+        if(i==offset || i==offset+NUMLEDS/2 || i==offset-NUMLEDS/2)
           c = color;
         else
           c = 0x000000;
-        left.setPixelColor (   i, c); // First eye
+        hat.setPixelColor (i, c);
     }
-    left.show();
+    hat.show();
     delay(dly);
   }
 }
