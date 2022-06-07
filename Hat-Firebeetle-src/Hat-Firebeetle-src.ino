@@ -142,54 +142,47 @@ void setup() {
 }
 
 void loop() {
-  if (BLEMidiServer.isConnected()) {
-      /*
-      BLEMidiServer.noteOn(0, 69, 127);
-      delay(1000);
-      BLEMidiServer.noteOff(0, 69, 127);
-      delay(1000);
-      */
-  }
-
   uint8_t  i;
-  for(i=0; i<NUMLEDS; i++) {
-    stepColor = colors[i];
-    uint32_t c = 0;
-    fade = (float) colorCount[i] / maxCount;
-    fade *= fade;
-    if(colorCount[i] > 0)
-      c = dimColor(stepColor, fade);
-    hat.setPixelColor (i, c);
-  }
-  if(isRunning) { 
-    hat.show();
-  } else {
+  if (BLEMidiServer.isConnected()) {
+    for(i=0; i<NUMLEDS; i++) {
+      stepColor = colors[i];
       uint32_t c = 0;
-      for(i=0; i<NUMLEDS; i++) {
+      fade = (float) colorCount[i] / maxCount;
+      fade *= fade;
+      if(colorCount[i] > 0)
+        c = dimColor(stepColor, fade);
+      hat.setPixelColor (i, c);
+    }
+    if(isRunning) { 
+      
+    } else {
+        uint32_t c = 0;
+        for(i=0; i<NUMLEDS; i++) {
+          hat.setPixelColor (i, c);
+        }
+    }
+    for(i=0; i<NUMLEDS; i++) {
+       if(colorCount[i]>0) colorCount[i]--; 
+    }
+  } else { // Not connected
+    for(i=0; i<NUMLEDS; i++) {
+        uint32_t c = 0;
+        float phase = 0;
+        if (i>=16 && i<22) {
+          phase = 1;
+        } else if(i==22) {
+          phase = 2;
+        }
+        //fade /= 2;
+        //1+sin(((float) millis())/300+phase)
+        fade = 1 - abs( sin(((float) millis())/500+phase) );
+        c = dimColor(0x0000D0, fade);
         hat.setPixelColor (i, c);
-      }
-    hat.show();
+     }
   }
-  for(i=0; i<NUMLEDS; i++) {
-     if(colorCount[i]>0) colorCount[i]--; 
-  }
+  hat.show();
   delay(dly);
 
-}
-
-void startAnim(uint32_t color) {
-  uint32_t c;
-  for(int offset=0; offset<NUMLEDS; offset++) {
-      for(uint8_t i=0; i<NUMLEDS; i++) {
-        if(i==offset || i==offset+NUMLEDS/2 || i==offset-NUMLEDS/2)
-          c = color;
-        else
-          c = 0x000000;
-        hat.setPixelColor (i, c);
-    }
-    hat.show();
-    delay(dly);
-  }
 }
 
 uint32_t dimColor(uint32_t color, float fade) {
