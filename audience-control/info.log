@@ -1,0 +1,475 @@
+2022-10-30T06:41:03.516Z listening on *:3000
+2022-10-30T06:42:04.819Z Bye!!!
+2022-10-30T06:42:06.050Z listening on *:3000
+2022-10-30T06:47:16.181Z Bye!!!
+2022-10-30T06:47:17.089Z listening on *:3000
+2022-10-30T07:10:05.273Z Bye!!!
+2022-10-30T07:10:06.311Z listening on *:3000
+2022-10-30T07:18:55.857Z Bye!!!
+2022-10-30T07:18:56.702Z listening on *:3000
+2022-10-30T07:20:24.485Z Bye!!!
+2022-10-30T07:20:25.754Z listening on *:3000
+2022-10-30T07:33:07.462Z #f @SEQUENCER joined session. MIDIin: [undefined] MIDIout: [undefined]
+2022-10-30T07:33:10.031Z #f Playing...
+2022-10-30T07:33:11.101Z #f @seq step_update event: stepClick track: 8 step: 11 note: 36 value: 63
+2022-10-30T07:33:30.610Z #f @SEQUENCER disconnected (sequencer). Clearing session
+2022-10-30T07:38:56.827Z Bye!!!
+2022-10-30T07:38:57.909Z listening on *:3000
+2022-10-30T08:09:45.979Z Bye!!!
+2022-10-30T08:09:49.902Z listening on *:3000
+2022-10-30T08:15:25.846Z Bye!!!
+2022-10-30T08:15:26.946Z listening on *:3000
+2022-10-30T08:17:06.921Z Bye!!!
+2022-10-30T08:17:08.123Z listening on *:3000
+2022-10-30T08:20:30.455Z Bye!!!
+2022-10-30T08:20:31.335Z listening on *:3000
+2022-10-30T09:34:03.506Z Bye!!!
+2022-10-30T09:34:04.674Z listening on *:3000
+2022-10-30T09:34:06.366Z #spacebarman @undefined joined session on track -1
+2022-10-30T09:35:21.461Z Bye!!!
+2022-10-30T09:35:22.368Z listening on *:3000
+2022-10-30T09:35:35.835Z listening on *:3000
+2022-10-30T09:36:00.006Z listening on *:3000
+2022-10-30T09:36:14.670Z listening on *:3000
+2022-10-30T09:36:18.605Z #spacebarman @undefined joined session on track 
+2022-10-30T09:36:40.145Z listening on *:3000
+2022-10-30T09:36:41.046Z #spacebarman @undefined joined session on track 
+2022-10-30T09:38:26.540Z #spacebarman @undefined (b1UgKU-RomCoTENJAAAB) disconnected, clearing track -1
+2022-10-30T09:38:27.517Z #spacebarman @null joined session on track 
+2022-10-30T09:38:36.891Z #spacebarman @null (SJgBAKMkp22G0KDBAAAD) disconnected, clearing track -1
+2022-10-30T09:38:37.562Z #spacebarman @jp joined session on track 
+2022-10-30T09:48:07.092Z #spacebarman @jp (2Yr0VbonmcnmAvvUAAAF) disconnected, clearing track -1
+2022-10-30T09:48:07.742Z #spacebarman @jp joined session on track 
+2022-10-30T09:55:41.691Z #spacebarman @jp (YbPLWsYh1-oPiSl4AAAH) disconnected, clearing track -1
+2022-10-30T09:55:42.308Z #spacebarman @jp joined session on track 
+2022-10-30T10:00:18.682Z #spacebarman @jp (nLusOrDG6RzzBKsaAAAJ) disconnected, clearing track -1
+2022-10-30T10:00:19.350Z #spacebarman @jp joined session on track 
+2022-10-30T10:00:24.489Z #spacebarman @jp (sxWeMKt3sY3n7wMbAAAL) disconnected, clearing track -1
+2022-10-30T10:00:25.314Z #spacebarman @daniel joined session on track 
+2022-10-30T10:00:29.425Z #spacebarman @daniel (TxekPITkFM3Bjf1KAAAN) disconnected, clearing track -1
+2022-10-30T10:00:30.121Z #spacebarman @mauro joined session on track 
+2022-10-30T10:00:37.860Z #spacebarman @mauro (ER-k-5C9SEuJvKRsAAAP) disconnected, clearing track -1
+2022-10-30T10:00:38.455Z #spacebarman @daniel joined session on track 
+2022-10-30T10:00:39.393Z #spacebarman @daniel (Gch5ss4SK6F4hN3uAAAR) disconnected, clearing track -1
+2022-10-30T10:00:40.084Z #spacebarman @jp joined session on track 
+2022-10-30T10:01:36.742Z #spacebarman @jp (cOgcpNN0iavNbIhNAAAT) disconnected, clearing track -1
+2022-10-30T10:01:37.534Z #spacebarman @jp joined session on track 
+2022-10-30T10:04:00.741Z Bye!!!
+2022-10-30T10:04:05.219Z listening on *:3000
+2022-10-30T10:04:07.727Z #spacebarman @jp joined session on track 
+2022-10-30T10:04:08.457Z #spacebarman @jp (iwe0Gpnf-i0ZOx8XAAAB) set color:undefined
+2022-10-30T10:04:34.949Z #spacebarman @jp (iwe0Gpnf-i0ZOx8XAAAB) disconnected, clearing track -1
+2022-10-30T10:04:35.636Z #spacebarman @jp joined session on track 
+2022-10-30T10:04:36.542Z #spacebarman @jp (eUKH3UDTTqKPyedwAAAD) set color:#FF00FF
+2022-10-30T10:04:43.357Z #spacebarman @jp (eUKH3UDTTqKPyedwAAAD) flash! color:#FF00FF
+2022-10-30T10:05:18.829Z #spacebarman @jp (eUKH3UDTTqKPyedwAAAD) disconnected, clearing track -1
+2022-10-30T10:05:19.499Z #spacebarman @jp joined session on track 
+2022-10-30T10:05:22.110Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) set color:#FFFF00
+2022-10-30T10:05:22.800Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) flash! color:#FFFF00
+2022-10-30T10:05:23.610Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) flash! color:#FFFF00
+2022-10-30T10:05:24.559Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) set color:#FF0000
+2022-10-30T10:05:25.432Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) flash! color:#FF0000
+2022-10-30T10:05:26.253Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) set color:#FF00FF
+2022-10-30T10:05:28.005Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) set color:#00FFFF
+2022-10-30T10:05:28.821Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) flash! color:#00FFFF
+2022-10-30T10:05:29.614Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) set color:#0000FF
+2022-10-30T10:05:30.429Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) flash! color:#0000FF
+2022-10-30T10:05:31.173Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) set color:#FFFF00
+2022-10-30T10:05:32.354Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) flash! color:#FFFF00
+2022-10-30T10:05:34.898Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) flash! color:#FFFF00
+2022-10-30T10:05:35.500Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) flash! color:#FFFF00
+2022-10-30T10:05:36.485Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) set color:#FF00FF
+2022-10-30T10:05:37.225Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) flash! color:#FF00FF
+2022-10-30T10:05:54.032Z #spacebarman @jp (PGoYQwmKg9ffoU3GAAAF) disconnected, clearing track -1
+2022-10-30T10:05:54.740Z #spacebarman @jp joined session on track 
+2022-10-30T10:05:56.866Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) set color:#FF00FF
+2022-10-30T10:05:57.830Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) flash! color:#FF00FF
+2022-10-30T10:05:58.471Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) set color:#FFFF00
+2022-10-30T10:05:59.743Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) set color:#FF0000
+2022-10-30T10:06:00.673Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) set color:#FF00FF
+2022-10-30T10:06:01.683Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) set color:#7700FF
+2022-10-30T10:06:02.926Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) flash! color:#7700FF
+2022-10-30T10:06:12.005Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) set color:#FF00FF
+2022-10-30T10:06:12.983Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) set color:#FF0000
+2022-10-30T10:06:13.753Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) set color:#FF7700
+2022-10-30T10:06:14.427Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) set color:#FFFF00
+2022-10-30T10:06:15.006Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) set color:#00FF00
+2022-10-30T10:06:15.643Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) flash! color:#00FF00
+2022-10-30T10:06:16.284Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) flash! color:#00FF00
+2022-10-30T10:06:17.112Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) flash! color:#00FF00
+2022-10-30T10:06:17.750Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) flash! color:#00FF00
+2022-10-30T10:06:18.481Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) flash! color:#00FF00
+2022-10-30T10:06:19.091Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) flash! color:#00FF00
+2022-10-30T10:06:20.452Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) flash! color:#00FF00
+2022-10-30T10:06:21.278Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) set color:#FF0000
+2022-10-30T10:06:21.925Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) flash! color:#FF0000
+2022-10-30T10:06:22.934Z #spacebarman @jp (e9j1JCm_Mjew4Jp7AAAH) disconnected, clearing track -1
+2022-10-30T10:06:23.677Z #spacebarman @jp joined session on track 
+2022-10-30T10:06:27.834Z #spacebarman @jp (uei5rMBJ3r8iRhXfAAAJ) set color:#FFFF00
+2022-10-30T10:06:29.054Z #spacebarman @jp (uei5rMBJ3r8iRhXfAAAJ) flash! color:#FFFF00
+2022-10-30T10:06:29.856Z #spacebarman @jp (uei5rMBJ3r8iRhXfAAAJ) set color:#FF00FF
+2022-10-30T10:06:30.707Z #spacebarman @jp (uei5rMBJ3r8iRhXfAAAJ) flash! color:#FF00FF
+2022-10-30T10:07:07.520Z #spacebarman @jp (uei5rMBJ3r8iRhXfAAAJ) disconnected, clearing track -1
+2022-10-30T10:07:08.230Z #spacebarman @jp joined session on track 
+2022-10-30T10:07:09.233Z #spacebarman @jp (4C4InJLFeyhLw1SVAAAL) set color:#FFFF00
+2022-10-30T10:07:10.031Z #spacebarman @jp (4C4InJLFeyhLw1SVAAAL) set color:#FF7700
+2022-10-30T10:07:12.594Z #spacebarman @jp (4C4InJLFeyhLw1SVAAAL) disconnected, clearing track -1
+2022-10-30T10:07:13.266Z #spacebarman @jp joined session on track 
+2022-10-30T10:07:13.941Z #spacebarman @jp (cqNf2CHOgaaDbe9vAAAN) set color:#FF7700
+2022-10-30T10:07:33.266Z #spacebarman @jp (cqNf2CHOgaaDbe9vAAAN) disconnected, clearing track -1
+2022-10-30T10:07:33.975Z #spacebarman @jp joined session on track 
+2022-10-30T10:07:45.454Z #spacebarman @jp (ETDnvoy_NYb5A9WqAAAP) disconnected, clearing track -1
+2022-10-30T10:07:46.145Z #spacebarman @jp joined session on track 
+2022-10-30T10:07:47.063Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) set color:#FFFF00
+2022-10-30T10:07:47.838Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) flash! color:#FFFF00
+2022-10-30T10:07:48.645Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) set color:#FF00FF
+2022-10-30T10:07:49.359Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) flash! color:#FF00FF
+2022-10-30T10:07:50.276Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) set color:#0000FF
+2022-10-30T10:07:51.284Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) flash! color:#0000FF
+2022-10-30T10:07:52.198Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) set color:#7700FF
+2022-10-30T10:07:53.021Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) flash! color:#7700FF
+2022-10-30T10:07:53.957Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) set color:#FFFF00
+2022-10-30T10:07:54.639Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) flash! color:#FFFF00
+2022-10-30T10:07:55.618Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) set color:#FF7700
+2022-10-30T10:07:56.371Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) flash! color:#FF7700
+2022-10-30T10:07:57.425Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) set color:#FF0000
+2022-10-30T10:07:58.092Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) flash! color:#FF0000
+2022-10-30T10:08:30.427Z #spacebarman @jp (vHcaUQCb_1XHBfI8AAAR) disconnected, clearing track -1
+2022-10-30T10:08:31.128Z #spacebarman @jp joined session on track 
+2022-10-30T10:08:31.547Z #spacebarman @jp (AQFNW-IUn7FaUUnTAAAT) set color:#FF0000
+2022-10-30T10:08:32.435Z #spacebarman @jp (AQFNW-IUn7FaUUnTAAAT) flash! color:#FF0000
+2022-10-30T10:08:33.035Z #spacebarman @jp (AQFNW-IUn7FaUUnTAAAT) flash! color:#FF0000
+2022-10-30T10:08:34.091Z #spacebarman @jp (AQFNW-IUn7FaUUnTAAAT) set color:#FF00FF
+2022-10-30T10:08:34.876Z #spacebarman @jp (AQFNW-IUn7FaUUnTAAAT) flash! color:#FF00FF
+2022-10-30T10:08:55.064Z #spacebarman @jp (AQFNW-IUn7FaUUnTAAAT) disconnected, clearing track -1
+2022-10-30T10:08:55.728Z #spacebarman @jp joined session on track 
+2022-10-30T10:08:56.746Z #spacebarman @jp (n7EMAvjwHo_n2qvSAAAV) set color:#FF7700
+2022-10-30T10:08:57.474Z #spacebarman @jp (n7EMAvjwHo_n2qvSAAAV) set color:#FF0000
+2022-10-30T10:08:58.098Z #spacebarman @jp (n7EMAvjwHo_n2qvSAAAV) set color:#FF00FF
+2022-10-30T10:08:58.956Z #spacebarman @jp (n7EMAvjwHo_n2qvSAAAV) set color:#0000FF
+2022-10-30T10:08:59.650Z #spacebarman @jp (n7EMAvjwHo_n2qvSAAAV) set color:#7700FF
+2022-10-30T10:09:00.357Z #spacebarman @jp (n7EMAvjwHo_n2qvSAAAV) flash! color:#7700FF
+2022-10-30T10:09:00.884Z #spacebarman @jp (n7EMAvjwHo_n2qvSAAAV) flash! color:#7700FF
+2022-10-30T10:09:01.462Z #spacebarman @jp (n7EMAvjwHo_n2qvSAAAV) flash! color:#7700FF
+2022-10-30T10:09:20.183Z #spacebarman @jp (n7EMAvjwHo_n2qvSAAAV) disconnected, clearing track -1
+2022-10-30T10:09:20.942Z #spacebarman @jp joined session on track 
+2022-10-30T10:09:24.182Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) set color:#FF7700
+2022-10-30T10:09:25.086Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) flash! color:#FF7700
+2022-10-30T10:09:25.913Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) flash! color:#FF7700
+2022-10-30T10:09:26.885Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) set color:#FF00FF
+2022-10-30T10:09:27.796Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) flash! color:#FF00FF
+2022-10-30T10:09:28.550Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) flash! color:#FF00FF
+2022-10-30T10:09:30.705Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) set color:#FF7700
+2022-10-30T10:09:31.860Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) flash! color:#FF7700
+2022-10-30T10:09:32.663Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) flash! color:#FF7700
+2022-10-30T10:09:34.019Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) set color:#00FF00
+2022-10-30T10:09:35.077Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) flash! color:#00FF00
+2022-10-30T10:09:35.832Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) flash! color:#00FF00
+2022-10-30T10:09:54.960Z #spacebarman @jp (ouDtL34Pgud9pdWwAAAX) disconnected, clearing track -1
+2022-10-30T10:09:55.584Z #spacebarman @jp joined session on track 
+2022-10-30T10:10:01.079Z #spacebarman @jp (UBUyH9XwGQzcLeGrAAAZ) disconnected, clearing track -1
+2022-10-30T10:10:01.838Z #spacebarman @jp joined session on track 
+2022-10-30T10:10:02.167Z #spacebarman @jp (ewUMz2UWLbunJDb5AAAb) set color:#FF00FF
+2022-10-30T10:10:03.346Z #spacebarman @jp (ewUMz2UWLbunJDb5AAAb) set color:#FF0000
+2022-10-30T10:10:31.105Z #spacebarman @jp (ewUMz2UWLbunJDb5AAAb) disconnected, clearing track -1
+2022-10-30T10:10:31.750Z #spacebarman @jp joined session on track 
+2022-10-30T10:10:32.381Z #spacebarman @jp (nkEJ9fkcOAzdKnw-AAAd) set color:#FF00FF
+2022-10-30T10:10:33.260Z #spacebarman @jp (nkEJ9fkcOAzdKnw-AAAd) flash! color:#FF00FF
+2022-10-30T10:10:33.846Z #spacebarman @jp (nkEJ9fkcOAzdKnw-AAAd) flash! color:#FF00FF
+2022-10-30T10:10:34.354Z #spacebarman @jp (nkEJ9fkcOAzdKnw-AAAd) flash! color:#FF00FF
+2022-10-30T10:10:35.357Z #spacebarman @jp (nkEJ9fkcOAzdKnw-AAAd) disconnected, clearing track -1
+2022-10-30T10:10:36.041Z #spacebarman @jp joined session on track 
+2022-10-30T10:10:36.515Z #spacebarman @jp (C0XTvY7tym7DcRo4AAAf) set color:#FF0000
+2022-10-30T10:10:37.278Z #spacebarman @jp (C0XTvY7tym7DcRo4AAAf) disconnected, clearing track -1
+2022-10-30T10:10:37.991Z #spacebarman @jp joined session on track 
+2022-10-30T10:11:07.881Z #spacebarman @jp (CGO8ulveIiGnGp8vAAAh) disconnected, clearing track -1
+2022-10-30T10:11:08.599Z #spacebarman @jp joined session on track 
+2022-10-30T10:11:11.079Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) set color:#FF7700
+2022-10-30T10:11:11.840Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#FF7700
+2022-10-30T10:11:12.508Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#FF7700
+2022-10-30T10:11:13.390Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) set color:#FF00FF
+2022-10-30T10:11:14.000Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#FF00FF
+2022-10-30T10:11:14.570Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#FF00FF
+2022-10-30T10:11:15.580Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) set color:#0000FF
+2022-10-30T10:11:16.205Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#0000FF
+2022-10-30T10:11:16.758Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#0000FF
+2022-10-30T10:11:17.676Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) set color:#FFFF00
+2022-10-30T10:11:18.334Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#FFFF00
+2022-10-30T10:11:18.872Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#FFFF00
+2022-10-30T10:11:19.947Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) set color:#7700FF
+2022-10-30T10:11:20.875Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#7700FF
+2022-10-30T10:11:22.444Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) set color:#0000FF
+2022-10-30T10:11:23.212Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#0000FF
+2022-10-30T10:11:23.822Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#0000FF
+2022-10-30T10:11:24.712Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) set color:#00FF00
+2022-10-30T10:11:25.434Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) flash! color:#00FF00
+2022-10-30T10:12:10.423Z #spacebarman @jp (3YEs7GSKzevdl73-AAAj) disconnected, clearing track -1
+2022-10-30T10:12:11.131Z #spacebarman @jp joined session on track 
+2022-10-30T10:12:12.001Z #spacebarman @jp (6q4sH9UtxXNfmIpsAAAl) set color:#FF0000
+2022-10-30T10:12:13.209Z #spacebarman @jp (6q4sH9UtxXNfmIpsAAAl) set color:#FF00FF
+2022-10-30T10:12:14.220Z #spacebarman @jp (6q4sH9UtxXNfmIpsAAAl) flash! color:#FF00FF
+2022-10-30T10:12:14.902Z #spacebarman @jp (6q4sH9UtxXNfmIpsAAAl) flash! color:#FF00FF
+2022-10-30T10:12:31.361Z #spacebarman @jp (6q4sH9UtxXNfmIpsAAAl) disconnected, clearing track -1
+2022-10-30T10:12:31.995Z #spacebarman @jp joined session on track 
+2022-10-30T10:12:36.540Z #spacebarman @jp (H2WgW1oZrwcWpDRnAAAn) disconnected, clearing track -1
+2022-10-30T10:12:37.118Z #spacebarman @jp joined session on track 
+2022-10-30T10:13:26.653Z #spacebarman @jp (BlSohWJIUKAlgJwrAAAp) disconnected, clearing track -1
+2022-10-30T10:13:27.338Z #spacebarman @jp joined session on track 
+2022-10-30T10:13:54.807Z #spacebarman @jp (MaOJCGvNGzLorPTGAAAr) disconnected, clearing track -1
+2022-10-30T10:13:55.412Z #spacebarman @jp joined session on track 
+2022-10-30T10:13:56.055Z #spacebarman @jp (ykRzMWzNU3PwSu59AAAt) disconnected, clearing track -1
+2022-10-30T10:13:56.715Z #spacebarman @jp joined session on track 
+2022-10-30T10:14:38.238Z #spacebarman @jp (D42jm0u0Q_38rdgQAAAv) disconnected, clearing track -1
+2022-10-30T10:14:38.914Z #spacebarman @jp joined session on track 
+2022-10-30T10:14:50.808Z #spacebarman @jp (gAkSLkoSLYtMR7tzAAAx) disconnected, clearing track -1
+2022-10-30T10:14:51.424Z #spacebarman @jp joined session on track 
+2022-10-30T10:14:52.029Z #spacebarman @jp (D4I_dRb0w-YfBq8gAAAz) disconnected, clearing track -1
+2022-10-30T10:14:52.652Z #spacebarman @jp joined session on track 
+2022-10-30T10:15:26.537Z #spacebarman @jp (AUmTjt_JcWz-xf0JAAA1) disconnected, clearing track -1
+2022-10-30T10:15:27.141Z #spacebarman @jp joined session on track 
+2022-10-30T10:15:38.089Z #spacebarman @jp (4QSE8GejYvO3EiU9AAA3) disconnected, clearing track -1
+2022-10-30T10:15:38.665Z #spacebarman @jp joined session on track 
+2022-10-30T10:15:40.054Z #spacebarman @jp (MxI0dF6FsDqxsgeWAAA5) set color:#FF0000
+2022-10-30T10:15:41.437Z #spacebarman @jp (MxI0dF6FsDqxsgeWAAA5) flash! color:#FF0000
+2022-10-30T10:15:42.462Z #spacebarman @jp (MxI0dF6FsDqxsgeWAAA5) set color:#FF00FF
+2022-10-30T10:15:42.872Z #spacebarman @jp (MxI0dF6FsDqxsgeWAAA5) disconnected, clearing track -1
+2022-10-30T10:15:43.455Z #spacebarman @jp joined session on track 
+2022-10-30T10:15:48.962Z #spacebarman @jp (oOhkO-OoW1Pi8mqmAAA7) disconnected, clearing track -1
+2022-10-30T10:15:49.623Z #spacebarman @jp joined session on track 
+2022-10-30T10:17:42.965Z #spacebarman @jp (cZScm7yHN6t93a6WAAA9) disconnected, clearing track -1
+2022-10-30T10:17:43.546Z #spacebarman @jp joined session on track 
+2022-10-30T10:17:46.933Z #spacebarman @jp (GKsKJvSsS2st8USEAAA_) disconnected, clearing track -1
+2022-10-30T10:17:47.521Z #spacebarman @jp joined session on track 
+2022-10-30T10:18:03.326Z #spacebarman @jp (uUykf6azeNkFEWbqAABB) disconnected, clearing track -1
+2022-10-30T10:18:03.949Z #spacebarman @jp joined session on track 
+2022-10-30T10:18:24.102Z #spacebarman @jp (zeh9gEu-r5gzIKKzAABD) disconnected, clearing track -1
+2022-10-30T10:18:24.757Z #spacebarman @jp joined session on track 
+2022-10-30T10:18:28.934Z #spacebarman @jp (xiK2afd7Guhmd5zdAABF) disconnected, clearing track -1
+2022-10-30T10:18:29.609Z #spacebarman @jp joined session on track 
+2022-10-30T10:18:41.558Z #spacebarman @jp (91M7gwpK6_g8H6B9AABH) disconnected, clearing track -1
+2022-10-30T10:18:42.178Z #spacebarman @jp joined session on track 
+2022-10-30T10:19:13.074Z #spacebarman @jp (07DlbK-ElGAVEt7EAABJ) disconnected, clearing track -1
+2022-10-30T10:19:13.803Z #spacebarman @jp joined session on track 
+2022-10-30T10:19:28.734Z #spacebarman @jp (8uSIWdDNqx2yrCDVAABL) disconnected, clearing track -1
+2022-10-30T10:19:29.290Z #spacebarman @jp joined session on track 
+2022-10-30T10:19:38.600Z #spacebarman @jp (uGEFjr0drqGrVRP2AABN) set color:#FF0000
+2022-10-30T10:20:37.085Z #spacebarman @jp (uGEFjr0drqGrVRP2AABN) disconnected, clearing track -1
+2022-10-30T10:20:37.727Z #spacebarman @jp joined session on track 
+2022-10-30T10:20:38.695Z #spacebarman @jp (s3RRTKCZMrzG53KfAABP) set color:#FF0000
+2022-10-30T10:20:42.182Z #spacebarman @jp (s3RRTKCZMrzG53KfAABP) disconnected, clearing track -1
+2022-10-30T10:20:43.377Z #spacebarman @jp joined session on track 
+2022-10-30T10:21:12.167Z #spacebarman @jp (lZ-tj9Rcyti1R0OsAABR) disconnected, clearing track -1
+2022-10-30T10:21:12.943Z #spacebarman @jp joined session on track 
+2022-10-30T10:21:14.703Z #spacebarman @jp (oKiZ4VoZVq56i-yCAABT) set color:#FF00FF
+2022-10-30T10:21:40.293Z #spacebarman @jp (oKiZ4VoZVq56i-yCAABT) disconnected, clearing track -1
+2022-10-30T10:21:41.700Z #spacebarman @jp joined session on track 
+2022-10-30T10:21:42.962Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) set color:#FFFF00
+2022-10-30T10:21:44.328Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) flash! color:#FFFF00
+2022-10-30T10:21:44.992Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) flash! color:#FFFF00
+2022-10-30T10:21:46.360Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) set color:#FF00FF
+2022-10-30T10:21:47.123Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) flash! color:#FF00FF
+2022-10-30T10:21:48.022Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) flash! color:#FF00FF
+2022-10-30T10:21:49.210Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) set color:#00FFFF
+2022-10-30T10:21:49.957Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) flash! color:#00FFFF
+2022-10-30T10:21:50.738Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) flash! color:#00FFFF
+2022-10-30T10:21:51.407Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) flash! color:#00FFFF
+2022-10-30T10:21:52.416Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) flash! color:#00FFFF
+2022-10-30T10:21:53.108Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) flash! color:#00FFFF
+2022-10-30T10:21:54.334Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) flash! color:#00FFFF
+2022-10-30T10:22:01.937Z #spacebarman @jp (wJHqJDHWwxnwjkKJAABV) disconnected, clearing track -1
+2022-10-30T10:22:02.607Z #spacebarman @jp joined session on track 
+2022-10-30T10:22:03.765Z #spacebarman @jp (9Jhfy5Jq-aE-MN0LAABX) set color:#FF00FF
+2022-10-30T10:22:04.654Z #spacebarman @jp (9Jhfy5Jq-aE-MN0LAABX) flash! color:#FF00FF
+2022-10-30T10:22:05.353Z #spacebarman @jp (9Jhfy5Jq-aE-MN0LAABX) flash! color:#FF00FF
+2022-10-30T10:22:06.019Z #spacebarman @jp (9Jhfy5Jq-aE-MN0LAABX) flash! color:#FF00FF
+2022-10-30T10:22:07.109Z #spacebarman @jp (9Jhfy5Jq-aE-MN0LAABX) flash! color:#FF00FF
+2022-10-30T10:22:37.495Z #spacebarman @undefined joined session on track 
+2022-10-30T10:22:37.566Z #spacebarman @undefined (PeTsq4sduLr_jtzMAABb) disconnected, clearing track -1
+2022-10-30T10:22:37.983Z #spacebarman @null joined session on track 
+2022-10-30T10:22:40.010Z #spacebarman @null (2tN8_5DM1asChnBOAABd) set color:#FF7700
+2022-10-30T10:22:40.931Z #spacebarman @null (2tN8_5DM1asChnBOAABd) flash! color:#FF7700
+2022-10-30T10:22:41.386Z #spacebarman @null (2tN8_5DM1asChnBOAABd) flash! color:#FF7700
+2022-10-30T10:22:42.067Z #spacebarman @null (2tN8_5DM1asChnBOAABd) set color:#FF0000
+2022-10-30T10:22:43.010Z #spacebarman @null (2tN8_5DM1asChnBOAABd) set color:#FFFF00
+2022-10-30T10:22:43.491Z #spacebarman @null (2tN8_5DM1asChnBOAABd) set color:#00FF00
+2022-10-30T10:22:45.058Z #spacebarman @null (2tN8_5DM1asChnBOAABd) disconnected, clearing track -1
+2022-10-30T10:22:45.107Z #spacebarman @null joined session on track 
+2022-10-30T10:22:48.416Z #spacebarman @null (GaYUF5ezhJ7PWTJCAABf) disconnected, clearing track -1
+2022-10-30T10:22:48.457Z #spacebarman @null joined session on track 
+2022-10-30T10:22:49.756Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) set color:#FF0000
+2022-10-30T10:22:50.741Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) flash! color:#FF0000
+2022-10-30T10:22:51.216Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) flash! color:#FF0000
+2022-10-30T10:22:51.636Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) flash! color:#FF0000
+2022-10-30T10:22:52.010Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) set color:#FFFF00
+2022-10-30T10:22:53.534Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) set color:#FF00FF
+2022-10-30T10:22:53.877Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) set color:#FF0000
+2022-10-30T10:22:54.137Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) set color:#FFFF00
+2022-10-30T10:22:54.450Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) set color:#00FF00
+2022-10-30T10:22:54.618Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) set color:#00FFFF
+2022-10-30T10:22:54.962Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) set color:#0000FF
+2022-10-30T10:22:55.130Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) set color:#7700FF
+2022-10-30T10:22:57.532Z #spacebarman @null (z8pPYERGrTXGqVXtAABh) disconnected, clearing track -1
+2022-10-30T10:22:57.574Z #spacebarman @null joined session on track 
+2022-10-30T10:23:02.045Z #spacebarman @jp (9Jhfy5Jq-aE-MN0LAABX) disconnected, clearing track -1
+2022-10-30T10:23:02.858Z #spacebarman @jp joined session on track 
+2022-10-30T10:23:29.549Z #spacebarman @null (J5zB3QLoXeKN7Vz6AABj) disconnected, clearing track -1
+2022-10-30T10:25:09.517Z #spacebarman @jp (9QLj2ucwGGD596NQAABl) disconnected, clearing track -1
+2022-10-30T10:25:10.126Z #spacebarman @jp joined session on track 
+2022-10-30T10:25:12.986Z #spacebarman @jp (EQznzZYcey69zkh0AABn) disconnected, clearing track -1
+2022-10-30T10:25:13.556Z #spacebarman @jp joined session on track 
+2022-10-30T10:25:30.529Z #spacebarman @jp (rGbHPslRcyp3ue2sAABp) disconnected, clearing track -1
+2022-10-30T10:25:31.163Z #spacebarman @jp joined session on track 
+2022-10-30T10:25:32.141Z #spacebarman @jp (0t4I8o1oegHn3ISvAABr) disconnected, clearing track -1
+2022-10-30T10:25:32.840Z #spacebarman @jp joined session on track 
+2022-10-30T10:26:04.287Z #spacebarman @null joined session on track 
+2022-10-30T10:26:05.991Z #spacebarman @null (IbVI-BDz3zznGBQjAABv) disconnected, clearing track -1
+2022-10-30T10:26:06.529Z #spacebarman @jp (iw5g1Dmocpml9IFeAABt) disconnected, clearing track -1
+2022-10-30T10:26:07.138Z #spacebarman @jp joined session on track 
+2022-10-30T10:26:11.016Z #spacebarman @null joined session on track 
+2022-10-30T10:26:11.902Z #spacebarman @null (K8dZqgDBmwnRIiToAABz) disconnected, clearing track -1
+2022-10-30T10:26:11.958Z #spacebarman @null joined session on track 
+2022-10-30T10:26:13.877Z #spacebarman @null (yRYGKKJE1loFPnjMAAB1) disconnected, clearing track -1
+2022-10-30T10:26:13.905Z #spacebarman @null joined session on track 
+2022-10-30T10:26:21.089Z #spacebarman @jp (9fUkYok6juYMRsBjAABx) disconnected, clearing track -1
+2022-10-30T10:26:21.697Z #spacebarman @jp joined session on track 
+2022-10-30T10:26:24.877Z #spacebarman @null (Ua_1cIR5QforYb60AAB3) disconnected, clearing track -1
+2022-10-30T10:26:24.943Z #spacebarman @null joined session on track 
+2022-10-30T10:26:35.226Z #spacebarman @jp (re-H3ZOUUdE-hGYXAAB5) disconnected, clearing track -1
+2022-10-30T10:26:35.876Z #spacebarman @jp joined session on track 
+2022-10-30T10:26:56.691Z #spacebarman @null (DTaFX6vG4pJIm3AHAAB7) disconnected, clearing track -1
+2022-10-30T10:29:38.773Z #spacebarman @jp (AocqJWS6BK-uSK9MAAB9) disconnected, clearing track -1
+2022-10-30T10:29:39.405Z #spacebarman @jp joined session on track 
+2022-10-30T10:29:40.571Z #spacebarman @jp (FDVVEmWEJP2NuDnDAAB_) disconnected, clearing track -1
+2022-10-30T10:29:41.162Z #spacebarman @jp joined session on track 
+2022-10-30T10:29:43.736Z #spacebarman @null joined session on track 
+2022-10-30T10:29:44.898Z #spacebarman @null (Y-hIXHZbBT1pWOteAACD) disconnected, clearing track -1
+2022-10-30T10:29:44.954Z #spacebarman @null joined session on track 
+2022-10-30T10:29:46.970Z #spacebarman @null (RvCt3EK00nHltD8MAACF) disconnected, clearing track -1
+2022-10-30T10:29:47.019Z #spacebarman @null joined session on track 
+2022-10-30T10:30:00.526Z #spacebarman @null (8nMRs2GUyRP-36asAACH) disconnected, clearing track -1
+2022-10-30T10:30:00.567Z #spacebarman @mauro joined session on track 
+2022-10-30T10:30:02.339Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#FF0000
+2022-10-30T10:30:03.225Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF0000
+2022-10-30T10:30:03.865Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF0000
+2022-10-30T10:30:04.442Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF0000
+2022-10-30T10:30:05.206Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#FFFF00
+2022-10-30T10:30:05.629Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FFFF00
+2022-10-30T10:30:06.689Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FFFF00
+2022-10-30T10:30:07.321Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FFFF00
+2022-10-30T10:30:07.886Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FFFF00
+2022-10-30T10:30:08.681Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#00FF00
+2022-10-30T10:30:09.302Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#00FF00
+2022-10-30T10:30:11.135Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#00FF00
+2022-10-30T10:30:12.272Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#7700FF
+2022-10-30T10:30:13.297Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#FF00FF
+2022-10-30T10:30:13.604Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF00FF
+2022-10-30T10:30:14.219Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF00FF
+2022-10-30T10:30:14.834Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF00FF
+2022-10-30T10:30:19.442Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#FF0000
+2022-10-30T10:30:19.566Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#FF0000
+2022-10-30T10:30:19.987Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#FF0000
+2022-10-30T10:30:20.131Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#FF0000
+2022-10-30T10:30:20.568Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF0000
+2022-10-30T10:30:20.686Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF0000
+2022-10-30T10:30:21.285Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF0000
+2022-10-30T10:30:21.900Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF0000
+2022-10-30T10:30:22.410Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF0000
+2022-10-30T10:30:23.640Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#00FFFF
+2022-10-30T10:30:23.840Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#00FFFF
+2022-10-30T10:30:24.562Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#00FFFF
+2022-10-30T10:30:24.838Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#00FFFF
+2022-10-30T10:30:25.381Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#FFFF00
+2022-10-30T10:30:25.650Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FFFF00
+2022-10-30T10:30:26.197Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FFFF00
+2022-10-30T10:30:26.988Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#7700FF
+2022-10-30T10:30:27.531Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#7700FF
+2022-10-30T10:30:28.165Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#7700FF
+2022-10-30T10:30:28.760Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#7700FF
+2022-10-30T10:30:29.477Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#FF00FF
+2022-10-30T10:30:29.989Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF00FF
+2022-10-30T10:30:30.603Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FF00FF
+2022-10-30T10:30:31.013Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) set color:#FFFF00
+2022-10-30T10:30:31.525Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FFFF00
+2022-10-30T10:30:32.037Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FFFF00
+2022-10-30T10:30:32.332Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FFFF00
+2022-10-30T10:30:32.856Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) flash! color:#FFFF00
+2022-10-30T10:30:35.248Z #spacebarman @mauro (2MJt356nV6SWmMRjAACJ) disconnected, clearing track -1
+2022-10-30T10:30:35.291Z #spacebarman @mauro joined session on track 
+2022-10-30T10:30:51.525Z #spacebarman @mauro (J98HfGR_L6nYY988AACL) disconnected, clearing track -1
+2022-10-30T10:30:51.574Z #spacebarman @mauro joined session on track 
+2022-10-30T10:30:52.826Z #spacebarman @mauro (EckahWDk8FjdAJklAACN) set color:#00FF00
+2022-10-30T10:30:53.717Z #spacebarman @mauro (EckahWDk8FjdAJklAACN) flash! color:#00FF00
+2022-10-30T10:30:54.278Z #spacebarman @mauro (EckahWDk8FjdAJklAACN) flash! color:#00FF00
+2022-10-30T10:30:55.416Z #spacebarman @mauro (EckahWDk8FjdAJklAACN) flash! color:#00FF00
+2022-10-30T10:30:56.309Z #spacebarman @mauro (EckahWDk8FjdAJklAACN) set color:#FF0000
+2022-10-30T10:30:56.792Z #spacebarman @mauro (EckahWDk8FjdAJklAACN) flash! color:#FF0000
+2022-10-30T10:30:57.538Z #spacebarman @mauro (EckahWDk8FjdAJklAACN) flash! color:#FF0000
+2022-10-30T10:30:58.051Z #spacebarman @mauro (EckahWDk8FjdAJklAACN) set color:#7700FF
+2022-10-30T10:30:58.563Z #spacebarman @mauro (EckahWDk8FjdAJklAACN) flash! color:#7700FF
+2022-10-30T10:31:08.112Z #spacebarman @mauro (EckahWDk8FjdAJklAACN) disconnected, clearing track -1
+2022-10-30T10:31:08.162Z #spacebarman @mauro joined session on track 
+2022-10-30T10:31:09.230Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) set color:#FFFF00
+2022-10-30T10:31:10.543Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) flash! color:#FFFF00
+2022-10-30T10:31:11.253Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) flash! color:#FFFF00
+2022-10-30T10:31:11.878Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) flash! color:#FFFF00
+2022-10-30T10:31:12.489Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) flash! color:#FFFF00
+2022-10-30T10:31:13.213Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) set color:#0000FF
+2022-10-30T10:31:13.820Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) flash! color:#0000FF
+2022-10-30T10:31:14.502Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) set color:#7700FF
+2022-10-30T10:31:15.152Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) flash! color:#7700FF
+2022-10-30T10:31:15.664Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) flash! color:#7700FF
+2022-10-30T10:31:16.382Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) set color:#FF0000
+2022-10-30T10:31:18.501Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) flash! color:#FF0000
+2022-10-30T10:31:50.451Z #spacebarman @mauro (h3XeTZ3vsMb68M0JAACP) disconnected, clearing track -1
+2022-10-30T10:31:54.512Z #spacebarman @mauro joined session on track 
+2022-10-30T10:31:55.027Z #spacebarman @mauro (qJqQJ7Y0DrW13PYwAACR) disconnected, clearing track -1
+2022-10-30T10:31:55.070Z #spacebarman @mauro joined session on track 
+2022-10-30T10:31:57.463Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) set color:#FF7700
+2022-10-30T10:31:58.185Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#FF7700
+2022-10-30T10:31:58.808Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#FF7700
+2022-10-30T10:31:59.560Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#FF7700
+2022-10-30T10:32:00.108Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) set color:#FF00FF
+2022-10-30T10:32:00.824Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#FF00FF
+2022-10-30T10:32:01.425Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#FF00FF
+2022-10-30T10:32:02.230Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) set color:#7700FF
+2022-10-30T10:32:02.831Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#7700FF
+2022-10-30T10:32:03.397Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#7700FF
+2022-10-30T10:32:04.183Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) set color:#00FF00
+2022-10-30T10:32:04.605Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#00FF00
+2022-10-30T10:32:05.227Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#00FF00
+2022-10-30T10:32:05.808Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#00FF00
+2022-10-30T10:32:06.311Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#00FF00
+2022-10-30T10:32:06.780Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) set color:#FFFF00
+2022-10-30T10:32:07.258Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#FFFF00
+2022-10-30T10:32:07.749Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#FFFF00
+2022-10-30T10:32:08.698Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#FFFF00
+2022-10-30T10:32:09.328Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#FFFF00
+2022-10-30T10:32:10.058Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) set color:#FF7700
+2022-10-30T10:32:10.453Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) flash! color:#FF7700
+2022-10-30T10:32:17.023Z #spacebarman @mauro (NN0QrvPL57YHLYElAACT) disconnected, clearing track -1
+2022-10-30T10:32:17.061Z #spacebarman @daniel joined session on track 
+2022-10-30T10:32:18.707Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) set color:#00FF00
+2022-10-30T10:32:19.204Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#00FF00
+2022-10-30T10:32:19.768Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#00FF00
+2022-10-30T10:32:20.403Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) set color:#FF00FF
+2022-10-30T10:32:20.873Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#FF00FF
+2022-10-30T10:32:21.515Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#FF00FF
+2022-10-30T10:32:21.822Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#FF00FF
+2022-10-30T10:32:22.316Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) set color:#FF0000
+2022-10-30T10:32:23.091Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) set color:#FF0000
+2022-10-30T10:32:23.768Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#FF0000
+2022-10-30T10:32:24.177Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#FF0000
+2022-10-30T10:32:24.894Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) set color:#7700FF
+2022-10-30T10:32:25.611Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#7700FF
+2022-10-30T10:32:26.123Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#7700FF
+2022-10-30T10:32:26.510Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#7700FF
+2022-10-30T10:32:27.147Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) set color:#00FFFF
+2022-10-30T10:32:27.762Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#00FFFF
+2022-10-30T10:32:28.159Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#00FFFF
+2022-10-30T10:32:28.590Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#00FFFF
+2022-10-30T10:32:29.181Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#00FFFF
+2022-10-30T10:32:29.680Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) set color:#FFFF00
+2022-10-30T10:32:30.219Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#FFFF00
+2022-10-30T10:32:30.677Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#FFFF00
+2022-10-30T10:32:31.092Z #spacebarman @daniel (SbvdPJguPElZ0TbAAACV) flash! color:#FFFF00
+2022-10-30T10:32:47.662Z Bye!!!

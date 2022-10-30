@@ -1,0 +1,462 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #444;
+    color: white;
+    overflow: hidden;
+    user-select: none;
+}
+
+#room-info {
+    display:none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    margin-top: 3vh;
+    background-color: dodgerblue;
+    color: black;
+    z-index: 10;
+    box-shadow: rgba(0,0,0,0.5) 1vw 1vw;
+    border-radius: 0.5vw;
+    padding: 1vw;
+    padding-top: 2vw;
+    font-size: 2vw;
+}
+
+#room-info a {
+    color: white;
+    font-weight: bold;
+}
+
+#room-title {
+    font-weight: bold;
+}
+
+#qrcode-wrapper {
+    height: 40vh;
+    width: 40vh;
+    display: block;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+#qrcode {
+    height: 40vh;
+    width: 40vh;
+    display: block;
+    margin: 0;
+}
+
+.room-info {
+    margin: 1vw;
+}
+
+#copy {
+    background-color: white;
+    color: dodgerblue;
+    width: 10em;
+    font-size: .8em;
+    margin: 0;
+    text-align: center;
+}
+
+#copy:active {
+    margin-top: 0.1vh;
+    margin-bottom: -0.1vh;
+    background-color: #EEE;
+}
+
+#url-copy {
+    display: none;
+}
+
+#close-info {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 1vw;
+    font-weight: bold;
+}
+
+#close-info:hover {
+    color: white;
+}
+
+audio {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+
+
+#intro {
+    display: block;
+}
+
+#track-header {
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#sequencer, #conductor {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 5;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #444;
+}
+
+#sequencer-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #666;
+    color: #444;
+    font-size: 25vh;
+    font-weight: bold;
+    text-align: center;
+    line-height: 80%;
+}
+
+table#matrix {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#channel {
+    width: 100%;
+    height: 100px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.name-header, .track-name-td {
+    margin: 0;
+    font-size: 3vw;
+    font-weight: 100;
+}
+
+.name-header, .step-header {
+    font-size: 2vw;
+    font-weight: 100;
+}
+
+.track-name-td {
+    color: black;
+    padding: 0;
+}
+
+tr.track, tr.track-header-tr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+tr.track {
+    background-color: #AAA;
+    padding: 0;
+}
+
+tr.synth-track {
+    color: white;
+}
+
+.name-header, .step-header, .step-td, .track-name-td, .track-icon-td {
+    color: white;
+    text-align: center;
+    width: 4vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.track-name-td {
+    color: black;
+    padding-right: 1vw;
+}
+
+.step-td {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Faders: */
+
+.fader {
+    display: none;
+    margin: 8vw;
+    width: 16vw;
+    padding: 0;
+    transform: rotate(270deg);
+    background-color: white;
+}
+
+@media screen and (orientation:portrait) {
+    .fader {
+        margin: 16vw;
+        width: 32vw;
+    }
+}
+
+/* Keyboard: */
+
+.keyboard {
+    display:none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
+.key {
+    margin: 0;
+    margin-top: .3vw;
+    border: .2vw solid white;
+    background-color: white;
+    height: 1vw;
+    width: 2.7vw;
+    border-radius: .3vw;
+}
+
+.key:hover {
+    border-color: black;
+}
+
+.key:active {
+    border-color: white;
+}
+
+.black-key {
+    background-color: #666;
+    border-color: #666;
+}
+
+.oct-controls {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.oct-button {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: .2vw solid white;
+    width: 1vw;
+    height: 1vw;
+    border-radius: 25%;
+    margin: .1vw;
+    margin-bottom: 1vw;
+    color: #666;
+    background-color: white;
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+.oct-button:hover {
+    border-color: black;
+}
+
+.oct-button:active {
+    border-color: white;
+}
+
+.key-on {
+    background-color:chartreuse;
+}
+
+/* Steps: */
+
+
+.step {
+    background-color: white;
+    border-radius: 0.3vw;
+    border: 0;
+    margin: 0.6vw;
+}
+
+.sw {
+    text-align: center;
+    width: 2vw;
+    height: 2vw;
+    margin: .5vw;
+    border-radius: 0.3vw;
+}
+
+.sw-transparent {
+    background-color: transparent;
+}
+
+.track-icon {
+    width: 3.5vw;
+}
+
+#control-panel {
+    display:flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 1vw;
+}
+
+#big-instrument-icon {
+    width: 7vw;
+}
+
+#big-initials {
+    font-size: 6vw;
+    margin-left: 1vw;
+}
+
+.controls {
+    margin-left: 1vw;
+    font-size: 2.5vw;
+    height: 1.3em;
+}
+
+button.controls:active {
+    margin-top: 0.05em;
+    margin-bottom: -0.05em;
+}
+
+button.controls:hover {
+    background-color: black;
+    color: white;
+}
+
+#tempo {
+    height: 1.3em;
+    border: 0;
+    padding: 0;
+    width: 2.3em;
+    text-align: right;
+}
+
+.cursor {
+    background-color: #444;
+}
+
+.playing {
+    color: lime;
+}
+
+#play, #stop {
+    height: 1.3em;
+    width: 1.3em;
+    padding-top: 0em;
+}
+
+.hidden {
+    display: none;
+}
+
+#ext-clock-indicator, #ext-tempo-indicator {
+    display: none;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+/* Conductor */
+
+#conductor {
+    
+}
+
+#mixer {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #AAA;
+}
+
+.strip-cell  {
+    background-color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: .5vw;
+    margin: .5vw;
+    border-radius: 0.3vw;
+}
+
+.mix-fader-rail {
+    height: 16vw;
+    border: 0;
+    margin: 0;
+}
+
+.mute, .solo {
+    border: 0;
+    margin: 0;
+}
+
+.mix-fader-cap, .mixSw {
+    text-align: center;
+    width: 2vw;
+    height: 2vw;
+    line-height: 2vw;
+    font-size: 1.2vw;
+    border-radius: 0.3vw;
+    background-color: #666;
+    margin: 0;
+}
+
+.mixSw {
+    background-color: white;
+    color: #666;
+    text-align: center;
+}
+
+.mute-on {
+    background-color: darkorange;
+    color: white;
+}
+
+.solo-on {
+    background-color: tomato;
+    color: white;
+}

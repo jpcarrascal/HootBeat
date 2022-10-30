@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>COUNT·ME·IN</title>
+    <link rel="stylesheet" href="css/sequencer.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JXMQXE0QJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5JXMQXE0QJ');
+    </script>
+  </head>
+  <body>
+
+    <div id="room-info">
+      <div id="close-info">✕</div>
+      <div class="room-info">
+        <span id="room-title">
+        Session name: <span id="room-name"></span>
+        </span>
+      </div>
+      <div class="room-info">Use this URL to join this session</div>
+      <div class="room-info">
+        <a id="track-url" target="_blank"></a>
+      </div>
+      <div class="room-info">
+        <div id="copy">COPY TO CLIPBOARD</div>
+      </div>
+      <div class="room-info">Or scan this QR code:</div>
+      <div class="room-info" id="qrcode-wrapper">
+
+      </div>
+      <textarea id="url-copy"></textarea>
+    </div>
+
+    <div id="sequencer">
+
+        <table id="matrix">
+        </table>
+
+        <div id="control-panel">
+
+          <button id="play" class="controls">&#9654;</button>
+          <button id="stop" class="controls">&#9724;</button>
+
+          <span class="controls" id="ext-clock-indicator">[<span id="ext-clock">Ext Clock</span>]</span>
+          <span id="ext-tempo" class="controls"></span>
+
+          <div id="bpm">
+            <input id="tempo" type="number" class="controls" value=120 min="60" max="250"/>
+          </div>
+          
+          <span class="controls">BPM</span>
+
+          <button class="controls" id="show-room-link">
+            Session info
+          </button>
+
+        </div>
+
+    </div>
+
+    <div id="sequencer-bg">
+      <p>
+      COUNT-ME-IN<br />
+      </p>
+    </div>
+
+
+    <audio preload="auto" class="drumSamples" track="0" src="sounds/BD.WAV" id="BD.WAV"></audio>
+    <audio preload="auto" class="drumSamples" track="1" src="sounds/SD.WAV" id="SD.WAV"></audio>
+    <audio preload="auto" class="drumSamples" track="2" src="sounds/CP.WAV" id="CP.WAV"></audio>
+    <audio preload="auto" class="drumSamples" track="3" src="sounds/seal1.wav" id="seal1.WAV"></audio>
+    <audio preload="auto" class="drumSamples" track="4" src="sounds/seal2.wav" id="seal2.WAV"></audio>
+    <!--
+    <audio preload="auto" class="drumSamples" track="3" src="sounds/HC.WAV" id="HC.WAV"></audio>
+    <audio preload="auto" class="drumSamples" track="4" src="sounds/LC.WAV" id="LC.WAV"></audio>
+    -->
+    <audio preload="auto" class="drumSamples" track="5" src="sounds/CB.WAV" id="CB.WAV"></audio>
+    <audio preload="auto" class="drumSamples" track="6" src="sounds/CH.WAV" id="CH.WAV"></audio>
+    <audio preload="auto" class="drumSamples" track="7" src="sounds/OH.WAV" id="OH.WAV"></audio>
+    
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/include.js"></script>
+    <script src="scripts/sequencerObj.js"></script>
+    <script src="scripts/sequencer.js"></script>
+    <script src="scripts/noteFrequencies.js"></script>
+    <script src="scripts/audio.js"></script>
+    <script src="scripts/midi.js"></script>
+
+
+  </body>
+</html>

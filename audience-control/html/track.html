@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>COUNT·ME·IN</title>
+    <link rel="stylesheet" href="css/sequencer.css">
+    <link rel="stylesheet" href="css/track.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JXMQXE0QJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5JXMQXE0QJ');
+    </script>
+  </head>
+  <body>
+    <div id="sequencer">
+
+        <div id="track-header">
+          <div id="instrument">
+            <img id="big-instrument-icon" />
+          </div>
+          <div id="big-initials"></div>
+        </div>
+
+        <table id="matrix">
+        </table>
+        <div id="control-panel">
+          <div id="remaining-rounds">Remaining rounds: <span id="counter">?</span></div>
+          <button id="restart" class="ui-button">Exit</button>
+        </div>
+
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/include.js"></script>
+    <script src="scripts/sequencer.js"></script>
+    <script src="scripts/track.js"></script>
+    
+
+  </body>
+</html>
