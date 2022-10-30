@@ -27,6 +27,7 @@ uint8_t  anim       = 100,  // Current animation
          dly        = 41, // Time delay
          colorCount = 3,  // For color envelope
          maxCount   = 3;
+uint8_t r, g, b;
 float fade = 0, fade2 = 0, fade3 = 0; // Color intensities
 uint32_t connColor      = 0x080808,
          disconnColor   = 0x080000,
@@ -67,6 +68,14 @@ void onNoteOff(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timesta
 
 void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_t timestamp)
 {
+    if(controller == 120)
+      r = value*2;
+    if(controller == 121)
+      g = value*2;
+    if(controller == 122)
+      b = value*2;
+    bdColor = rgb2color(r,g,b);
+    sdColor = rgb2color(r,g,b);
     Serial.printf("Received control change : channel %d, controller %d, value %d (timestamp %dms)\n", channel, controller, value, timestamp);
 }
 
@@ -299,4 +308,9 @@ uint32_t dimColor(uint32_t color, float fade1, float fade2, float fade3) {
     uint8_t b = fade3 * (float) (color & 0x0000FF);
     uint32_t dimmedColor = (r<<16) + (g<<8) + (b);
     return (dimmedColor);
+}
+
+uint32_t rgb2color(uint8_t r, uint8_t g, uint8_t b) {
+    uint32_t color = (r<<16) + (g<<8) + (b);
+    return (color);
 }

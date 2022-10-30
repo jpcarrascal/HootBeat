@@ -98,10 +98,9 @@ function pedalboardHandler(midiMsg) {
     }
 }
 
-function audienceHandler(who) {
-    const noteOn = [0x90, 36, 0x7f];
+function audienceHandler(what, msg) {
     var index = -1;
-    switch (who) {
+    switch (msg.who) {
         case "jp":
             index = 0;
             break;
@@ -112,7 +111,27 @@ function audienceHandler(who) {
             index = 2;
             break;
     }
-    if (goggles[index] !== null) goggles[index].send(noteOn);
+    if(what == "flash") {
+        console.log("sending flash")
+        if (goggles[index] !== null) {
+            const noteOn = [0x90, 36, 0x7f];
+            goggles[index].send(noteOn);
+        }
+    } else if(what == "set-color") {
+        console.log("sending color")
+        if (goggles[index] !== null) {
+            var cc;
+            var r = Math.floor(parseInt(msg.color.substring(1,3), 16)/2);
+            cc = [0xB0, 120, r];
+            goggles[index].send(cc);
+            var g = Math.floor(parseInt(msg.color.substring(3,5), 16)/2);
+            cc = [0xB0, 121, g];
+            goggles[index].send(cc);
+            var b = Math.floor(parseInt(msg.color.substring(5,7), 16)/2);
+            cc = [0xB0, 122, b];
+            goggles[index].send(cc);
+        }
+    }
 }
 
 function sendToGoggles(message) {

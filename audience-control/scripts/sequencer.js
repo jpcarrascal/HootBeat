@@ -8,7 +8,7 @@ socket.on("connect", () => {
 });
 
 socket.on('flash', function(msg) {
-  audienceHandler(msg.who);
+  audienceHandler('flash', msg);
   var id = "color-" + msg.who;
   console.log(msg)
   document.getElementById(id).classList.add("flash-border");
@@ -19,6 +19,7 @@ socket.on('flash', function(msg) {
 });
 
 socket.on('set-color', function(msg) {
+  audienceHandler('set-color', msg);
   var id = "color-" + msg.who;
   document.getElementById(id).style.backgroundColor = msg.color;
   console.log(msg.who + " set to " + msg.color)
