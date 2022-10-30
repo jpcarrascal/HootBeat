@@ -71,6 +71,11 @@
         -o-background-size: cover;
         background-size: cover;
     }
+    @media screen and (orientation:landscape) {
+        #photo {
+            background-position: center -40vh;
+        }
+    }
     #veil {
         display: flex;
         align-items: center;
@@ -127,12 +132,14 @@
         background-color: black;
         color: white;
         z-index: 20;
+        touch-action: manipulation;
     }
     .color-cell {
         width: 12vw;
         height: 10vh;
         border: 10px solid black;
         cursor: pointer;
+        touch-action: manipulation;
     }
     #color-purple {
         background-color: #7700FF;
@@ -172,6 +179,7 @@
         cursor: pointer;
         width: 100%;
         visibility: hidden;
+        color: black;
     }
 
     @-webkit-keyframes flash {

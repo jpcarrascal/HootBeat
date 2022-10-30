@@ -19,9 +19,9 @@ document.querySelectorAll(".color-cell").forEach(elem => {
             socket.emit('set-color', { who: who, color: color } );
             filter += " brightness(1.2)";
             document.getElementById("photo").style.filter = filter;
-            document.getElementById("go").style.color = color;
-            document.getElementById("veil").style.display = "none";
+            document.getElementById("go").style.backgroundColor = color;
             document.getElementById("go").style.visibility = "visible";
+            document.getElementById("veil").style.display = "none";
             document.body.style.backgroundColor = color;
             //document.getElementById("left-eye").style.backgroundColor = color;
             //document.getElementById("right-eye").style.backgroundColor = color;
