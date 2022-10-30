@@ -9,6 +9,7 @@ on:
       - main
     paths:
       - audience-control/**
+      - .github/**
   workflow_dispatch:
 
 jobs:
