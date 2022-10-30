@@ -30,7 +30,6 @@ document.querySelectorAll(".color-cell").forEach(elem => {
 );
 
 document.getElementById("go").addEventListener("click", function(e){
-    var who = "jp";
     if(colorSelected) {
         socket.emit('flash', { who: who, color: color } );
         document.getElementById("photo").classList.add("flash");
@@ -38,6 +37,13 @@ document.getElementById("go").addEventListener("click", function(e){
             document.getElementById("photo").classList.remove("flash");
         }
         ,200);
+    }
+});
+
+socket.on('kick-out', function(msg) {
+    if(msg.who == who) {
+        console.log("Kicked out :(")
+        document.location.replace("/out");
     }
 });
 
@@ -52,4 +58,4 @@ function findGetParameter(parameterName) {
           if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
         });
     return result;
-  }
+}

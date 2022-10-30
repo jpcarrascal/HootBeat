@@ -1,14 +1,59 @@
+
+var goggles = [null, null, null];
+
 var MIDIout = null;
 var MIDIin = null;
-var extClock = false;
-var midiPlaying = false;
-var tickCounter = -1;
-var beatCounter = -1;
-var measCounter = -1;
-var MIDIoutIndex = 0;
-var MIDIinIndex = 0;
-var MIDIch = 0;
-let indicator = document.getElementById("ext-clock");
+
+function listDevices(midi) {
+    goggles = [null, null, null];;
+
+    var outputs = midi.outputs.values();
+    var inputs  = midi.inputs.values();
+    var numOuts = 0;
+    var numIns  = 0;
+    
+    document.querySelectorAll(".status").forEach(elem => {
+        elem.classList.remove("online");
+        elem.innerText = "offline";
+    });
+    
+    for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
+        switch(input.value.name) {
+            case "USB MIDI Interface":
+                document.getElementById("status-triggers").classList.add("online");
+                document.getElementById("status-triggers").innerText = "online";
+                input.value.onmidimessage = triggersHandler;
+                break;
+            case "WIDI Jack Bluetooth":
+                document.getElementById("status-pedalboard").classList.add("online");
+                document.getElementById("status-pedalboard").innerText = "online";
+                input.value.onmidimessage = pedalboardHandler;
+                break;       
+        }
+        numIns++;
+    }
+    
+    for (var output = outputs.next(); output && !output.done; output = outputs.next()) {
+        switch(output.value.name) {
+            case "BT Goggle 1 Bluetooth":
+                document.getElementById("status-jp").classList.add("online");
+                document.getElementById("status-jp").innerText = "online";
+                goggles[0] = midi.outputs.get(output.value.id);
+                break;
+            case "BT Goggle 2 Bluetooth":
+                document.getElementById("status-daniel").classList.add("online");
+                document.getElementById("status-daniel").innerText = "online";
+                goggles[1] = midi.outputs.get(output.value.id);
+                break;
+            case "BT Goggle 3 Bluetooth":
+                document.getElementById("status-mauro").classList.add("online");
+                document.getElementById("status-mauro").innerText = "online";
+                goggles[2] = midi.outputs.get(output.value.id);
+                break; 
+        }
+        numOuts++;
+    }
+}
 
 if (navigator.requestMIDIAccess) {
     console.log('Browser supports MIDI. Yay!');
@@ -16,122 +61,61 @@ if (navigator.requestMIDIAccess) {
 }
 
 function success(midi) {
-    MIDIoutIndex = getCookie("MIDIout");
-    MIDIinIndex = getCookie("MIDIin");
-    MIDIch = getCookie("MIDIch");
-    if(MIDIoutIndex != 0) {
-        MIDIout = midi.outputs.get(MIDIoutIndex);
-        //console.log("MIDI out: " + MIDIout.name);
-    } else {
-        console.log("Using internal sounds.")
-    }
+    listDevices(midi);
 
-    if(MIDIinIndex != 0 && MIDIinIndex != null) {
-        extClock = true;
-        MIDIin = midi.inputs.get(MIDIinIndex);
-        //console.log("MIDI clock in: " + MIDIin.name);
-        MIDIin.onmidimessage = processMIDIin;
-        document.getElementById("ext-clock-indicator").style.display = "inline";
-        document.getElementById("ext-tempo").style.display = "inline";
-        document.getElementById("bpm").style.display = "none";
-        document.getElementById("play").style.display = "none";
-        document.getElementById("stop").style.display = "none";
-    } else {
-        console.log("Using internal clock.");
-    }
+    midi.onstatechange = (event) => {
+        listDevices(midi);
+        console.log(event.port.name)
+    };
+
 }
 
-var tempoMeasureSw = true;
-var startTime = 0;
-var endTime   = 0;
-function processMIDIin(midiMsg) {
-    // altStartMessage: used to sync when playback has already started
-    // in clock source device
-    // 0xB0 & 0x07 = CC, channel 8.
-    // Responding to altStartMessage regardless of channels
-    var altStartMessage = (midiMsg.data[0] & 240) == 176 &&
-                         midiMsg.data[1] == 16 &&
-                         midiMsg.data[2] > 63;
-    if(midiMsg.data[0] == 250 || altStartMessage) { // 0xFA Start (Sys Realtime)
-        midiPlaying = true;
-        tickCounter = 0;
-        beatCounter = 0;
-        measCounter = 0;
-        startBtn.click();
-        indicator.style.color = "lime";
-    } else if(midiMsg.data[0] == 252) { // 0xFC Stop (Sys Realtime)
-        midiPlaying = false;
-        tickCounter = -1;
-        beatCounter = -1;
-        measCounter = -1;
-        stopBtn.click();
-        indicator.style.color = "white";
-    } else if(midiMsg.data[0] == 248) { // 0xF8 Timing Clock (Sys Realtime)
-        if(midiPlaying) {
-            if(tickCounter == 0) {
-                tick();
-            }
-            tickCounter++;
-            if(tickCounter == 6) {
-                beatCounter++;
-                if(beatCounter == 4) {
-                    measCounter++;
-                    beatCounter = 0;
-                }
-                tickCounter = 0;
-                // Measure tempo:
-                if(tempoMeasureSw) {
-                    startTime = performance.now();
-                    tempoMeasureSw = false;
-                } else {
-                    var endTime = performance.now();
-                    calculateTempo(endTime - startTime);
-                    tempoMeasureSw = true;
-                }
-            }
-        }
-    } else if((midiMsg.data[0] & 240) == 176 && (midiMsg.data[0] & 15) == MIDIch) { //CC, right channel
-        var track = -1;
-        var value = -1;
-        if(midiMsg.data[1] >= 20 && midiMsg.data[1] <= 35) {
-            track = midiMsg.data[1] - 20;
-            value = midiMsg.data[2] > 63? true : false;
-            socket.emit('track mute', { track: track,  value: value} );
-        } else if(midiMsg.data[1] >= 40 && midiMsg.data[1] <= 55) {
-            track = midiMsg.data[1] - 20;
-            value = midiMsg.data[2] > 63? true : false;
-            socket.emit('track solo', { track: track,  value: value} );
-        } else if(midiMsg.data[1] >= 60 && midiMsg.data[1] <= 75) {
-            track = midiMsg.data[1] - 20;
-            value = midiMsg.data[2];
-            socket.emit('track volume', { track: track,  value: value} );
-        } else if(midiMsg.data[1] == 18) {
-            let seq = document.getElementById("sequencer");
-            if(midiMsg.data[2] > 63) {
-                seq.classList.add("invisible");
-                mainMute.gain.value = 0;
-            } else {
-                seq.classList.remove("invisible");
-                mainMute.gain.value = 1;
-            }
-            socket.emit('hide toggle', { value: midiMsg.data[2] } );
-        }
-    }
-     else {
-        console.log(midiMsg.data)
+function failure(){ console.log("MIDI not supported by browser :(")};
+
+function triggersHandler(midiMsg) {
+    if(midiMsg.data[0] == 144 && (midiMsg.data[1] == 36 || midiMsg.data[1] == 38) ) {
+        console.log("Note ON\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
+        goggles.forEach(goggle => {
+            goggle.send(midiMsg.data);
+        });
+    } else if(midiMsg.data[0] == 144 && (midiMsg.data[1] == 60 || midiMsg.data[1] == 62) ) {
+        console.log("Note ON\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
+        midiMsg.data[1] = midiMsg.data[1] - 24;
+        goggles.forEach(goggle => {
+            goggle.send(midiMsg.data);
+        });
+    } else if (midiMsg.data[0] == 128) {
+        console.log("Note OFF\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
     }
 }
 
-function failure(){ console.log("MIDI not supported :(")};
-
-function calculateTempo(time) {
-    let tempoElem = document.getElementById("ext-tempo");
-    let tempo = Math.round(60000/(time*4));
-    tempoElem.innerText = tempo;
+function pedalboardHandler(midiMsg) {
+    if (midiMsg.data[0] >= 0xC0 && midiMsg.data[0] <= 0xCF) { // Program Change
+        var msg = [midiMsg.data[0], midiMsg.data[1]];
+        console.log(msg);
+        sendToGoggles(midiMsg.data);
+    }
 }
 
-function MIDIplayNote (note, vel, out) {
-    out.send([NOTE_ON, note, vel]);
-    setTimeout(out.send([NOTE_OFF, note, 0x00]), NOTE_DURATION);
+function audienceHandler(who) {
+    const noteOn = [0x90, 36, 0x7f];
+    var portID;
+    switch (who) {
+        case "jp":
+            portID = goggles[0].send(noteOn);
+            break;
+        case "daniel":
+            portID = goggles[1].send(noteOn);
+            break;
+        case "mauro":
+            portID = goggles[2].send(noteOn);
+            break;
+    }
 }
 
+function sendToGoggles(message) {
+    for(var i=0; i<goggles.length; i++) {
+        if(goggles[i] !== null)
+            goggles[i].send(message);
+    }
+}

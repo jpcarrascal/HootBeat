@@ -1,219 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  <title>HootBeat - Audience Control</title>
-  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' />
-  <meta name="viewport" content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0'/>
-  <meta name="apple-mobile-web-app-capable" content="yes" charset="UTF-8">
-  <style>
-    body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-family: "Montserrat", sans-serif;
-        background-color: black;
-        user-select: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-    }
-    #title {
-        width: 100%;
-        height: 10vh;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: black;
-        color: white;
-        text-align: center;
-        font-size: 5vh;
-        z-index: 10;
-        display: none;
-    }
-    #photo {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        filter: saturate(0) brightness(0.9);
-    }
-    .jp {
-        background-image: url(images/bg-jp.jpg);
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-    }
-    .daniel {
-        background-image: url(images/bg-daniel.jpg);
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-    }
-    .mauro {
-        background-image: url(images/bg-mauro.jpg);
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-    }
-    @media screen and (orientation:landscape) {
-        #photo {
-            background-position: center -40vh;
-        }
-    }
-    #veil {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(0,0,0,0.7);
-        color: white;
-        font-size: 3em;
-        text-align: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        z-index: 5;
-    }
-    #head {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        display: none;
-    }
-    .eye {
-        border-radius: 50%;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: orange;
-        width: 100px;
-        height: 100px;
-        border: 10px solid black;
-    }
-    .pupil {
-        border-radius: 50%;
-        background-color: black;
-        width: 80%;
-        height: 80%;
-    }
-    #nose {
-        width: 40px;
-        margin: -10px;
-        background-color: black;
-        height: 30px;
-        margin-bottom: 10px;
-    }
-    #color-table {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        border-collapse: collapse;
-        background-color: black;
-        color: white;
-        z-index: 20;
-        touch-action: manipulation;
-    }
-    .color-cell {
-        width: 12vw;
-        height: 10vh;
-        border: 10px solid black;
-        cursor: pointer;
-        touch-action: manipulation;
-    }
-    #color-purple {
-        background-color: #7700FF;
-    }
-    #color-blue {
-        background-color: #0000FF;
-    }
-    #color-cyan {
-        background-color: #00FFFF;
-    }
-    #color-green {
-        background-color: #00DD00;
-    }
-    #color-yellow {
-        background-color: #FFFF00;
-    }
-    #color-orange {
-        background-color: #FF7700;
-    }
-    #color-red {
-        background-color: #FF0000;
-    }
-    #color-magenta {
-        background-color: #FF00FF;
-    }
-    #go {
-        touch-action: manipulation;
-        height: 10vh;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-size: 5vh;
-        border-left: 10px solid black;
-        border-right: 10px solid black;
-        cursor: pointer;
-        width: 100%;
-        visibility: hidden;
-        color: black;
-    }
+    <head>
+    <title>HootBeat - Audience Control</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' />
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0'/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HK8NRYFJ92"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-    @-webkit-keyframes flash {
-        0% { opacity: .3; }
-        100% { opacity: 1; }
-    }
-    @keyframes flash {
-        0% { opacity: .3; }
-        100% { opacity: 1; }
-    }
-    .flash {
-        opacity: 1;
-        -webkit-animation: flash 0.2s;
-        animation: flash 0.2s;
-    }
-  </style>
-  </head>
+    gtag('config', 'G-HK8NRYFJ92');
+    </script>
+    <meta name="apple-mobile-web-app-capable" content="yes" charset="UTF-8">
+
+    </head>
 
 <body>
-    <!--
-    <div id="head">
-        <div id="left-eye" class="eye">
-            <div class="pupil"></div>
-        </div>
-        <div id="nose"></div>
-        <div id="right-eye" class="eye">
-            <div class="pupil"></div>
-        </div>
-    </div>
-    <div id="body"></div>
-    -->
-
-    <div id="title">Ahora tú tienes el control</div>
-
     <div id="photo"></div>
     <div id="veil">Escoge un color<br />&#8681;</div>
 

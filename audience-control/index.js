@@ -29,17 +29,24 @@ const logger = createLogger({
 
 var rooms = new AllRooms(config.NUM_TRACKS, config.MAX_NUM_ROUNDS);
 
+var band = {
+    jp: null,
+    daniel: null,
+    mauro: null,
+};
+
 app.get('/', (req, res) => {
-    // req.query.seq
     var page = '/html/index.html';
     res.sendFile(__dirname + page);
 });
 
+app.get('/out', (req, res) => {
+    var page = '/html/out.html';
+    res.sendFile(__dirname + page);
+});
+
 app.get('/sequencer', (req, res) => {
-    if(req.query.room)
-        var page = '/html/sequencer.html';
-    else
-        var page = '/html/index-sequencer.html';
+    var page = '/html/sequencer.html';
     res.sendFile(__dirname + page);
 });
 
@@ -90,22 +97,32 @@ io.on('connection', (socket) => {
     if(seq) {
         var cookief = socket.handshake.headers.cookie; 
         var cookies = cookie.parse(socket.handshake.headers.cookie);    
-        const exists = rooms.findRoom(room);
-        logger.info("#" + room + " @SEQUENCER joined session. MIDIin: [" + cookies.MIDIin + "] MIDIout: [" + cookies.MIDIout + "]");
-        rooms.setSeqID(room,socket.id);
+        //const exists = rooms.findRoom(room);
+        logger.info("#" + room + " @SEQUENCER joined session.");
+        //rooms.setSeqID(room,socket.id);
         socket.on('disconnect', () => {
             logger.info("#" + room + " @SEQUENCER disconnected (sequencer). Clearing session");
             socket.broadcast.to(room).emit('exit session',{reason: "Sequencer exited!"});
-            rooms.clearRoom(room);
+            //rooms.clearRoom(room);
         });
     }  else {
+        if(band[who] !== null) {
+            band[who] = null;
+            socket.broadcast.to(room).emit('kick-out', {who: who});
+            logger.info("#" + room + " @" + who + " kicked out by " + socket.id);
+        }
         logger.info("#" + room + " @" + who + " joined session on track ");
+        band[who] = socket.id;
+        console.log(band);
         socket.broadcast.to(room).emit('track joined', { initials: who, socketid: socket.id });
         socket.on('disconnect', () => {
-            var track2delete = rooms.getParticipantNumber(room, socket.id);
-            rooms.releaseParticipant(room, socket.id);
-            io.to(room).emit('clear track', {track: track2delete, initials: who});
-            logger.info("#" + room + " @" + who + " (" + socket.id + ") disconnected, clearing track " + track2delete);
+            //var track2delete = rooms.getParticipantNumber(room, socket.id);
+            //rooms.releaseParticipant(room, socket.id);
+            //io.to(room).emit('clear track', {track: track2delete, initials: who});
+            logger.info("#" + room + " @" + who + " (" + socket.id + ") disconnected");
+            if(band[who] == socket.id)
+                band[who] = null;
+            console.log(band);
         });
         //io.to(socket.id).emit('create track', {});
 
@@ -172,13 +189,13 @@ io.on('connection', (socket) => {
     });
 
     socket.on('flash', (msg) => {
-        io.to(room).emit('flash', msg);
-        logger.info("#" + room + " @" + who + " (" + socket.id + ") flash! color:" + msg.color);
+        socket.broadcast.to(room).emit('flash', msg);
+        logger.info("#" + room + " @" + msg.who + " (" + socket.id + ") flash! color:" + msg.color);
     });
 
     socket.on('set-color', (msg) => {
-        io.to(room).emit('flash', msg);
-        logger.info("#" + room + " @" + who + " (" + socket.id + ") set color:" + msg.color);
+        socket.broadcast.to(room).emit('set-color', msg);
+        logger.info("#" + room + " @" + msg.who + " (" + socket.id + ") set color:" + msg.color);
     });
 
 });

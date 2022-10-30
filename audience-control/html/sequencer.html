@@ -1,97 +1,86 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>COUNT·ME·IN</title>
+    <title>HootBeat - Audience Control - Control panel</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/sequencer.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JXMQXE0QJ"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HK8NRYFJ92"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-5JXMQXE0QJ');
+      gtag('config', 'G-HK8NRYFJ92');
     </script>
   </head>
   <body>
 
-    <div id="room-info">
-      <div id="close-info">✕</div>
-      <div class="room-info">
-        <span id="room-title">
-        Session name: <span id="room-name"></span>
-        </span>
-      </div>
-      <div class="room-info">Use this URL to join this session</div>
-      <div class="room-info">
-        <a id="track-url" target="_blank"></a>
-      </div>
-      <div class="room-info">
-        <div id="copy">COPY TO CLIPBOARD</div>
-      </div>
-      <div class="room-info">Or scan this QR code:</div>
-      <div class="room-info" id="qrcode-wrapper">
+    <div id="container">
+      <table id="statuses">
+        <tr>
+          <th>Device</th>
+          <th>Status</th>
+          <th>Color </th>
+        </tr>
+        <tr>
+          <td>JP</td>
+          <td id="status-jp" class="status">offline</td>
+          <td id="color-jp" class="color-status"></td>
+        </tr>
+        <tr>
+          <td>Daniel</td>
+          <td id="status-daniel" class="status">offline</td>
+          <td id="color-daniel" class="color-status"></td>
+        </tr>
+        <tr>
+          <td>Mauro</td>
+          <td id="status-mauro" class="status">offline</td>
+          <td id="color-mauro" class="color-status"></td>
+        </tr>
+        <tr>
+          <td>Triggers</td>
+          <td id="status-triggers" class="status">offline</td>
+        </tr>
+        <tr>
+          <td>Pedalboard</td>
+          <td id="status-pedalboard" class="status">offline</td>
+        </tr>
+      </table>
 
-      </div>
-      <textarea id="url-copy"></textarea>
+      <div id="separator"></div>
+
+      <table id="program">
+        <tr>
+          <th>Selected song:</th>
+        </tr>
+        <tr>
+          <td class="song" pc="2">One with the machine</td>
+        </tr>
+        <tr>
+          <td class="song" pc="6">Tantra</td>
+        </tr>
+        <tr>
+          <td class="song" pc="5">FOMO</td>
+        </tr>
+        <tr>
+          <td class="song" pc="">Si un día te vas</td>
+        </tr>
+        <tr>
+          <td class="song" pc="19">Si algún día todo falla</td>
+        </tr>
+        <tr>
+          <td class="song" pc="1">Sex tape</td>
+        </tr>
+      </table>
+
     </div>
 
-    <div id="sequencer">
-
-        <table id="matrix">
-        </table>
-
-        <div id="control-panel">
-
-          <button id="play" class="controls">&#9654;</button>
-          <button id="stop" class="controls">&#9724;</button>
-
-          <span class="controls" id="ext-clock-indicator">[<span id="ext-clock">Ext Clock</span>]</span>
-          <span id="ext-tempo" class="controls"></span>
-
-          <div id="bpm">
-            <input id="tempo" type="number" class="controls" value=120 min="60" max="250"/>
-          </div>
-          
-          <span class="controls">BPM</span>
-
-          <button class="controls" id="show-room-link">
-            Session info
-          </button>
-
-        </div>
-
-    </div>
-
-    <div id="sequencer-bg">
-      <p>
-      COUNT-ME-IN<br />
-      </p>
-    </div>
-
-
-    <audio preload="auto" class="drumSamples" track="0" src="sounds/BD.WAV" id="BD.WAV"></audio>
-    <audio preload="auto" class="drumSamples" track="1" src="sounds/SD.WAV" id="SD.WAV"></audio>
-    <audio preload="auto" class="drumSamples" track="2" src="sounds/CP.WAV" id="CP.WAV"></audio>
-    <audio preload="auto" class="drumSamples" track="3" src="sounds/seal1.wav" id="seal1.WAV"></audio>
-    <audio preload="auto" class="drumSamples" track="4" src="sounds/seal2.wav" id="seal2.WAV"></audio>
-    <!--
-    <audio preload="auto" class="drumSamples" track="3" src="sounds/HC.WAV" id="HC.WAV"></audio>
-    <audio preload="auto" class="drumSamples" track="4" src="sounds/LC.WAV" id="LC.WAV"></audio>
-    -->
-    <audio preload="auto" class="drumSamples" track="5" src="sounds/CB.WAV" id="CB.WAV"></audio>
-    <audio preload="auto" class="drumSamples" track="6" src="sounds/CH.WAV" id="CH.WAV"></audio>
-    <audio preload="auto" class="drumSamples" track="7" src="sounds/OH.WAV" id="OH.WAV"></audio>
     
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="scripts/config.js"></script>
-    <script src="scripts/include.js"></script>
-    <script src="scripts/sequencerObj.js"></script>
     <script src="scripts/sequencer.js"></script>
-    <script src="scripts/noteFrequencies.js"></script>
-    <script src="scripts/audio.js"></script>
     <script src="scripts/midi.js"></script>
 
 

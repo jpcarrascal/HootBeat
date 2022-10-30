@@ -1,0 +1,205 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Montserrat", sans-serif;
+    background-color: black;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    color: #EEE;
+}
+#title {
+    width: 100%;
+    height: 10vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: black;
+    text-align: center;
+    font-size: 5vh;
+    z-index: 10;
+    display: none;
+}
+#photo {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    filter: saturate(0) brightness(0.9);
+}
+.jp {
+    background-image: url(/images/bg-jp.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.daniel {
+    background-image: url(/images/bg-daniel.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.mauro {
+    background-image: url(/images/bg-mauro.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+@media screen and (orientation:landscape) {
+    #photo {
+        background-position: center -40vh;
+    }
+}
+#veil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.7);
+    font-size: 3em;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 5;
+}
+#head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.eye {
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: orange;
+    width: 100px;
+    height: 100px;
+    border: 10px solid black;
+}
+.pupil {
+    border-radius: 50%;
+    background-color: black;
+    width: 80%;
+    height: 80%;
+}
+#nose {
+    width: 40px;
+    margin: -10px;
+    background-color: black;
+    height: 30px;
+    margin-bottom: 10px;
+}
+#color-table {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: black;
+    z-index: 20;
+    touch-action: manipulation;
+}
+.color-cell {
+    width: 12vw;
+    height: 10vh;
+    border: 10px solid black;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+#color-purple {
+    background-color: #7700FF;
+}
+#color-blue {
+    background-color: #0000FF;
+}
+#color-cyan {
+    background-color: #00FFFF;
+}
+#color-green {
+    background-color: #00DD00;
+}
+#color-yellow {
+    background-color: #FFFF00;
+}
+#color-orange {
+    background-color: #FF7700;
+}
+#color-red {
+    background-color: #FF0000;
+}
+#color-magenta {
+    background-color: #FF00FF;
+}
+#go {
+    touch-action: manipulation;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 5vh;
+    border-left: 10px solid black;
+    border-right: 10px solid black;
+    cursor: pointer;
+    width: 100%;
+    visibility: hidden;
+    color: black;
+}
+
+@-webkit-keyframes flash {
+    0% { opacity: .3; }
+    100% { opacity: 1; }
+}
+@keyframes flash {
+    0% { opacity: .3; }
+    100% { opacity: 1; }
+}
+.flash {
+    opacity: 1;
+    -webkit-animation: flash 0.2s;
+    animation: flash 0.2s;
+}
+
+#emoticon {
+    width: 12vh;
+    height: 12vh;
+    margin: 5vw;
+    background-image: url(/images/out.png);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+@media screen and (orientation:landscape) {
+    #emoticon {
+        width: 12vw;
+        height: 12vw;
+    }
+}
