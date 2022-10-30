@@ -55,3 +55,7 @@ td {
     background-color: lime;
     color: black;
 }
+
+table {
+    width: 100%;
+}

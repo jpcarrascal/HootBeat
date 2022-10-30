@@ -1,16 +1,13 @@
 
 var goggles = [null, null, null];
-
-var MIDIout = null;
-var MIDIin = null;
+var pcNumberOfSongForAudiencInteraction = 18;
+var currentSong = -1;
 
 function listDevices(midi) {
     goggles = [null, null, null];;
 
     var outputs = midi.outputs.values();
     var inputs  = midi.inputs.values();
-    var numOuts = 0;
-    var numIns  = 0;
     
     document.querySelectorAll(".status").forEach(elem => {
         elem.classList.remove("online");
@@ -28,9 +25,12 @@ function listDevices(midi) {
                 document.getElementById("status-pedalboard").classList.add("online");
                 document.getElementById("status-pedalboard").innerText = "online";
                 input.value.onmidimessage = pedalboardHandler;
-                break;       
+                break; 
+            case "IAC Driver Bus 2: notes":
+                document.getElementById("status-iac").classList.add("online");
+                document.getElementById("status-iac").innerText = "online";
+                input.value.onmidimessage = triggersHandler;
         }
-        numIns++;
     }
     
     for (var output = outputs.next(); output && !output.done; output = outputs.next()) {
@@ -51,7 +51,6 @@ function listDevices(midi) {
                 goggles[2] = midi.outputs.get(output.value.id);
                 break; 
         }
-        numOuts++;
     }
 }
 
@@ -65,7 +64,6 @@ function success(midi) {
 
     midi.onstatechange = (event) => {
         listDevices(midi);
-        console.log(event.port.name)
     };
 
 }
@@ -74,43 +72,47 @@ function failure(){ console.log("MIDI not supported by browser :(")};
 
 function triggersHandler(midiMsg) {
     if(midiMsg.data[0] == 144 && (midiMsg.data[1] == 36 || midiMsg.data[1] == 38) ) {
-        console.log("Note ON\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
-        goggles.forEach(goggle => {
-            goggle.send(midiMsg.data);
-        });
+        //console.log("Note ON\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
+        if(pcNumberOfSongForAudiencInteraction !== currentSong) {
+            sendToGoggles(midiMsg.data);
+        }
     } else if(midiMsg.data[0] == 144 && (midiMsg.data[1] == 60 || midiMsg.data[1] == 62) ) {
-        console.log("Note ON\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
+        //console.log("Note ON\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
         midiMsg.data[1] = midiMsg.data[1] - 24;
-        goggles.forEach(goggle => {
-            goggle.send(midiMsg.data);
-        });
+        sendToGoggles(midiMsg.data);
     } else if (midiMsg.data[0] == 128) {
-        console.log("Note OFF\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
+        //console.log("Note OFF\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
     }
 }
 
 function pedalboardHandler(midiMsg) {
     if (midiMsg.data[0] >= 0xC0 && midiMsg.data[0] <= 0xCF) { // Program Change
-        var msg = [midiMsg.data[0], midiMsg.data[1]];
-        console.log(msg);
         sendToGoggles(midiMsg.data);
+        currentSong = midiMsg.data[1];
+        document.querySelectorAll(".song").forEach(song => {
+            if(song.getAttribute("pc") == midiMsg.data[1])
+                song.style.backgroundColor = "blue";
+            else
+                song.style.backgroundColor = "transparent";
+        });
     }
 }
 
 function audienceHandler(who) {
     const noteOn = [0x90, 36, 0x7f];
-    var portID;
+    var index = -1;
     switch (who) {
         case "jp":
-            portID = goggles[0].send(noteOn);
+            index = 0;
             break;
         case "daniel":
-            portID = goggles[1].send(noteOn);
+            index = 1;
             break;
         case "mauro":
-            portID = goggles[2].send(noteOn);
+            index = 2;
             break;
     }
+    if (goggles[index] !== null) goggles[index].send(noteOn);
 }
 
 function sendToGoggles(message) {
