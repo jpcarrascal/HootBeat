@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - main
-      paths:
+    paths:
       - audience-control/**
   workflow_dispatch:
 
