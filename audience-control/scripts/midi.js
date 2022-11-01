@@ -67,6 +67,7 @@ if (navigator.requestMIDIAccess) {
 function success(midi) {
     listDevices(midi);
     midi.onstatechange = (event) => {
+        console.log("Scanning devices...")
         listDevices(midi);
     };
 
@@ -75,22 +76,25 @@ function success(midi) {
 function failure(){ console.log("MIDI not supported by browser :(")};
 
 function triggersHandler(midiMsg) {
-    if(midiMsg.data[0] == 144 && (midiMsg.data[1] == 36 || midiMsg.data[1] == 38) ) {
+
+    if( isNoteOn(midiMsg.data[0])  && (midiMsg.data[1] == 36 || midiMsg.data[1] == 38) ) {
         //console.log("Note ON\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
         if(pcNumberOfSongForAudiencInteraction !== currentPC) {
             sendToGoggles(midiMsg.data);
         }
-    } else if(midiMsg.data[0] == 144 && (midiMsg.data[1] == 60 || midiMsg.data[1] == 62) ) {
+    } else if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == 60 || midiMsg.data[1] == 62) ) {
         //console.log("Note ON\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
         midiMsg.data[1] = midiMsg.data[1] - 24;
         sendToGoggles(midiMsg.data);
     } else if (midiMsg.data[0] == 128) {
         //console.log("Note OFF\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
+    } else if(midiMsg.data[0] == 254) { // Bloody active sensing
+        
     }
 }
 
 function pedalboardHandler(midiMsg) {
-    if (midiMsg.data[0] >= 0xC0 && midiMsg.data[0] <= 0xCF) { // Program Change
+    if ( isPC(midiMsg.data[0]) ) { // Program Change
         sendToGoggles(midiMsg.data);
         currentPC = midiMsg.data[1];
         document.querySelectorAll(".song").forEach(song => {
@@ -145,4 +149,12 @@ function sendToGoggles(message) {
         if(goggles[i] !== null)
             goggles[i].send(message);
     }
+}
+
+function isNoteOn(msg) {
+    return (msg >= 0x90 && msg <= 0x9F);
+}
+
+function isPC(msg) {
+    return (msg >= 0xC0 && msg <= 0xCF);
 }
