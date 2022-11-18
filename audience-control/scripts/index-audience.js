@@ -1,5 +1,6 @@
 var who = findGetParameter("who");
-var socket = io("", {query:{room: "spacebarman", who:who}});
+var room = findGetParameter("room") || "spacebarman";
+var socket = io("", {query:{room: room, who:who}});
 
 document.getElementById("photo").classList.add(who);
 

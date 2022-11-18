@@ -36,7 +36,10 @@ var band = {
 };
 
 app.get('/', (req, res) => {
-    var page = '/html/index.html';
+    if(req.query.room)
+        var page = '/html/index.html';
+    else
+        var page = '/html/out.html';
     res.sendFile(__dirname + page);
 });
 
@@ -46,15 +49,10 @@ app.get('/out', (req, res) => {
 });
 
 app.get('/sequencer', (req, res) => {
-    var page = '/html/sequencer.html';
-    res.sendFile(__dirname + page);
-});
-
-app.get('/conductor', (req, res) => {
     if(req.query.room)
-        var page = '/html/conductor.html';
+        var page = '/html/sequencer.html';
     else
-        var page = '/html/index-conductor.html';
+        var page = '/html/out.html';
     res.sendFile(__dirname + page);
 });
 
@@ -89,8 +87,8 @@ io.on('connection', (socket) => {
         seq = true;
     else if(socket.handshake.headers.referer.includes("conductor"))
         conductor = true;
-    //var room = socket.handshake.query.room;
-    var room = "spacebarman";
+    var room = socket.handshake.query.room;
+    //var room = "spacebarman";
     var who = socket.handshake.query.who;
     var allocationMethod = socket.handshake.query.method || "random";
     socket.join(room);

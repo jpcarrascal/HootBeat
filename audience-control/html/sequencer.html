@@ -18,71 +18,84 @@
   <body>
 
     <div id="container">
-      <table id="statuses">
-        <tr>
-          <th>Device</th>
-          <th>Status</th>
-          <th>Color </th>
-        </tr>
-        <tr>
-          <td>JP</td>
-          <td id="status-jp" class="status">offline</td>
-          <td id="color-jp" class="color-status"></td>
-        </tr>
-        <tr>
-          <td>Daniel</td>
-          <td id="status-daniel" class="status">offline</td>
-          <td id="color-daniel" class="color-status"></td>
-        </tr>
-        <tr>
-          <td>Mauro</td>
-          <td id="status-mauro" class="status">offline</td>
-          <td id="color-mauro" class="color-status"></td>
-        </tr>
-        <tr>
-          <td>Triggers</td>
-          <td id="status-triggers" class="status">offline</td>
-        </tr>
-        <tr>
-          <td>Pedalboard</td>
-          <td id="status-pedalboard" class="status">offline</td>
-        </tr>
-        <tr>
-          <td>IAC driver (notes)</td>
-          <td id="status-iac" class="status">offline</td>
-        </tr>
-      </table>
+      <div id="left-container">
+        <table id="statuses">
+          <tr>
+            <th>Device</th>
+            <th>Status</th>
+            <th>Color </th>
+          </tr>
+          <tr>
+            <td>OUTPUTS</td>
+            <td>
+              <button class="test-devices" note="36">Test KD</button>
+            </td>
+            <td>
+              <button class="test-devices" note="38">Test SD</button>
+            </td>
+          </tr>
+          <tr>
+            <td>JP</td>
+            <td id="status-jp" class="status">offline</td>
+            <td id="color-jp" class="color-status"></td>
+          </tr>
+          <tr>
+            <td>Daniel</td>
+            <td id="status-daniel" class="status">offline</td>
+            <td id="color-daniel" class="color-status"></td>
+          </tr>
+          <tr>
+            <td>Mauro</td>
+            <td id="status-mauro" class="status">offline</td>
+            <td id="color-mauro" class="color-status"></td>
+          </tr>
 
-      <div id="separator"></div>
+          <tr>
+            <td>Left tube</td>
+            <td id="status-left-tube" class="status">offline</td>
+            <td id="color-left-tube" class="color-status"></td>
+          </tr>
+          <tr>
+            <td>Right tube</td>
+            <td id="status-right-tube" class="status">offline</td>
+            <td id="color-right-tube" class="color-status"></td>
+          </tr>
 
-      <table id="program">
-        <tr>
-          <th>Selected song:</th>
-        </tr>
-        <tr>
-          <td class="song" pc="2">One with the machine</td>
-        </tr>
-        <tr>
-          <td class="song" pc="6">Tantra</td>
-        </tr>
-        <tr>
-          <td class="song" pc="5">FOMO</td>
-        </tr>
-        <tr>
-          <td class="song" pc="18">Si un día te vas</td>
-        </tr>
-        <tr>
-          <td class="song" pc="1">Si algún día todo falla</td>
-        </tr>
-        <tr>
-          <td class="song" pc="7">Sex tape</td>
-        </tr>
-      </table>
+          <tr>
+            <td colspan="3">INPUTS</td>
+          </tr>
 
+          <tr>
+            <td>Triggers</td>
+            <td id="status-triggers" class="status">offline</td>
+          </tr>
+          <tr>
+            <td>Pedalboard</td>
+            <td id="status-pedalboard" class="status">offline</td>
+          </tr>
+          <tr>
+            <td>IAC driver</td>
+            <td id="status-iac" class="status">offline</td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="right-container">
+        <table id="playlist">
+          <thead id="thead-playlist">
+            <tr>
+              <th>PC</th>
+              <th>Song</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-playlist">
+          </tbody>
+        </table>  
+      </div>
     </div>
 
     
-
+    <script type="text/javascript" src="scripts/playlist.json"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="scripts/sequencer.js"></script>
     <script src="scripts/midi.js"></script>

@@ -1,0 +1,23 @@
+const playlist = [
+{"pc":0, "name": "Clone"},
+{"pc":1, "name": "Si algun día todo falla"},
+{"pc":2, "name": "One with the machine"},
+{"pc":3, "name": "Lullaby"},
+{"pc":4, "name": "Bad boy"},
+{"pc":5, "name": "FOMO"},
+{"pc":6, "name": "Tantra"},
+{"pc":7, "name": "Sex tape"},
+{"pc":8, "name": "One night"},
+{"pc":9, "name": "This body"},
+{"pc":10,"name": "Lockdown"},
+{"pc":11,"name": "No place for us"},
+{"pc":12,"name": "Sin Fin"},
+{"pc":13,"name": "Angel Electrico"},
+{"pc":14,"name": ""},
+{"pc":15,"name": ""},
+{"pc":16,"name": "FOMO slow"},
+{"pc":17,"name": ""},
+{"pc":18,"name": "Si un dia te vas"},
+{"pc":19,"name": ""},
+{"pc":20,"name": ""}
+];
