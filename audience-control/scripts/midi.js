@@ -1,10 +1,10 @@
 
-var devices = [null, null, null];
+var devices = [null, null, null, null];
 var pcNumberOfSongForAudiencInteraction = 18;
 var currentPC = 0;
 
 function listDevices(midi) {
-    devices = [null, null, null];;
+    devices = [null, null, null, null];
 
     var outputs = midi.outputs.values();
     var inputs  = midi.inputs.values();
@@ -52,6 +52,12 @@ function listDevices(midi) {
                 document.getElementById("status-mauro").classList.add("online");
                 document.getElementById("status-mauro").innerText = "online";
                 devices[2] = midi.outputs.get(output.value.id);
+                devices[2].send([0xC0, currentPC]);
+                break;
+            case "Left Tube Bluetooth":
+                document.getElementById("status-left-tube").classList.add("online");
+                document.getElementById("status-left-tube").innerText = "online";
+                devices[3] = midi.outputs.get(output.value.id);
                 devices[3].send([0xC0, currentPC]);
                 break; 
         }
@@ -119,6 +125,12 @@ function audienceHandler(what, msg) {
             case "mauro":
                 index = 2;
                 break;
+            case "left-tube":
+                index = 3;
+                break;
+            case "right-tube":
+                index = 4;
+                break;    
         }
         if(what == "flash") {
             console.log("sending flash")

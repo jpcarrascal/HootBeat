@@ -12,7 +12,7 @@ socket.on("connect", () => {
 socket.on('flash', function(msg) {
   audienceHandler('flash', msg);
   var id = "color-" + msg.who;
-  console.log(msg)
+  console.log(msg);
   document.getElementById(id).classList.add("flash-border");
   setTimeout(function(){
     document.getElementById(id).classList.remove("flash-border");

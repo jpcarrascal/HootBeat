@@ -20,8 +20,7 @@ document.querySelectorAll(".color-cell").forEach(elem => {
             socket.emit('set-color', { who: who, color: color } );
             filter += " brightness(1.2)";
             document.getElementById("photo").style.filter = filter;
-            document.getElementById("go").style.backgroundColor = color;
-            document.getElementById("go").style.visibility = "visible";
+            document.getElementById("click-me").style.visibility = "visible";
             document.getElementById("veil").style.display = "none";
             document.body.style.backgroundColor = color;
             //document.getElementById("left-eye").style.backgroundColor = color;
@@ -30,8 +29,9 @@ document.querySelectorAll(".color-cell").forEach(elem => {
     }
 );
 
-document.getElementById("go").addEventListener("click", function(e){
+document.getElementById("photo").addEventListener("click", function(e){
     if(colorSelected) {
+        //document.getElementById("click-me").style.display = "none";
         socket.emit('flash', { who: who, color: color } );
         document.getElementById("photo").classList.add("flash");
         setTimeout(function(){

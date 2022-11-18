@@ -42,6 +42,23 @@ body {
     z-index: 1;
     filter: saturate(0) brightness(0.9);
 }
+
+#click-me {
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 2em;
+    visibility: hidden;
+}
+
 .jp {
     background-image: url(/images/bg-jp.jpg);
     -webkit-background-size: cover;
@@ -202,4 +219,15 @@ body {
         width: 12vw;
         height: 12vw;
     }
+}
+
+#triangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 100px 25px 0 25px;
+    border-color: white transparent transparent transparent;
+    margin-left: -50vw;
+    transform: rotate(-30deg);
 }
