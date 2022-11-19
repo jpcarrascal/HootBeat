@@ -59,6 +59,12 @@ function listDevices(midi) {
                 document.getElementById("status-left-tube").innerText = "online";
                 devices[3] = midi.outputs.get(output.value.id);
                 devices[3].send([0xC0, currentPC]);
+                break;
+            case "Right Tube Bluetooth":
+                document.getElementById("status-right-tube").classList.add("online");
+                document.getElementById("status-right-tube").innerText = "online";
+                devices[4] = midi.outputs.get(output.value.id);
+                devices[4].send([0xC0, currentPC]);
                 break; 
         }
     }
@@ -100,7 +106,8 @@ function triggersHandler(midiMsg) {
 }
 
 function pedalboardHandler(midiMsg) {
-    if ( isPC(midiMsg.data[0]) ) { // Program Change
+    if ( isPC(midiMsg.data[0]) && (midiMsg.data[0] & 0x0E) == 12 ) { // Program Change
+        console.log("PC change: " + midiMsg.data[1]);
         sendToDevices(midiMsg.data);
         currentPC = midiMsg.data[1];
         document.querySelectorAll(".song").forEach(song => {

@@ -11,13 +11,11 @@ const playlist = [
 {"pc":9, "name": "This body"},
 {"pc":10,"name": "Lockdown"},
 {"pc":11,"name": "No place for us"},
-{"pc":12,"name": "Sin Fin"},
-{"pc":13,"name": "Angel Electrico"},
-{"pc":14,"name": ""},
-{"pc":15,"name": ""},
-{"pc":16,"name": "FOMO slow"},
-{"pc":17,"name": ""},
-{"pc":18,"name": "Si un dia te vas"},
-{"pc":19,"name": ""},
-{"pc":20,"name": ""}
+{"pc":12,"name": "Never let me down"},
+{"pc":13,"name": "The place u'll never see"},
+{"pc":14,"name": "Sin Fin"},
+{"pc":15,"name": "Angel Electrico"},
+{"pc":16,"name": "SADTF2"},
+{"pc":17,"name": "FOMO slow"},
+{"pc":18,"name": "Si un dia te vas"}
 ];

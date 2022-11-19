@@ -14,15 +14,15 @@
 #endif
 
 #define PINL 16
-#define PINR 17
 #define NUM_LEDS 59
+#define HALF_NUM_LEDS 30
 //#define BOARD2 "94:B9:7E:D4:D1:50"
 //#define BOARD3 "7C:9E:BD:4B:30:44"
 
 
-Adafruit_NeoPixel left  = Adafruit_NeoPixel(NUM_LEDS, PINL);
-Adafruit_NeoPixel right = Adafruit_NeoPixel(NUM_LEDS, PINR);
+Adafruit_NeoPixel tube  = Adafruit_NeoPixel(NUM_LEDS, PINL);
 
+uint16_t t          = 0; // time
 uint8_t  anim       = 100,  // Current animation
          offset     = 0,  // Position of spinny eyes
          dly        = 41, // Time delay
@@ -152,7 +152,7 @@ void setup() {
   } else {
     BLEMidiServer.begin("BT Goggle 1");
   }*/
-  BLEMidiServer.begin("Left Tube");
+  BLEMidiServer.begin("Right Tube");
   BLEMidiServer.setOnConnectCallback(connected);
   BLEMidiServer.setOnDisconnectCallback([](){     // To show how to make a callback with a lambda function
     Serial.println("Disconnected");
@@ -166,10 +166,8 @@ void setup() {
   BLEMidiServer.setProgramChangeCallback(onProgramChange);
   //BLEMidiServer.enableDebugging();
 
-  left.begin();
-  right.begin();
-  left.setBrightness(100);
-  right.setBrightness(100);
+  tube.begin();
+  tube.setBrightness(100);
   prevTime = millis();
 }
 
@@ -189,8 +187,7 @@ void loop() {
     case 0: // All leds on
       for(i=0; i<NUM_LEDS; i++) {
         uint32_t c = baseColor;
-        left.setPixelColor (   i, c); // First eye
-        right.setPixelColor(NUM_LEDS-1-i, c); // Second eye
+        tube.setPixelColor (   i, c); // First eye
       }
       break;
     case 1: // Pulsating
@@ -198,27 +195,23 @@ void loop() {
       fade *= fade;
       for(i=0; i<NUM_LEDS; i++) {
         uint32_t c = dimColor(baseColor, fade);
-        left.setPixelColor (   i, c); // First eye
-        right.setPixelColor(NUM_LEDS-1-i, c); // Second eye
+        tube.setPixelColor (   i, c); // First eye
       }
       break;
     case 2: // Pulsating+rotating
       for(i=0; i<NUM_LEDS; i++) {
-        fade = sin( (float)(i+offset)/4 );
+        fade = sin( (float)(i+t)/15 );
         fade *= fade;
         uint32_t c = dimColor(baseColor, fade);
-        left.setPixelColor (NUM_LEDS-1-i, c); // First eye
-        right.setPixelColor(   i, c); // Second eye
-        Serial.println(fade);
+        tube.setPixelColor (NUM_LEDS-1-i, c); // First eye
       }
       break;
     case 3: // Rotation, no drums
       for(i=0; i<NUM_LEDS; i++) {
         uint32_t c = 0;
-        if(i==offset || i==offset+6 || i==offset-6)
+        if(i==offset || i==offset+HALF_NUM_LEDS || i==offset-HALF_NUM_LEDS)
           c = baseColor;
-        left.setPixelColor (   i, c); // First eye
-        right.setPixelColor(NUM_LEDS-1-i, c); // Second eye (flipped)
+        tube.setPixelColor (   i, c); // First eye
       }
       break;
     case 4: // Drums only
@@ -228,8 +221,7 @@ void loop() {
         fade *= fade;
         if(colorCount > 0)
           c = dimColor(drumColor, fade);
-        left.setPixelColor (   i, c); // First eye
-        right.setPixelColor(NUM_LEDS-1-i, c); // Second eye (flipped)
+        tube.setPixelColor (   i, c); // First eye
       }
       break;
     case 5: // Alternating colors
@@ -239,8 +231,7 @@ void loop() {
       fade2 *= fade2;
       for(i=0; i<NUM_LEDS; i++) {
         uint32_t c = dimColor(baseColor, fade, 0, fade2);
-        left.setPixelColor (   i, c); // First eye
-        right.setPixelColor(NUM_LEDS-1-i, c); // Second eye
+        tube.setPixelColor (   i, c); // First eye
       }
       break;
     case 100:
@@ -251,28 +242,25 @@ void loop() {
         fade *= fade;
         if(colorCount > 0) {
           c = dimColor(drumColor, fade);
-        if(i==offset || i==offset+6 || i==offset-6)
+        if(i==offset || i==offset+HALF_NUM_LEDS || i==offset-HALF_NUM_LEDS)
           c = dimColor(highlightColor, fade);
         } 
-        else if(i==offset || i==offset+6 || i==offset-6)
+        else if(i==offset || i==offset+HALF_NUM_LEDS || i==offset-HALF_NUM_LEDS)
           c = baseColor;
-        left.setPixelColor (   i, c); // First eye
-        right.setPixelColor(NUM_LEDS-1-i, c); // Second eye (flipped)
+        tube.setPixelColor (   i, c); // First eye
       }
       break;
   }
   if(isRunning) { 
-    left.show();
-    right.show();
+    tube.show();
   } else {
       uint32_t c = 0;
       for(i=0; i<NUM_LEDS; i++) {
-        left.setPixelColor (   i, c); // First eye
-        right.setPixelColor(NUM_LEDS-1-i, c); // Second eye (flipped)
+        tube.setPixelColor (   i, c); // First eye
       }
-    left.show();
-    right.show();
+    tube.show();
   }
+  t++;
   offset++;
   if(offset>=NUM_LEDS) offset = 0;
   if(colorCount>0) colorCount--;
@@ -284,15 +272,13 @@ void startAnim(uint32_t color) {
   uint32_t c;
   for(int offset=0; offset<NUM_LEDS; offset++) {
       for(uint8_t i=0; i<NUM_LEDS; i++) {
-        if(i==offset || i==offset+6 || i==offset-6)
+        if(i==offset || i==offset+HALF_NUM_LEDS || i==offset-HALF_NUM_LEDS)
           c = color;
         else
           c = 0x000000;
-        left.setPixelColor (   i, c); // First eye
-        right.setPixelColor(NUM_LEDS-1-i, c); // Second eye (flipped)
+        tube.setPixelColor (   i, c); // First eye
     }
-    left.show();
-    right.show();
+    tube.show();
     delay(dly);
   }
 }
