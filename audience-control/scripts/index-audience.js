@@ -2,7 +2,8 @@ var who = findGetParameter("who");
 var room = findGetParameter("room") || "spacebarman";
 var socket = io("", {query:{room: room, who:who}});
 
-document.getElementById("photo").classList.add(who);
+var photo = document.getElementById("photo");
+photo.classList.add(who);
 
 var mySocketID;
 socket.on("connect", () => {
@@ -20,7 +21,7 @@ document.querySelectorAll(".color-cell").forEach(elem => {
             socket.emit('set-color', { who: who, color: color } );
             filter += " brightness(1.2)";
             document.getElementById("photo").style.filter = filter;
-            document.getElementById("click-me").style.visibility = "visible";
+            document.getElementById("click-me-text").style.visibility = "visible";
             document.getElementById("veil").style.display = "none";
             document.body.style.backgroundColor = color;
             //document.getElementById("left-eye").style.backgroundColor = color;

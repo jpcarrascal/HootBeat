@@ -88,20 +88,18 @@ function success(midi) {
 function failure(){ console.log("MIDI not supported by browser :(")};
 
 function triggersHandler(midiMsg) {
-
+    if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == 60 || midiMsg.data[1] == 62) ) {
+        midiMsg.data[1] = midiMsg.data[1] - 24;
+    }
     if( isNoteOn(midiMsg.data[0])  && (midiMsg.data[1] == 36 || midiMsg.data[1] == 38) ) {
         //console.log("Note ON\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
-        if(pcNumberOfSongForAudiencInteraction !== currentPC) {
-            sendToDevices(midiMsg.data);
+        //if(pcNumberOfSongForAudiencInteraction !== currentPC) {
+        if(!songsForGoggles.includes(currentPC)) {
+            sendToGoggles(midiMsg.data);
         }
-    } else if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == 60 || midiMsg.data[1] == 62) ) {
-        //console.log("Note ON\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
-        midiMsg.data[1] = midiMsg.data[1] - 24;
-        sendToDevices(midiMsg.data);
-    } else if (midiMsg.data[0] == 128) {
-        //console.log("Note OFF\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
-    } else if(midiMsg.data[0] == 254) { // Bloody active sensing
-        
+        if(!songsForTubes.includes(currentPC)) {
+            sendToTubes(midiMsg.data);
+        }
     }
 }
 
@@ -120,8 +118,9 @@ function pedalboardHandler(midiMsg) {
 }
 
 function audienceHandler(what, msg) {
-    if(pcNumberOfSongForAudiencInteraction == currentPC){
-        var index = -1;
+    var index = -1;
+    if(songsForGoggles.includes(currentPC)) {
+        console.log("in songsForGoogles");
         switch (msg.who) {
             case "jp":
                 index = 0;
@@ -131,7 +130,12 @@ function audienceHandler(what, msg) {
                 break;
             case "mauro":
                 index = 2;
-                break;
+                break;   
+        }
+    }
+    if(songsForTubes.includes(currentPC)) {
+        console.log("in SongsForTubes");
+        switch (msg.who) {
             case "left-tube":
                 index = 3;
                 break;
@@ -139,15 +143,18 @@ function audienceHandler(what, msg) {
                 index = 4;
                 break;    
         }
+    }
+    console.log("INDEX: " + index)
+    if(index >= 0) {
         if(what == "flash") {
-            console.log("sending flash")
             if (devices[index] !== null) {
+                console.log("sending flash");
                 const noteOn = [0x90, 36, 0x7f];
                 devices[index].send(noteOn);
             }
         } else if(what == "set-color") {
-            console.log("sending color")
             if (devices[index] !== null) {
+                console.log("sending color")
                 var cc;
                 var r = Math.floor(parseInt(msg.color.substring(1,3), 16)/2);
                 cc = [0xB0, 120, r];
@@ -161,10 +168,25 @@ function audienceHandler(what, msg) {
             }
         }
     }
+    return 0;
 }
 
 function sendToDevices(message) {
     for(var i=0; i<devices.length; i++) {
+        if(devices[i] !== null)
+            devices[i].send(message);
+    }
+}
+
+function sendToGoggles(message) {
+    for(var i=0; i<3; i++) {
+        if(devices[i] !== null)
+            devices[i].send(message);
+    }
+}
+
+function sendToTubes(message) {
+    for(var i=3; i<5; i++) {
         if(devices[i] !== null)
             devices[i].send(message);
     }

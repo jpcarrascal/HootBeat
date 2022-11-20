@@ -33,6 +33,8 @@ var band = {
     jp: null,
     daniel: null,
     mauro: null,
+    "left-tube": null,
+    "right-tube": null
 };
 
 app.get('/', (req, res) => {
@@ -112,7 +114,7 @@ io.on('connection', (socket) => {
         logger.info("#" + room + " @" + who + " joined session on track ");
         band[who] = socket.id;
         console.log(band);
-        socket.broadcast.to(room).emit('track joined', { initials: who, socketid: socket.id });
+        socket.broadcast.to(room).emit('track joined', { who: who, socketid: socket.id });
         socket.on('disconnect', () => {
             //var track2delete = rooms.getParticipantNumber(room, socket.id);
             //rooms.releaseParticipant(room, socket.id);
@@ -121,6 +123,7 @@ io.on('connection', (socket) => {
             if(band[who] == socket.id)
                 band[who] = null;
             console.log(band);
+            socket.broadcast.to(room).emit('track exit', { who: who, socketid: socket.id });
         });
         //io.to(socket.id).emit('create track', {});
 

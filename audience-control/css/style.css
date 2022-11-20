@@ -41,6 +41,8 @@ body {
     left: 0;
     z-index: 1;
     filter: saturate(0) brightness(0.9);
+    font-size: 3em;
+    text-align: center;
 }
 
 #click-me {
@@ -56,6 +58,10 @@ body {
     justify-content: center;
     text-align: center;
     font-size: 2em;
+    visibility: hidden;
+}
+
+#click-me-text {
     visibility: hidden;
 }
 
