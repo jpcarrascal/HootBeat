@@ -18,7 +18,7 @@
 #define NUMLEDS 60
 
 
-Adafruit_NeoPixel hat  = Adafruit_NeoPixel(NUMLEDS, PINL);
+Adafruit_NeoPixel strip  = Adafruit_NeoPixel(NUMLEDS, PINL);
 
 uint8_t r = 0, g = 0, b = 0;
 uint8_t inValue;
@@ -117,13 +117,13 @@ void setup() {
   BLEMidiServer.setProgramChangeCallback(onProgramChange);
   //BLEMidiServer.enableDebugging();
 
-  hat.begin();
-  hat.setBrightness(100);
+  strip.begin();
+  strip.setBrightness(100);
 
   for(uint8_t i=0; i<NUMLEDS; i++) {
      led[i] == disconnColor;
   }
-  hat.show();
+  strip.show();
 }
 
 void loop() {
@@ -139,7 +139,7 @@ void loop() {
   }
 
   for(uint8_t j=0; j<NUMLEDS; j++) {
-    hat.setPixelColor (j, led[j]);
+    strip.setPixelColor (j, led[j]);
   }
 
   led[NUMLEDS-1] = firstLedValue;
@@ -147,7 +147,7 @@ void loop() {
       led[i] = led[i+1];
   }
   firstLedValue = 0;
-  hat.show();
+  strip.show();
   delay(dly);
 }
 
