@@ -64,6 +64,7 @@ uint32_t prevTime;
 bool isRunning = true,
      bdOn      = true,
      sdOn      = true;
+unsigned long howLongRunning = 0;
 float inVel = 0;
 
 String addr;
@@ -73,13 +74,14 @@ void connected();
 void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
 {
   isRunning = true;
+  howLongRunning = 0;
   if(velocity > 0) {
     inVel = (float) velocity / 127.0;
     //if(note == 0) ccColor = 0xFF0000;
     //if(note == 1) ccColor = 0x00FF00;
     //if(note == 2) ccColor = 0x0000FF;
     if(note == 36) {
-      ccColor = 0x2000EE;
+      ccColor = 0xFF00FF;
       for(int i=0; i<NUMLEDS;i++) {
         colorCount[i] = maxCount;
       }
@@ -151,7 +153,8 @@ void setup() {
 
 void loop() {
   uint8_t  i;
-  if (BLEMidiServer.isConnected()) {
+  if (BLEMidiServer.isConnected() && isRunning) {
+    howLongRunning++;
     for(i=0; i<NUMLEDS; i++) {
       stepColor = ccColor;
       uint32_t c = 0;
@@ -162,18 +165,11 @@ void loop() {
         c = dimColor(stepColor, fade);
       hat.setPixelColor (i, c);
     }
-    if(isRunning) { 
-      
-    } else {
-        uint32_t c = 0;
-        for(i=0; i<NUMLEDS; i++) {
-          hat.setPixelColor (i, c);
-        }
-    }
     for(i=0; i<NUMLEDS; i++) {
        if(colorCount[i]>0) colorCount[i]--; 
     }
   } else { // Not connected
+    howLongRunning = 0;
     for(i=0; i<NUMLEDS; i++) {
         uint32_t c = 0;
         float phase = 0;
@@ -192,6 +188,9 @@ void loop() {
   hat.show();
   delay(dly);
 
+  if(howLongRunning > 720 && isRunning) {
+    isRunning = false;
+  }
 }
 
 uint32_t dimColor(uint32_t color, float fade) {
