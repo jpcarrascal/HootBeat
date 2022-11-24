@@ -86,6 +86,13 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+.left-tube, .right-tube {
+    background-image: url(/images/tube.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 @media screen and (orientation:landscape) {
     #photo {
         background-position: center -40vh;
