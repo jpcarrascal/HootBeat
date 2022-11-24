@@ -1,10 +1,10 @@
 
-var devices = [null, null, null, null];
+var devices = [null, null, null, null, null];
 var pcNumberOfSongForAudiencInteraction = 18;
 var currentPC = 0;
 
 function listDevices(midi) {
-    devices = [null, null, null, null];
+    devices = [null, null, null, null, null];
 
     var outputs = midi.outputs.values();
     var inputs  = midi.inputs.values();
