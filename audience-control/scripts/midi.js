@@ -104,8 +104,9 @@ function triggersHandler(midiMsg) {
 }
 
 function pedalboardHandler(midiMsg) {
-    if ( isPC(midiMsg.data[0]) && (midiMsg.data[0] & 0x0E) == 12 ) { // Program Change
-        console.log("PC change: " + midiMsg.data[1]);
+    if ( isPC(midiMsg.data[0]) && (midiMsg.data[0] & 0x0F) == 12 ) { // Program Change
+        let receivedPC = midiMsg.data[1];
+        //console.log("PC change: " + midiMsg.data[1]);
         sendToDevices(midiMsg.data);
         currentPC = midiMsg.data[1];
         document.querySelectorAll(".song").forEach(song => {
@@ -114,13 +115,14 @@ function pedalboardHandler(midiMsg) {
             else
                 song.style.backgroundColor = "transparent";
         });
+    } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == 123 ) {
+        sendToTubes(midiMsg.data);
     }
 }
 
 function audienceHandler(what, msg) {
     var index = -1;
     if(songsForGoggles.includes(currentPC)) {
-        console.log("in songsForGoogles");
         switch (msg.who) {
             case "jp":
                 index = 0;
@@ -134,7 +136,6 @@ function audienceHandler(what, msg) {
         }
     }
     if(songsForTubes.includes(currentPC)) {
-        console.log("in SongsForTubes");
         switch (msg.who) {
             case "left-tube":
                 index = 3;
@@ -148,13 +149,13 @@ function audienceHandler(what, msg) {
     if(index >= 0) {
         if(what == "flash") {
             if (devices[index] !== null) {
-                console.log("sending flash");
+                console.log("flash");
                 const noteOn = [0x90, 36, 0x7f];
                 devices[index].send(noteOn);
             }
         } else if(what == "set-color") {
             if (devices[index] !== null) {
-                console.log("sending color")
+                console.log("set-color")
                 var cc;
                 var r = Math.floor(parseInt(msg.color.substring(1,3), 16)/2);
                 cc = [0xB0, 120, r];
@@ -172,9 +173,33 @@ function audienceHandler(what, msg) {
 }
 
 function sendToDevices(message) {
-    for(var i=0; i<devices.length; i++) {
-        if(devices[i] !== null)
-            devices[i].send(message);
+    if( isPC(message[0]) ) {
+        receivedPC = message[1];
+        let altMessage = [message[0], 127];
+        altMessage[1] = 127;
+        // Goggles:
+        for(var i=0; i<3; i++) {
+            if(devices[i] !== null) {
+                if(songsForGoggles.includes(receivedPC))
+                    devices[i].send(altMessage);
+                else
+                    devices[i].send(message);
+            }
+        }
+        // Tubes:
+        for(var i=3; i<5; i++) {
+            if(devices[i] !== null) {
+                if(songsForTubes.includes(receivedPC))
+                    devices[i].send(altMessage);
+                else
+                    devices[i].send(message);
+            }
+        }
+    } else {
+        for(var i=0; i<5; i++) {
+            if(devices[i] !== null)
+                devices[i].send(message);
+        }
     }
 }
 
@@ -198,4 +223,20 @@ function isNoteOn(msg) {
 
 function isPC(msg) {
     return (msg >= 0xC0 && msg <= 0xCF);
+}
+
+function isCC(msg) {
+    return (msg >= 0xB0 && msg <= 0xBF);
+}
+
+function printMIDImsg(msg) {
+    let type = "";
+    let channel = msg[0] & 0x0F;
+    if(isNoteOn(msg[0]))
+        type = "Note ON";
+    if(isPC(msg[0]))
+        type = "PC";
+    if(isCC(msg[0]))
+        type = "CC";
+    console.log(type + "\tchannel: " + channel + "\tdata0: " + msg[1] + "\tdata1: " + msg[2]);
 }

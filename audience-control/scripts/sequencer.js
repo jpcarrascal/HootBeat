@@ -52,6 +52,7 @@ playlist.forEach( item => {
 
     let pc = row.insertCell(1);
     pc.innerHTML = item.pc;
+    //pc.style.backgroundColor = "#" + item.baseColor;
 
     let pcSend = row.insertCell(2);
     pcSend.innerHTML = '<button class="pc-send" pc=' + item.pc + '>Send</button>';
@@ -133,7 +134,7 @@ document.querySelectorAll(".tubes-checkbox").forEach(item => {
 document.querySelectorAll(".test-devices").forEach(item => {
   item.addEventListener("click", function() {
     var note = this.getAttribute("note");
-    console.log("sending  " + note);
+    console.log("Note on:  " + note);
     sendToDevices([0x90, note, 127]);
   });
 });
