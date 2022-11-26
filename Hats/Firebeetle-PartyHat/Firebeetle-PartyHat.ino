@@ -61,9 +61,10 @@ uint32_t connColor      = 0x080808,
          saveColor      = 0x000000;
 
 uint32_t prevTime;
-bool isRunning = true,
-     bdOn      = true,
-     sdOn      = true;
+bool isRunning   = true,
+     showStarted = false,
+     bdOn        = true,
+     sdOn        = true;
 unsigned long howLongRunning = 0;
 float inVel = 0;
 
@@ -74,6 +75,7 @@ void connected();
 void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
 {
   isRunning = true;
+  showStarted = true;
   howLongRunning = 0;
   if(velocity > 0) {
     inVel = (float) velocity / 127.0;
@@ -170,25 +172,27 @@ void loop() {
     }
   } else { // Not connected
     howLongRunning = 0;
-    for(i=0; i<NUMLEDS; i++) {
-        uint32_t c = 0;
-        float phase = 0;
-        if (i>=16 && i<22) {
-          phase = 1;
-        } else if(i==22) {
-          phase = 2;
-        }
-        //fade /= 2;
-        //1+sin(((float) millis())/300+phase)
-        fade = 1 - abs( sin(((float) millis())/500+phase) );
-        c = dimColor(0x0000D0, fade);
-        hat.setPixelColor (i, c);
-     }
+    if(showStarted) {
+      for(i=0; i<NUMLEDS; i++) {
+          uint32_t c = 0;
+          float phase = 0;
+          if (i>=16 && i<22) {
+            phase = 1;
+          } else if(i==22) {
+            phase = 2;
+          }
+          //fade /= 2;
+          //1+sin(((float) millis())/300+phase)
+          fade = 1 - abs( sin(((float) millis())/500+phase) );
+          c = dimColor(0x0000D0, fade);
+          hat.setPixelColor (i, c);
+       }
+    }
   }
   hat.show();
   delay(dly);
 
-  if(howLongRunning > 720 && isRunning) {
+  if(howLongRunning > 360 && isRunning) {
     isRunning = false;
   }
 }
