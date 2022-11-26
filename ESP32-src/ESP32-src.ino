@@ -127,7 +127,7 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
         baseColor = connColor, highlightColor = 0x777777, bdColor = 0x0044FF, sdColor = 0xFF0000;
         bdOn = true, sdOn = true;
         maxCount = 3;
-        anim = 100;
+        anim = 4;
         break;
     }
     Serial.printf("Received program change : channel %d, value %d (timestamp %dms)\n", channel, value, timestamp);
