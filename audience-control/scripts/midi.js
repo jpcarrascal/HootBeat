@@ -82,7 +82,6 @@ function success(midi) {
         console.log("Scanning devices...")
         listDevices(midi);
     };
-
 }
 
 function failure(){ console.log("MIDI not supported by browser :(")};
