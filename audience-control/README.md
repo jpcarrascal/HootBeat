@@ -1,2 +1,2 @@
-# Count Me In
-A collaborative step sequencer for audience participation
+# HootBeat: Audience participation
+Give audience control of the lighting show.
