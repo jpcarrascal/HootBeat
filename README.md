@@ -1,7 +1,7 @@
 # HOOTBEAT
 
-ESP32-based BLE-MIDI controlled goggles and Raspberry Pi service to manage the system.
-Great for enhancing live music performances.
+HootBeat features BLE-MIDI controlled wearable and ambient devices for interactive linghtening.
+Great for enhancing an inviting participation of audience in live music performances.
 
 ## Block diagram
 ![HootBeat block diagram](HootBeat-block_diagram.jpg)
