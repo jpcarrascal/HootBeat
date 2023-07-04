@@ -4,7 +4,7 @@
 
 HootBeat is a platform for MIDI-controlled lightening wearable and ambient devices. It lies at the intersection of technology, performing arts and fashion. Wearable technologies present a unique opportunity to performing arts in general and live music in particular. There is a whole generation of new wearable music instruments that take advantage of electronic technology for enhanced sound control. Some example include the Mi.Mu gloves and the Wave and Neova rings. On the visual side, however, musicians do not have many options available. We aim at providing a solution with  BLE-MIDI-powered wearables that feature RGB LED technology to augment the music performance. HootBeat wearables are, essentially, "lighting musical instruments". The system does not require a lighting technician to be set up. Instead, it uses interfaces already familiar to performing musicians, including drum triggers and a pedalboard controller.
 
-Additionally, HootBeat allows device control from the audience. This means that attendees can interact with the band by taking control of the light show, adding an unprecedented level of interaction between the performing artist and the audience.
+Additionally, HootBeat allows device control from the audience. This means that attendees can take control of the light show, adding an unprecedented level of interaction between the performing artist and the audience.
 
 ## System description
 <img src="https://github.com/jpcarrascal/HootBeat/blob/main/HootBeat-block_diagram.jpg?raw=true" style="width:560px" />
