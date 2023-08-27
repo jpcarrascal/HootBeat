@@ -82,6 +82,7 @@ app.use('/scripts', express.static(__dirname + '/scripts/'));
 app.use('/css', express.static(__dirname + '/css/'));
 app.use('/images', express.static(__dirname + '/images/'));
 app.use('/sounds', express.static(__dirname + '/sounds/'));
+app.use('/tone', express.static(__dirname + '/node_modules/tone/build/'));
 
 io.on('connection', (socket) => {
     var seq = false;

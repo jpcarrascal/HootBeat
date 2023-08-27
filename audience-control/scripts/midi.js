@@ -134,20 +134,6 @@ function transparentHandler(midiMsg) {
     }
 }
 
-// ------ For testing purposes:
-
-document.addEventListener('keydown', function(event) {
-    if (event.code === 'KeyA') {
-        playSample([0x90, 28, 0x7f]);
-    } else if (event.code === 'KeyS') {
-        playSample([0x90, 29, 0x7f]);
-    } else if (event.code === 'KeyD') {
-        playSample([0x90, 30, 0x7f]);
-    } else if (event.code === 'KeyF') {
-        playSample([0x90, 31, 0x7f]);
-    }
-  });
-
 function audienceHandler(what, msg) {
     var index = -1;
     if(songsForGoggles.includes(currentPC)) {

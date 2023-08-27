@@ -55,7 +55,8 @@ playlist.forEach( item => {
     //pc.style.backgroundColor = "#" + item.baseColor;
 
     let pcSend = row.insertCell(2);
-    pcSend.innerHTML = '<button class="pc-send" pc=' + item.pc + '>Send</button>';
+    pcSend.innerHTML = '<button class="pc-send" pc=' + item.pc +
+                      ' samples=' + item.samples + '>Send</button>';
     var checkbox = document.createElement('input');
     checkbox.type = "checkbox";
     checkbox.name = "audience";
@@ -91,6 +92,20 @@ document.querySelectorAll(".pc-send").forEach(item => {
     var pc = parseInt(this.getAttribute("pc"));
     currentPC = pc;
     sendToDevices([0xC0, pc]);
+    // Load samples, if any. First stop all samples being played
+    players.forEach(player => {
+      player.player.stop();
+    });
+    players = new Array();
+    const samples = item.getAttribute("samples");
+    let tableBody = document.getElementById("samples-table");
+    if(samples !== "none") {
+      tableBody.innerHTML = "";
+      const sampleLocation = "/sounds/" + samples + "/";
+      loadSamples(sampleLocation);
+    } else {
+      tableBody.innerHTML = "<tr><td>None</td></tr>";
+    }
     document.querySelectorAll(".song").forEach(song => {
       if(song.getAttribute("pc") == pc)
           song.style.backgroundColor = "blue";
