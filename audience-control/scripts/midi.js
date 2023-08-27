@@ -2,8 +2,12 @@
 var devices = [null, null, null, null, null];
 var pcNumberOfSongForAudiencInteraction = 18;
 var currentPC = 0;
+const PCMSG = 0xC0;
+const CCMSG = 0xB0;
+const NOTEONMSG = 0x90;
 
 function listDevices(midi) {
+    console.log("Scanning devices...");
     devices = [null, null, null, null, null];
 
     var outputs = midi.outputs.values();
@@ -30,6 +34,11 @@ function listDevices(midi) {
                 document.getElementById("status-iac").classList.add("online");
                 document.getElementById("status-iac").innerText = "online";
                 input.value.onmidimessage = triggersHandler;
+                break;
+            case "Transparent Bluetooth":
+                document.getElementById("status-transparent").classList.add("online");
+                document.getElementById("status-transparent").innerText = "online";
+                input.value.onmidimessage = transparentHandler;
         }
     }
     
@@ -79,7 +88,6 @@ if (navigator.requestMIDIAccess) {
 function success(midi) {
     listDevices(midi);
     midi.onstatechange = (event) => {
-        console.log("Scanning devices...")
         listDevices(midi);
     };
 }
@@ -118,6 +126,27 @@ function pedalboardHandler(midiMsg) {
         sendToTubes(midiMsg.data);
     }
 }
+
+function transparentHandler(midiMsg) {
+    if( isNoteOn(midiMsg.data[0]) ) {
+        //if(pcNumberOfSongForAudiencInteraction !== currentPC) {
+        playSample(midiMsg.data);
+    }
+}
+
+// ------ For testing purposes:
+
+document.addEventListener('keydown', function(event) {
+    if (event.code === 'KeyA') {
+        playSample([0x90, 28, 0x7f]);
+    } else if (event.code === 'KeyS') {
+        playSample([0x90, 29, 0x7f]);
+    } else if (event.code === 'KeyD') {
+        playSample([0x90, 30, 0x7f]);
+    } else if (event.code === 'KeyF') {
+        playSample([0x90, 31, 0x7f]);
+    }
+  });
 
 function audienceHandler(what, msg) {
     var index = -1;

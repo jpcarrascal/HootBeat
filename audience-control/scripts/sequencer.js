@@ -139,8 +139,6 @@ document.querySelectorAll(".test-devices").forEach(item => {
   });
 });
 
-
-
 function findGetParameter(parameterName) {
   var result = null,
       tmp = [];

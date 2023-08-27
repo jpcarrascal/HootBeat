@@ -77,7 +77,18 @@
             <td>IAC driver</td>
             <td id="status-iac" class="status">offline</td>
           </tr>
+          <tr>
+            <td>Transp</td>
+            <td id="status-transparent" class="status">offline</td>
+          </tr>
         </table>
+
+        <table>
+          <tr><td id="clickme-container">
+            <button id="clickme">Click me First!</button>
+          </td></tr>
+        </table>
+        
       </div>
 
       <div id="right-container">
@@ -103,10 +114,13 @@
       </div>
     </div>
 
-    
+    <div id="sound-set">
+    </div>
+    <script src="/tone/Tone.js"></script>
     <script type="text/javascript" src="scripts/playlist.json"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="scripts/sequencer.js"></script>
+    <script src="scripts/audio.js"></script>
     <script src="scripts/midi.js"></script>
 
 
