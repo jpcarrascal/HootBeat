@@ -2,5 +2,6 @@
     {"type": "sampler", "sound": "Schaeffer.wav", "image": "0.png", "params": {"note": 28, "loop": false}},
     {"type": "sampler", "sound": "Ah.wav", "image": "1.png", "params": {"note": 29, "loop": false}},
     {"type": "sampler", "sound": "Ingrid.wav", "image": "2.png", "params": {"note": 30, "loop": false}},
-    {"type": "sampler", "sound": "DrumLoop.wav", "image": "3.png", "params": {"note": 31, "loop": true}}
+    {"type": "sampler", "sound": "Click.wav", "image": "3.png", "params": {"note": 31, "loop": false}},
+    {"type": "sampler", "sound": "DrumLoop.wav", "image": "3.png", "params": {"note": 32, "loop": true}}
 ]
