@@ -1,0 +1,8 @@
+[
+    {"type": "sampler", "sound": "Loop70.wav", "image": "0.png", "params": {"note": 28, "volume": 0, "loop": false}},
+    {"type": "sampler", "sound": "Loop74.wav", "image": "0.png", "params": {"note": 29, "volume": 0, "loop": false}},
+    {"type": "sampler", "sound": "Ah1.wav", "image": "0.png", "params": {"note": 30, "volume": 0, "loop": false}},
+    {"type": "sampler", "sound": "Ah2.wav", "image": "0.png", "params": {"note": 31, "volume": 0, "loop": false}},
+    {"type": "sampler", "sound": "Loop70.wav", "image": "0.png", "params": {"note": 12, "volume": 0, "loop": false}},
+    {"type": "sampler", "sound": "Loop74.wav", "image": "0.png", "params": {"note": 13, "volume": 0, "loop": false}}
+]

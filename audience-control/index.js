@@ -51,7 +51,7 @@ app.get('/out', (req, res) => {
 });
 
 app.get('/sequencer', (req, res) => {
-    if(req.query.room)
+    if(req.query.room || (req.hostname === 'localhost' || req.hostname === '127.0.0.1') )
         var page = '/html/sequencer.html';
     else
         var page = '/html/out.html';

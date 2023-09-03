@@ -45,10 +45,12 @@ playlist.forEach( item => {
     let row = table.insertRow();
 
     let name = row.insertCell(0);
-    name.innerHTML = item.name;
     name.classList.add("song");
     name.setAttribute("pc", item.pc);
     name.innerHTML = item.name;
+    if(item.samples !== "none") {
+      name.innerHTML += " *";
+    }
 
     let pc = row.insertCell(1);
     pc.innerHTML = item.pc;
@@ -92,20 +94,23 @@ document.querySelectorAll(".pc-send").forEach(item => {
     var pc = parseInt(this.getAttribute("pc"));
     currentPC = pc;
     sendToDevices([0xC0, pc]);
+    if(USEAUDIO) {
     // Load samples, if any. First stop all samples being played
-    players.forEach(player => {
-      player.player.stop();
-    });
-    players = new Array();
-    const samples = item.getAttribute("samples");
-    let tableBody = document.getElementById("samples-table");
-    if(samples !== "none") {
-      tableBody.innerHTML = "";
-      const sampleLocation = "/sounds/" + samples + "/";
-      loadSamples(sampleLocation);
-    } else {
-      tableBody.innerHTML = "<tr><td>None</td></tr>";
+      players.forEach(player => {
+        player.player.stop();
+      });
+      players = new Array();
+      const samples = item.getAttribute("samples");
+      let tableBody = document.getElementById("samples-table");
+      if(samples !== "none" && USEAUDIO) {
+        tableBody.innerHTML = "";
+        const sampleLocation = "/sounds/" + samples + "/";
+        loadSamples(sampleLocation);
+      } else {
+        tableBody.innerHTML = "<tr><td>None</td></tr>";
+      }
     }
+
     document.querySelectorAll(".song").forEach(song => {
       if(song.getAttribute("pc") == pc)
           song.style.backgroundColor = "blue";

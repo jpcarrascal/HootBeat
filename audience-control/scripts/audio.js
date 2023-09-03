@@ -14,9 +14,10 @@ function loadSamples(sampleLocation) {
       const url = sampleLocation + "samples/" + soundPreset[i].sound;
       const note = soundPreset[i].params.note;
       const loop = soundPreset[i].params.loop;
+      const volume = soundPreset[i].params.volume;
       const name = soundPreset[i].sound.split(".")[0];
       const key = keys[i];
-      const player = new Tone.Player({url: url, loop: loop}).toDestination();
+      const player = new Tone.Player({url: url, loop: loop, volume: volume}).toDestination();
       Tone.loaded().then(() => {
         players.push({note: note, player: player});
         appendSampleUI(name, note, key);

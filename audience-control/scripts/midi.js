@@ -2,9 +2,6 @@
 var devices = [null, null, null, null, null];
 var pcNumberOfSongForAudiencInteraction = 18;
 var currentPC = 0;
-const PCMSG = 0xC0;
-const CCMSG = 0xB0;
-const NOTEONMSG = 0x90;
 
 function listDevices(midi) {
     console.log("Scanning devices...");
@@ -36,9 +33,11 @@ function listDevices(midi) {
                 input.value.onmidimessage = triggersHandler;
                 break;
             case "Transparent Bluetooth":
-                document.getElementById("status-transparent").classList.add("online");
-                document.getElementById("status-transparent").innerText = "online";
-                input.value.onmidimessage = transparentHandler;
+                if(USEAUDIO) {
+                    document.getElementById("status-transparent").classList.add("online");
+                    document.getElementById("status-transparent").innerText = "online";
+                    input.value.onmidimessage = transparentHandler;
+                }
         }
     }
     
@@ -124,7 +123,9 @@ function pedalboardHandler(midiMsg) {
         });
     } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == 123 ) {
         sendToTubes(midiMsg.data);
-    }
+    } /*else if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == NOTETOPLEFT || midiMsg.data[1] == NOTETOPRIGHT) ) {
+        playSample(midiMsg.data);
+    }*/
 }
 
 function transparentHandler(midiMsg) {
