@@ -35,6 +35,7 @@ socket.on('track exit', function(msg) {
   document.getElementById(elem).style.backgroundColor = "black";
 });
 
+if(USEAUDIO) document.getElementById("samples").style.display = "block";
 var table = document.getElementById("playlist");
 //playlist.sort((a, b) => {
 //  return a.order - b.order;
@@ -42,21 +43,41 @@ var table = document.getElementById("playlist");
 
 playlist.forEach( item => {
   if(item.show) {
+    // Colors:
     let row = table.insertRow();
+    row.setAttribute("pc", item.pc);
+    row.classList.add("song-row");
+    let color = row.insertCell(0);
+    color.classList.add("goggle-colors");
+    // Animation colors
+    var icon = getAnimIcon(item.anim);
+    var c1 = document.createElement('div');
+    c1.classList.add("color-div");
+    c1.style.backgroundColor = "#" + item.color1;
+    c1.innerText = icon;
+    color.appendChild(c1);
+    let c2 = document.createElement('div');
+    c2.classList.add("color-div");
+    c2.style.backgroundColor = "#" + item.color2;
+    c2.innerText = icon;
+    color.appendChild(c2);
 
-    let name = row.insertCell(0);
+    // Song name:
+    let name = row.insertCell(1);
     name.classList.add("song");
     name.setAttribute("pc", item.pc);
+    name.setAttribute("anim", item.anim);
+    name.setAttribute("color1", item.color1);
+    name.setAttribute("color2", item.color2);
     name.innerHTML = item.name;
     if(item.samples !== "none") {
       name.innerHTML += " *";
     }
 
-    let pc = row.insertCell(1);
+    let pc = row.insertCell(2);
     pc.innerHTML = item.pc;
-    //pc.style.backgroundColor = "#" + item.baseColor;
 
-    let pcSend = row.insertCell(2);
+    let pcSend = row.insertCell(3);
     pcSend.innerHTML = '<button class="pc-send" pc=' + item.pc +
                       ' samples=' + item.samples + '>Send</button>';
     var checkbox = document.createElement('input');
@@ -92,8 +113,8 @@ playlist.forEach( item => {
 document.querySelectorAll(".pc-send").forEach(item => {
   item.addEventListener("click", function() {
     var pc = parseInt(this.getAttribute("pc"));
-    currentPC = pc;
-    sendToDevices([0xC0, pc]);
+    selectRowAndLoadSongData(pc);
+    //sendToDevices([0xC0, pc]);
     if(USEAUDIO) {
     // Load samples, if any. First stop all samples being played
       players.forEach(player => {
@@ -110,13 +131,6 @@ document.querySelectorAll(".pc-send").forEach(item => {
         tableBody.innerHTML = "<tr><td>None</td></tr>";
       }
     }
-
-    document.querySelectorAll(".song").forEach(song => {
-      if(song.getAttribute("pc") == pc)
-          song.style.backgroundColor = "blue";
-      else
-          song.style.backgroundColor = "transparent";
-    });
   })
 });
 

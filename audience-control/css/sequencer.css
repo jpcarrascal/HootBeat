@@ -10,11 +10,29 @@ body {
     background-color: red;
     text-align: center;
     width: 4em;
+    border: .4em solid #222;
 }
 
 .color-status {
     width: 4em;
+    border: .4em solid #222;
 }
+
+.goggle-colors {
+    display: flex;
+    
+}
+
+.color-div {
+    width: 1.1em;
+    height: 1.1em;
+    margin-left: .2em;
+    text-align: center;
+    line-height: 1.1em;
+    border-radius: .6em;
+    color: black;
+}
+
 
 @-webkit-keyframes flash-border {
     0% { border-color: white; }
@@ -52,28 +70,41 @@ body {
     background-color: black;
 }
 
-td {
-    border: 0.2em solid #222;
+#left-container, #right-container {
+    padding: .5em;
+    margin: .5em;
     background-color: #222;
-    border-color: #222;
-    margin: .2em;
 }
 
-tr {
-    background-color: #222;
-    border-color: #222;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
+
+td, th {
+    border: .2em solid transparent;
+    background-color: transparent;
+    border-color: transparent;
+    margin: .3em;
+}
+
 
 .online {
     background-color: lime;
     color: black;
 }
 
-table {
-    width: 100%;
-    border: 0.5em solid black;
-    background-color: #222;
-    padding: .5em;
+.smaller-font {
+    font-size: .7em;
+}
+
+#samples {
+    display: none;
+}
+
+button {
+    font-family: sans-serif;
+    font-size: .7em;
 }
 
 #thead-playlist, #tbody-playlist { display: block; }

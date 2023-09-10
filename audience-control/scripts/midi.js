@@ -2,6 +2,8 @@
 var devices = [null, null, null, null, null];
 var pcNumberOfSongForAudiencInteraction = 18;
 var currentPC = 0;
+var currentColor1 = "000000";
+var currentColor2 = "000000";
 
 function listDevices(midi) {
     console.log("Scanning devices...");
@@ -113,14 +115,8 @@ function pedalboardHandler(midiMsg) {
     if ( isPC(midiMsg.data[0]) && (midiMsg.data[0] & 0x0F) == 12 ) { // Program Change
         let receivedPC = midiMsg.data[1];
         //console.log("PC change: " + midiMsg.data[1]);
-        sendToDevices(midiMsg.data);
-        currentPC = midiMsg.data[1];
-        document.querySelectorAll(".song").forEach(song => {
-            if(song.getAttribute("pc") == midiMsg.data[1])
-                song.style.backgroundColor = "blue";
-            else
-                song.style.backgroundColor = "transparent";
-        });
+        selectRowAndLoadSongData(midiMsg.data[1]);
+        //sendToDevices(midiMsg.data);
     } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == 123 ) {
         sendToTubes(midiMsg.data);
     } /*else if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == NOTETOPLEFT || midiMsg.data[1] == NOTETOPRIGHT) ) {
@@ -191,7 +187,7 @@ function sendToDevices(message) {
     if( isPC(message[0]) ) {
         receivedPC = message[1];
         let altMessage = [message[0], 127];
-        altMessage[1] = 127;
+        altMessage[1] = 4; // Drums, to be controlled by audience
         // Goggles:
         for(var i=0; i<3; i++) {
             if(devices[i] !== null) {

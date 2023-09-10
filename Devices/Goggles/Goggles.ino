@@ -15,44 +15,43 @@
 
 #define PINL 16
 #define PINR 17
+#define NUMLEDS 12
 #define BOARD2 "94:B9:7E:D4:D1:50"
 #define BOARD3 "7C:9E:BD:4B:30:44" //"C8:C9:A3:D1:F5:88" 
 
 
-Adafruit_NeoPixel left  = Adafruit_NeoPixel(12, PINL);
-Adafruit_NeoPixel right = Adafruit_NeoPixel(12, PINR);
+Adafruit_NeoPixel left  = Adafruit_NeoPixel(NUMLEDS, PINL);
+Adafruit_NeoPixel right = Adafruit_NeoPixel(NUMLEDS, PINR);
+
 
 uint8_t  anim       = 100,  // Current animation
          offset     = 0,  // Position of spinny eyes
-         dly        = 41, // Time delay
-         colorCount = 3,  // For color envelope
-         maxCount   = 3;
-uint8_t r, g, b;
+         dly        = 41,  // Time delay
+         colorCount = 4,  // For color envelope
+         maxCount   = 4; // Length of drum hits
 float fade = 0, fade2 = 0, fade3 = 0; // Color intensities
+uint8_t r1=0, g1=0, b1=0;
+uint8_t r2=0, g2=0, b2=0;
 uint32_t connColor      = 0x080808,
          disconnColor   = 0x080000,
          baseColor      = disconnColor,
-         highlightColor = 0x777777,
-         drumColor      = 0x000000,
+         //highlightColor = 0x777777,
          bdColor        = 0x0044FF,
          sdColor        = 0xFF0000;
-uint32_t prevTime;
-bool isRunning = true,
-     bdOn      = true,
-     sdOn      = true;
+bool isRunning = true, drums = false, strobeOn = true;
 
 String addr;
 
 void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
 {
   isRunning = true;
-  if(velocity > 0) {
-    if(note == 36 && bdOn) {
-      drumColor = bdColor;
+  if(velocity > 0 && drums) {
+    if(note == 36 && bdColor > 0) {
+      baseColor = bdColor;
       colorCount = maxCount;   
     }
-    else if(note == 38 && sdOn) {
-      drumColor = sdColor;
+    else if(note == 38 && sdColor > 0) {
+      baseColor = sdColor;
       colorCount = maxCount;    
     }
   }
@@ -66,69 +65,38 @@ void onNoteOff(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timesta
 
 void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_t timestamp)
 {
-    if(controller == 120)
-      r = value*2;
-    if(controller == 121)
-      g = value*2;
-    if(controller == 122)
-      b = value*2;
-    bdColor = rgb2color(r,g,b);
-    sdColor = rgb2color(r,g,b);
-    Serial.printf("Received control change : channel %d, controller %d, value %d (timestamp %dms)\n", channel, controller, value, timestamp);
+  if(controller == 120)
+    r1 = value*2;
+  if(controller == 121)
+    g1 = value*2;
+  if(controller == 122)
+    b1 = value*2;
+  bdColor = rgb2color(r1, g1, b1);
+  baseColor = bdColor;
+  if(controller == 123)
+    r2 = value*2;
+  if(controller == 124)
+    g2 = value*2;
+  if(controller == 125)
+    b2 = value*2;
+  sdColor = rgb2color(r2, g2, b2);
+  //Serial.printf("Received control change : channel %d, controller %d, value %d (timestamp %dms)\n", channel, controller, value, timestamp);
+  if(controller == 122) {
+    Serial.print("BD color: ");
+    Serial.println(bdColor, HEX);
+  }
+  if(controller == 125) {
+    Serial.print("SD color: ");
+    Serial.println(sdColor, HEX);
+  }
 }
 
 void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
 {
     isRunning = false;
-    switch(value) {
-      case 9: // This body
-        anim = 5;
-        baseColor = 0xFF00FF;
-        break;
-      case 3: // Lullaby
-        baseColor = 0x0F0500, bdColor = 0xFF7700, sdColor = 0xFF1100;
-        bdOn = true, sdOn = true;
-        anim = 4;
-        maxCount = 3;
-        break;
-      case 11: // No place for us
-        anim = 1;
-        baseColor = 0xFF5500;
-        break;
-      case 6: // Tantra
-        anim = 2;
-        baseColor = 0x00FFFF;
-        break;
-      case 0: // Clone
-        anim = 2;
-        baseColor = 0x220099;
-        break;
-      case 7: // Sex Tape
-        baseColor = 0x03000B, bdColor = 0x4600FF, sdColor = 0x4600FF;
-        bdOn = true, sdOn = true;
-        maxCount = 3;
-        anim = 4;
-        break;
-      case 1: //Si algun dia todo falla
-        baseColor = connColor, bdColor = 0xFF0000, sdColor = 0x0000FF;
-        bdOn = true, sdOn = false;
-        maxCount = 3;
-        anim = 4;
-        break;   
-      case 2: // One with the machine
-        baseColor = connColor, bdColor = 0x00FF00, sdColor = 0x00FFFF;
-        bdOn = true, sdOn = true;
-        maxCount = 3;
-        anim = 4;
-        break; 
-      default:
-        baseColor = connColor, bdColor = 0x0044FF, sdColor = 0xFF0000;
-        bdOn = true, sdOn = true;
-        maxCount = 3;
-        anim = 4;
-        break;
-    }
-    Serial.printf("Received program change : channel %d, value %d (timestamp %dms)\n", channel, value, timestamp);
+    anim = value;
+    Serial.print("Anim: ");
+    Serial.println(anim);
 }
 
 void setup() {
@@ -162,7 +130,6 @@ void setup() {
   right.begin();
   left.setBrightness(100);
   right.setBrightness(100);
-  prevTime = millis();
 }
 
 void loop() {
@@ -174,54 +141,62 @@ void loop() {
       delay(1000);
       */
   }
-  uint8_t  i;
   switch (anim) {
     case 0: // All leds on
-        animAllOn(offset, baseColor);
+      animAllOn(offset, baseColor);
       break;
     case 1: // Pulsating
-        animPulsating(offset, baseColor);
+      animPulsating(offset, baseColor);
       break;
     case 2: // Pulsating+rotating
-        animPulsatingRotating(offset, baseColor);
+      animPulsatingRotating(offset, baseColor);
       break;
     case 3: // Rotation, no drums
-        animRotating(offset, baseColor);
+      animRotating(offset, baseColor);
       break;
     case 4: // Drums only
-        animDrums(offset, baseColor, colorCount);
+      animDrums(offset, baseColor, colorCount);
       break;
     case 5: // Alternating colors
-        animAlternatingColors(offset, baseColor);
+      animAlternatingColors(offset, baseColor);
       break;
-    case 100:
+    case 6:
+      animStrobe(offset, baseColor);
+      break;
+    case 7:
+      animRotatingAndDrums(offset, baseColor, colorCount);
+      break;
     default: // Rotation + BD + SD
-        animRotatingAndDrums(offset, baseColor, colorCount);
+      animRotatingAndDrums(offset, baseColor, colorCount);
       break;
   }
-  if(!isRunning) { 
+  if(isRunning) {
     left.show();
     right.show();
-    uint32_t c = 0;
-    for(i=0; i<12; i++) {
-      left.setPixelColor (   i, c); // First eye
-      right.setPixelColor(11-i, c); // Second eye (flipped)
-    }
+  } else { 
+    animOff();
+    left.show();
+    right.show();
   }
-  left.show();
-  right.show();
   offset++;
-  if(offset>=12) offset = 0;
+  if(offset>=NUMLEDS) offset = 0;
   if(colorCount>0) colorCount--;
   delay(dly);
+}
 
+void animOff() {
+  for(uint8_t i=0; i<NUMLEDS; i++) {
+    left.setPixelColor (   i, 0x000000); // First eye
+    right.setPixelColor(11-i, 0x000000); // Second eye (flipped)
+  }
 }
 
 void animStart(uint8_t offset, uint32_t color) {
+  drums = false;
   uint32_t c;
-  for(int offset=0; offset<12; offset++) {
-      for(uint8_t i=0; i<12; i++) {
-        if(i==offset || i==offset+6 || i==offset-6)
+  for(int offset=0; offset<NUMLEDS; offset++) {
+      for(uint8_t i=0; i<NUMLEDS; i++) {
+        if(i==offset || i==offset+(NUMLEDS/2) || i==offset-(NUMLEDS/2))
           c = color;
         else
           c = 0x000000;
@@ -232,16 +207,18 @@ void animStart(uint8_t offset, uint32_t color) {
 }
 
 void animAllOn(uint8_t offset, uint32_t color) {
-  for(uint8_t i=0; i<12; i++) {
+  drums = false;
+  for(uint8_t i=0; i<NUMLEDS; i++) {
     left.setPixelColor (   i, color); // First eye
     right.setPixelColor(11-i, color); // Second eye
   }
 }
 
 void animPulsating(uint8_t offset, uint32_t color) {
+  drums = false;
   float fade = sin( ((float) millis())/1200 );
   fade *= fade;
-  for(uint8_t i=0; i<12; i++) {
+  for(uint8_t i=0; i<NUMLEDS; i++) {
     uint32_t c = dimColor(color, fade);
     left.setPixelColor (   i, c); // First eye
     right.setPixelColor(11-i, c); // Second eye
@@ -249,9 +226,10 @@ void animPulsating(uint8_t offset, uint32_t color) {
 }
 
 void animRotating(uint8_t offset, uint32_t color) {
-  for(uint8_t i=0; i<12; i++) {
+  drums = false;
+  for(uint8_t i=0; i<NUMLEDS; i++) {
     uint32_t c = 0;
-    if(i==offset || i==offset+6 || i==offset-6)
+    if(i==offset || i==offset+(NUMLEDS/2) || i==offset-(NUMLEDS/2))
       c = color;
     left.setPixelColor (   i, c); // First eye
     right.setPixelColor(11-i, c); // Second eye (flipped)
@@ -259,7 +237,8 @@ void animRotating(uint8_t offset, uint32_t color) {
 }
 
 void animPulsatingRotating(uint8_t offset, uint32_t color) {
-  for(uint8_t i=0; i<12; i++) {
+  drums = false;
+  for(uint8_t i=0; i<NUMLEDS; i++) {
     float fade = sin( (float)(i+offset)/4 );
     fade *= fade;
     uint32_t c = dimColor(color, fade);
@@ -269,11 +248,12 @@ void animPulsatingRotating(uint8_t offset, uint32_t color) {
 }
 
 void animAlternatingColors(uint8_t offset, uint32_t color) {
+  drums = false;
   float fade =  sin( ((float) millis())/1200 );
   float fade2 = cos( ((float) millis())/1200 );
   fade  *= fade;
   fade2 *= fade2;
-  for(uint8_t i=0; i<12; i++) {
+  for(uint8_t i=0; i<NUMLEDS; i++) {
     uint32_t c = dimColor(color, fade, 0, fade2);
     left.setPixelColor (   i, c); // First eye
     right.setPixelColor(11-i, c); // Second eye
@@ -281,9 +261,10 @@ void animAlternatingColors(uint8_t offset, uint32_t color) {
 }
 
 void animDrums(uint8_t offset, uint32_t color, uint8_t colorCount) {
-  for(uint8_t i=0; i<12; i++) {
+  drums = true;
+  for(uint8_t i=0; i<NUMLEDS; i++) {
     uint32_t c = 0;
-    fade = (float) colorCount / 3;
+    fade = (float) colorCount / maxCount;
     fade *= fade;
     if(colorCount > 0)
       c = dimColor(color, fade);
@@ -293,19 +274,36 @@ void animDrums(uint8_t offset, uint32_t color, uint8_t colorCount) {
 }
 
 void animRotatingAndDrums(uint8_t offset, uint32_t color, uint8_t colorCount) {
-  for(uint8_t i=0; i<12; i++) {
+  drums = true;
+  for(uint8_t i=0; i<NUMLEDS; i++) {
     uint32_t c = 0;
     float fade = (float) colorCount / 3;
     fade *= fade;
     if(colorCount > 0) {
         c = dimColor(color, fade);
-      if(i==offset || i==offset+6 || i==offset-6)
-        c = dimColor(highlightColor, fade);
-    } else if(i==offset || i==offset+6 || i==offset-6) {
+      if(i==offset || i==offset+(NUMLEDS/2) || i==offset-(NUMLEDS/2))
+        c = dimColor(color, fade);
+    } else if(i==offset || i==offset+(NUMLEDS/2) || i==offset-(NUMLEDS/2)) {
       c = color;
     }
     left.setPixelColor (   i, c); // First eye
     right.setPixelColor(11-i, c); // Second eye (flipped)
+  }
+}
+
+void animStrobe(uint8_t offset, uint32_t color) {
+  drums = false;
+  uint32_t c;
+  if(!strobeOn) {
+    c = color;
+    strobeOn = true;
+  } else {
+    c = 0x000000;
+    strobeOn = false;
+  }
+  for(uint8_t i=0; i<NUMLEDS; i++) {
+    left.setPixelColor (   i, c); // First eye
+    right.setPixelColor(11-i, c); // Second eye
   }
 }
 
