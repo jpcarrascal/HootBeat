@@ -1,9 +1,9 @@
 
 var devices = [null, null, null, null, null];
-var pcNumberOfSongForAudiencInteraction = 18;
-var currentPC = 0;
-var currentColor1 = "000000";
-var currentColor2 = "000000";
+var current = { "pc": -1,
+                "anim": "drums",
+                "color1": "050008",
+                "color2": "050008"};
 
 function listDevices(midi) {
     console.log("Scanning devices...");
@@ -49,36 +49,38 @@ function listDevices(midi) {
                 document.getElementById("status-jp").classList.add("online");
                 document.getElementById("status-jp").innerText = "online";
                 devices[0] = midi.outputs.get(output.value.id);
-                console.log("updating PC")
-                devices[0].send([0xC0, currentPC]);
+                devices[0].send([PCBYTE, 0]); // Initializing to 0 as currentPC is -1
+                sendColorToDevice(0, current.color1, current.color2);
                 break;
             case "BT Goggle 2 Bluetooth":
                 document.getElementById("status-daniel").classList.add("online");
                 document.getElementById("status-daniel").innerText = "online";
                 devices[1] = midi.outputs.get(output.value.id);
-                devices[1].send([0xC0, currentPC]);
+                devices[1].send([PCBYTE, 0]); // Initializing to 0 as currentPC is -1
+                sendColorToDevice(1, current.color1, current.color2);
                 break;
             case "BT Goggle 3 Bluetooth":
                 document.getElementById("status-mauro").classList.add("online");
                 document.getElementById("status-mauro").innerText = "online";
                 devices[2] = midi.outputs.get(output.value.id);
-                devices[2].send([0xC0, currentPC]);
+                devices[2].send([PCBYTE, 0]);  // Initializing to 0 as currentPC is -1
+                sendColorToDevice(2, current.color1, current.color2);
                 break;
             case "Left Tube Bluetooth":
                 document.getElementById("status-left-tube").classList.add("online");
                 document.getElementById("status-left-tube").innerText = "online";
                 devices[3] = midi.outputs.get(output.value.id);
-                devices[3].send([0xC0, currentPC]);
+                devices[3].send([PCBYTE, 0]); // Initializing to 0 as currentPC is -1
                 break;
             case "Right Tube Bluetooth":
                 document.getElementById("status-right-tube").classList.add("online");
                 document.getElementById("status-right-tube").innerText = "online";
                 devices[4] = midi.outputs.get(output.value.id);
-                devices[4].send([0xC0, currentPC]);
+                devices[4].send([PCBYTE, 0]); // Initializing to 0 as currentPC is -1
                 break; 
         }
     }
-    //sendToGoggles([0xC0, currentPC]);
+    //sendToGoggles([PCMSG, currentPC]);
 }
 
 if (navigator.requestMIDIAccess) {
@@ -100,12 +102,10 @@ function triggersHandler(midiMsg) {
         midiMsg.data[1] = midiMsg.data[1] - 24;
     }
     if( isNoteOn(midiMsg.data[0])  && (midiMsg.data[1] == 36 || midiMsg.data[1] == 38) ) {
-        //console.log("Note ON\t" + midiMsg.data[1] + "\tvelocity: " + midiMsg.data[2]);
-        //if(pcNumberOfSongForAudiencInteraction !== currentPC) {
-        if(!songsForGoggles.includes(currentPC)) {
+        if(!songsForGoggles.includes(current.pc)) {
             sendToGoggles(midiMsg.data);
         }
-        if(!songsForTubes.includes(currentPC)) {
+        if(!songsForTubes.includes(current.pc)) {
             sendToTubes(midiMsg.data);
         }
     }
@@ -126,14 +126,13 @@ function pedalboardHandler(midiMsg) {
 
 function transparentHandler(midiMsg) {
     if( isNoteOn(midiMsg.data[0]) ) {
-        //if(pcNumberOfSongForAudiencInteraction !== currentPC) {
         playSample(midiMsg.data);
     }
 }
 
 function audienceHandler(what, msg) {
     var index = -1;
-    if(songsForGoggles.includes(currentPC)) {
+    if(songsForGoggles.includes(current.pc)) {
         switch (msg.who) {
             case "jp":
                 index = 0;
@@ -145,8 +144,10 @@ function audienceHandler(what, msg) {
                 index = 2;
                 break;   
         }
+        current.anim = animations["drums"];
+        sendToDevices([PCBYTE, current.anim]);
     }
-    if(songsForTubes.includes(currentPC)) {
+    if(songsForTubes.includes(current.pc)) {
         switch (msg.who) {
             case "left-tube":
                 index = 3;
@@ -157,26 +158,18 @@ function audienceHandler(what, msg) {
         }
     }
     console.log("INDEX: " + index)
+    console.log(current)
     if(index >= 0) {
         if(what == "flash") {
             if (devices[index] !== null) {
                 console.log("flash");
-                const noteOn = [0x90, 36, 0x7f];
-                devices[index].send(noteOn);
+                devices[index].send(BDMSG);
             }
         } else if(what == "set-color") {
             if (devices[index] !== null) {
                 console.log("set-color")
-                var cc;
-                var r = Math.floor(parseInt(msg.color.substring(1,3), 16)/2);
-                cc = [0xB0, 120, r];
-                devices[index].send(cc);
-                var g = Math.floor(parseInt(msg.color.substring(3,5), 16)/2);
-                cc = [0xB0, 121, g];
-                devices[index].send(cc);
-                var b = Math.floor(parseInt(msg.color.substring(5,7), 16)/2);
-                cc = [0xB0, 122, b];
-                devices[index].send(cc);
+                console.log(msg.color);
+                sendColorToDevice(index, msg.color, msg.color);
             }
         }
     }
@@ -212,6 +205,52 @@ function sendToDevices(message) {
                 devices[i].send(message);
         }
     }
+}
+
+function selectRowAndLoadSongData(pc) {
+    document.querySelectorAll(".song").forEach(song => {
+        if(song.getAttribute("pc") == pc) {
+            current.pc = pc;
+            console.log("currentPC: " + current.pc)
+            current.anim = animations[song.getAttribute("anim")];
+            current.color1 = song.getAttribute("color1");
+            current.color2 = song.getAttribute("color2");
+            song.parentElement.style.backgroundColor = "white";
+            song.parentElement.style.color = "black";
+
+            //---------- NEEDS TESTING ----------
+            // Send MIDI data, first the PC (animation) then 6 CCs (colors)
+            sendToDevices([PCBYTE, current.anim]);
+            const c1 = hexTo7bitDec(current.color1);
+            const c2 = hexTo7bitDec(current.color2);
+            c1.forEach((value, index) => {
+                sendToDevices([0xB0, 120 + index, value]);
+            });
+            c2.forEach((value, index) => {
+                sendToDevices([0xB0, 123 + index, value]);
+            });
+            //------------------------------------
+        }
+        else {
+            song.parentElement.style.backgroundColor = "transparent";
+            song.parentElement.style.color = "white";
+        }
+    });
+}
+
+function sendColorToDevice(device, color1, color2) {
+    if(color1.charAt(0) === '#')
+        color1 = color1.substring(1);
+    if(color2.charAt(0) === '#')
+        color2 = color2.substring(1);
+    const c1 = hexTo7bitDec(color1);
+    const c2 = hexTo7bitDec(color2);
+    c1.forEach((value, index) => {
+        devices[device].send([0xB0, 120 + index, value]);
+    });
+    c2.forEach((value, index) => {
+        devices[device].send([0xB0, 123 + index, value]);
+    });
 }
 
 function sendToGoggles(message) {

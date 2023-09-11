@@ -18,5 +18,5 @@ const playlist = [
     {"pc":16,"name": "SADTF2",                    "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": false, "anim": "drums", "color1": ""},
     {"pc":17,"name": "FOMO slow",                 "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": false, "anim": "drums", "color1": ""},
     {"pc":18,"name": "Si un día te vas",   "samples": "SiUnDiaTeVas", "audience_goggles": false, "audience_tubes": false, "show": true, "anim": "drums", "color1": "FF5500", "color2": "FF5500"},
-    {"pc":19,"name": "El Ansia",                "samples": "ElAnsia", "audience_goggles": false, "audience_tubes": false, "show": true, "anim": "drums", "color1": "33FF00", "color2": "000000"},
+    {"pc":19,"name": "El Ansia",                "samples": "ElAnsia", "audience_goggles": false, "audience_tubes": false, "show": true, "anim": "drums", "color1": "33FF00", "color2": "EEEE00"},
 ];

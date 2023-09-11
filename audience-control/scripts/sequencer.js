@@ -13,7 +13,8 @@ socket.on("connect", () => {
 socket.on('flash', function(msg) {
   audienceHandler('flash', msg);
   var id = "color-" + msg.who;
-  console.log(msg);
+  document.getElementById(id).style.backgroundColor = msg.color;
+  //console.log(msg);
   document.getElementById(id).classList.add("flash-border");
   setTimeout(function(){
     document.getElementById(id).classList.remove("flash-border");
@@ -25,13 +26,12 @@ socket.on('set-color', function(msg) {
   audienceHandler('set-color', msg);
   var id = "color-" + msg.who;
   document.getElementById(id).style.backgroundColor = msg.color;
-  console.log(msg.who + " set to " + msg.color)
+  //console.log(msg.who + " set to " + msg.color)
 });
 
 socket.on('track exit', function(msg) {
-  console.log(msg.who + " left")
+  //console.log(msg.who + " left")
   var elem  = "color-" + msg.who;
-  console.log(elem)
   document.getElementById(elem).style.backgroundColor = "black";
 });
 
@@ -49,17 +49,18 @@ playlist.forEach( item => {
     row.classList.add("song-row");
     let color = row.insertCell(0);
     color.classList.add("goggle-colors");
+    
     // Animation colors
     var icon = getAnimIcon(item.anim);
     var c1 = document.createElement('div');
     c1.classList.add("color-div");
     c1.style.backgroundColor = "#" + item.color1;
-    c1.innerText = icon;
+    c1.innerHTML ="<span class='anim-icon'>" + icon + "</span>";
     color.appendChild(c1);
     let c2 = document.createElement('div');
     c2.classList.add("color-div");
     c2.style.backgroundColor = "#" + item.color2;
-    c2.innerText = icon;
+    c2.innerHTML ="<span class='anim-icon'>" + icon + "</span>";
     color.appendChild(c2);
 
     // Song name:
@@ -86,7 +87,8 @@ playlist.forEach( item => {
     checkbox.classList.add("goggles-checkbox");
     checkbox.value = item.audience;
     //checkbox.id = "id";
-    checkbox.setAttribute("pc",item.pc)
+    checkbox.setAttribute("pc",item.pc);
+    checkbox.setAttribute("anim",item.anim);
     if(item.audience_goggles) {
       checkbox.checked = true;
       songsForGoggles.push(item.pc);
@@ -114,7 +116,7 @@ document.querySelectorAll(".pc-send").forEach(item => {
   item.addEventListener("click", function() {
     var pc = parseInt(this.getAttribute("pc"));
     selectRowAndLoadSongData(pc);
-    //sendToDevices([0xC0, pc]);
+    //sendToDevices([PCMSG, pc]);
     if(USEAUDIO) {
     // Load samples, if any. First stop all samples being played
       players.forEach(player => {
@@ -137,16 +139,24 @@ document.querySelectorAll(".pc-send").forEach(item => {
 
 document.querySelectorAll(".goggles-checkbox").forEach(item => {
   item.addEventListener("click", function() {
-    var pc = parseInt(this.getAttribute("pc"));
+    const pc = parseInt(this.getAttribute("pc"));
+    const anim = parseInt(animations[this.getAttribute("anim")]);
     if (this.checked) {
       songsForGoggles.push(pc);
+      if(pc == current.pc) {
+        current.anim = animations["drums"];
+        sendToDevices([PCBYTE, current.anim]);
+      }
     } else {
       const index = songsForGoggles.indexOf(pc);
       if (index > -1) { // only splice array when item is found
         songsForGoggles.splice(index, 1); // 2nd parameter means remove one item only
       }
+      if(pc == current.pc) {
+        current.anim = anim;
+        sendToDevices([PCBYTE, current.anim]);
+      }
     }
-    console.log(songsForGoggles);
   });
 });
 
@@ -161,7 +171,6 @@ document.querySelectorAll(".tubes-checkbox").forEach(item => {
         songsForTubes.splice(index, 1); // 2nd parameter means remove one item only
       }
     }
-    console.log(songsForTubes)
   });
 });
 
@@ -169,7 +178,7 @@ document.querySelectorAll(".test-devices").forEach(item => {
   item.addEventListener("click", function() {
     var note = this.getAttribute("note");
     console.log("Note on:  " + note);
-    sendToDevices([0x90, note, 127]);
+    sendToDevices([NOTEONBYTE, note, 127]);
   });
 });
 

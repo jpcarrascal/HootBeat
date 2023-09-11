@@ -1,8 +1,10 @@
-const PCMSG = 0xC0;
-const CCMSG = 0xB0;
-const NOTEONMSG = 0x90;
-const NOTETOPLEFT = 12;
-const NOTETOPRIGHT = 13;
+const PCBYTE = 0xC0;
+const CCBYTE = 0xB0;
+const NOTEONBYTE = 0x90;
+const BDMSG = [NOTEONBYTE, 36, 0x7f];
+const SDMSG = [NOTEONBYTE, 38, 0x7f];
+//const NOTETOPLEFT = 12;
+//const NOTETOPRIGHT = 13;
 const urlParams = new URLSearchParams(window.location.search);
 const USEAUDIO = urlParams.get('audio') == "true"? true : false;
 
@@ -13,36 +15,6 @@ function hexTo7bitDec(hex) {
     return [r, g, b].map(function(num) {
         return Math.floor(num / 2);
       });
-}
-
-function selectRowAndLoadSongData(pc) {
-    document.querySelectorAll(".song").forEach(song => {
-        if(song.getAttribute("pc") == pc) {
-            currentPC = animations[song.getAttribute("anim")];
-            console.log("currentPC: " + currentPC)
-            currentColor1 = song.getAttribute("color1");
-            currentColor2 = song.getAttribute("color2");
-            song.parentElement.style.backgroundColor = "white";
-            song.parentElement.style.color = "black";
-
-            //---------- NEEDS TESTING ----------
-            // Send MIDI data, first the PC (animation) then 6 CCs (colors)
-            sendToDevices([0xC0, currentPC]);
-            const c1 = hexTo7bitDec(currentColor1);
-            const c2 = hexTo7bitDec(currentColor2);
-            c1.forEach((value, index) => {
-                sendToDevices([0xB0, 120 + index, value]);
-            });
-            c2.forEach((value, index) => {
-                sendToDevices([0xB0, 123 + index, value]);
-            });
-            //------------------------------------
-        }
-        else {
-            song.parentElement.style.backgroundColor = "transparent";
-            song.parentElement.style.color = "white";
-        }
-    });
 }
 
 const animations = {"allOn": 0,
@@ -63,7 +35,7 @@ function getAnimIcon(anim) {
         case "pulsatingRotating":
             return "☯";
         case "drums":
-            return "♪";
+            return "♩";
         case "alternatingColors":
             return "∞";
         case "strobe":
