@@ -38,7 +38,7 @@ var band = {
 };
 
 app.get('/', (req, res) => {
-    if(req.query.room)
+    if(req.query.room && req.query.who)
         var page = '/html/index-audience.html';
     else
         var page = '/html/out.html';
