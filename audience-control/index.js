@@ -4,6 +4,7 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
+const { AllRooms } = require("./scripts/roomsObj.js");
 const config = require('./scripts/config.js');
 var cookie = require("cookie")
 
@@ -25,6 +26,8 @@ const logger = createLogger({
       new transports.File({ filename: 'info.log' })
     ]
 });
+
+var rooms = new AllRooms(config.NUM_TRACKS, config.MAX_NUM_ROUNDS);
 
 var band = {
     jp: null,
@@ -78,14 +81,20 @@ io.on('connection', (socket) => {
     else if(socket.handshake.headers.referer.includes("conductor"))
         conductor = true;
     var room = socket.handshake.query.room;
+    //var room = "spacebarman";
     var who = socket.handshake.query.who;
     var allocationMethod = socket.handshake.query.method || "random";
     socket.join(room);
     if(seq) {
+        var cookief = socket.handshake.headers.cookie; 
+        var cookies = cookie.parse(socket.handshake.headers.cookie);    
+        //const exists = rooms.findRoom(room);
         logger.info("#" + room + " @SEQUENCER joined session.");
+        //rooms.setSeqID(room,socket.id);
         socket.on('disconnect', () => {
             logger.info("#" + room + " @SEQUENCER disconnected (sequencer). Clearing session");
             socket.broadcast.to(room).emit('exit session',{reason: "Sequencer exited!"});
+            //rooms.clearRoom(room);
         });
     }  else {
         if(band[who] !== null) {
@@ -115,7 +124,7 @@ io.on('connection', (socket) => {
         logger.info("#" + room + " Kicking everybody out!");
     });
 
-    // Messages from audience interaction:
+    // Messages from audience:
     socket.on('flash', (msg) => {
         socket.broadcast.to(room).emit('flash', msg);
         logger.info("#" + room + " @" + msg.who + " (" + socket.id + ") flash! color:" + msg.color);
