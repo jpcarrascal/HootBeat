@@ -29,7 +29,7 @@ socket.on('set-color', function(msg) {
   //console.log(msg.who + " set to " + msg.color)
 });
 
-socket.on('track exit', function(msg) {
+socket.on('audience-exit', function(msg) {
   //console.log(msg.who + " left")
   var elem  = "color-" + msg.who;
   document.getElementById(elem).style.backgroundColor = "black";
