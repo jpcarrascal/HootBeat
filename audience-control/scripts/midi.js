@@ -113,10 +113,7 @@ function triggersHandler(midiMsg) {
 
 function pedalboardHandler(midiMsg) {
     if ( isPC(midiMsg.data[0]) && (midiMsg.data[0] & 0x0F) == 12 ) { // Program Change
-        let receivedPC = midiMsg.data[1];
-        //console.log("PC change: " + midiMsg.data[1]);
         selectRowAndLoadSongData(midiMsg.data[1]);
-        //sendToDevices(midiMsg.data);
     } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == 123 ) {
         sendToTubes(midiMsg.data);
     } /*else if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == NOTETOPLEFT || midiMsg.data[1] == NOTETOPRIGHT) ) {
@@ -217,9 +214,6 @@ function selectRowAndLoadSongData(pc) {
             current.color2 = song.getAttribute("color2");
             song.parentElement.style.backgroundColor = "white";
             song.parentElement.style.color = "black";
-
-            //---------- NEEDS TESTING ----------
-            // Send MIDI data, first the PC (animation) then 6 CCs (colors)
             sendToDevices([PCBYTE, current.anim]);
             const c1 = hexTo7bitDec(current.color1);
             const c2 = hexTo7bitDec(current.color2);
@@ -229,7 +223,9 @@ function selectRowAndLoadSongData(pc) {
             c2.forEach((value, index) => {
                 sendToDevices([0xB0, 123 + index, value]);
             });
-            //------------------------------------
+            if(!songsForGoggles.includes(current.pc)) {
+                socket.emit('kick-all-out', {} );
+            }
         }
         else {
             song.parentElement.style.backgroundColor = "transparent";

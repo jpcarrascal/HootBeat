@@ -49,6 +49,12 @@ socket.on('kick-out', function(msg) {
     }
 });
 
+socket.on('kick-all-out', function(msg) {
+    console.log("Kicked everybody out (nothing personal)")
+    document.location.replace("/out");
+});
+
+
 function findGetParameter(parameterName) {
     var result = null,
         tmp = [];

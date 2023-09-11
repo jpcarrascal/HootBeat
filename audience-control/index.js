@@ -129,7 +129,7 @@ io.on('connection', (socket) => {
         //io.to(socket.id).emit('create track', {});
 
     }
-
+/*
     socket.on('step update', (msg) => { // Send step values
         io.to(room).emit('step update', msg);
         rooms.participantStartCounting(room, socket.id);
@@ -168,10 +168,6 @@ io.on('connection', (socket) => {
         logger.info("#" + room + " Stopped.");
     });
 
-    socket.on('ping', (msg) => {
-        io.to(socket.id).emit('pong', msg);
-    });
-
     socket.on('track mute', (msg) => {
         console.log(msg)
         socket.broadcast.to(room).emit('track mute', msg);
@@ -188,6 +184,15 @@ io.on('connection', (socket) => {
 
     socket.on('hide toggle', (msg) => {
         socket.broadcast.to(room).emit('hide toggle track', {value: msg.value});
+    });
+*/
+    socket.on('ping', (msg) => {
+        io.to(socket.id).emit('pong', msg);
+    });
+
+    socket.on('kick-all-out', (msg) => {
+        socket.broadcast.to(room).emit('kick-all-out', msg);
+        logger.info("#" + room + " Kicking everybody out!");
     });
 
     socket.on('flash', (msg) => {
