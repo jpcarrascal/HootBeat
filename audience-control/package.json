@@ -1,7 +1,7 @@
 {
-    "name": "Count-Me-In",
+    "name": "HootBeat",
     "version": "0.0.1",
-    "description": "Collaborative Step Sequencer",
+    "description": "Personal lighting with audience participation",
     "dependencies": {
         "cookie": "^0.4.2",
         "express": "^4.17.1",
