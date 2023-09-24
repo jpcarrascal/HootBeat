@@ -16,7 +16,7 @@ HootBeat::HootBeat(uint8_t numStrips, uint16_t numLeds) {
   this->numStrips = numStrips;
   this->numLeds = numLeds;
   setColor1(disconnColor);
-  isRunning = true;
+  this->isRunning = true;
 }
 
 void HootBeat::setColor1(uint32_t color) {
@@ -24,9 +24,6 @@ void HootBeat::setColor1(uint32_t color) {
 }
 
 void HootBeat::step() {
-  if(!this->isRunning) {
-    animOff();
-  }
   this->offset++;
   if(this->offset >= this->numLeds) this->offset = 0;
   if(this->colorCount>0) this->colorCount--;

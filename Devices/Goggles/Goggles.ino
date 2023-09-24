@@ -161,6 +161,9 @@ void loop() {
       hb.animRotatingAndDrums();
       break;
   }
+  if(!hb.isRunning) {
+    hb.animOff();
+  }
   for(int i=0; i<NUMSTRIPS; i++) {
     strips[i].show();
   }
