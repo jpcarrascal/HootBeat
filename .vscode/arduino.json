@@ -2,5 +2,6 @@
     "configuration": "FlashFreq=80,PartitionScheme=default,CPUFreq=240,UploadSpeed=921600,DebugLevel=none,EraseFlash=none",
     "board": "esp32:esp32:lolin32",
     "port": "/dev/tty.usbserial-1420",
-    "sketch": "Devices/Goggles/Goggles.ino"
+    "sketch": "Devices/Goggles/Goggles.ino",
+    "programmer": "esptool"
 }
