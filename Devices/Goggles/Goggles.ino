@@ -6,6 +6,7 @@
 #include <Arduino.h>
 #include <BLEMidi.h>
 #include <Adafruit_NeoPixel.h>
+#include "hootbeat.h"
 
 #ifdef ESP32
   #include <WiFi.h>
@@ -13,22 +14,25 @@
   #include <ESP8266WiFi.h>
 #endif
 
+#define BOARD2 "94:B9:7E:D4:D1:50"
+#define BOARD3 "7C:9E:BD:4B:30:44" //"C8:C9:A3:D1:F5:88" 
+// Hardware-specific
 #define PINL 16
 #define PINR 17
 #define NUMLEDS 12
-#define BOARD2 "94:B9:7E:D4:D1:50"
-#define BOARD3 "7C:9E:BD:4B:30:44" //"C8:C9:A3:D1:F5:88" 
-
+#define NUMSTRIPS 2
 
 Adafruit_NeoPixel left  = Adafruit_NeoPixel(NUMLEDS, PINL);
 Adafruit_NeoPixel right = Adafruit_NeoPixel(NUMLEDS, PINR);
+Adafruit_NeoPixel strips[] = {left, right};
+uint8_t directions[] = {LEFT, RIGHT};
 
 
-uint8_t  anim       = 100,  // Current animation
-         offset     = 0,  // Position of spinny eyes
-         dly        = 41,  // Time delay
-         colorCount = 4,  // For color envelope
-         maxCount   = 4; // Length of drum hits
+uint8_t  anim       = 100,
+         offset     = 0,
+         dly        = 41,
+         colorCount = 4,
+         maxCount   = 4;
 float fade = 0, fade2 = 0, fade3 = 0; // Color intensities
 uint8_t r1=0, g1=0, b1=0;
 uint8_t r2=0, g2=0, b2=0;
@@ -126,10 +130,10 @@ void setup() {
   BLEMidiServer.setProgramChangeCallback(onProgramChange);
   //BLEMidiServer.enableDebugging();
 
-  left.begin();
-  right.begin();
-  left.setBrightness(100);
-  right.setBrightness(100);
+  for(int i=0; i<NUMSTRIPS; i++) {
+    strips[i].begin();
+    strips[i].setBrightness(100);
+  }
 }
 
 void loop() {
@@ -170,13 +174,11 @@ void loop() {
       animRotatingAndDrums(offset, baseColor, colorCount);
       break;
   }
-  if(isRunning) {
-    left.show();
-    right.show();
-  } else { 
+  if(!isRunning) {
     animOff();
-    left.show();
-    right.show();
+  }
+  for(int i=0; i<NUMSTRIPS; i++) {
+    strips[i].show();
   }
   offset++;
   if(offset>=NUMLEDS) offset = 0;
@@ -184,33 +186,22 @@ void loop() {
   delay(dly);
 }
 
-void animOff() {
-  for(uint8_t i=0; i<NUMLEDS; i++) {
-    left.setPixelColor (   i, 0x000000); // First eye
-    right.setPixelColor(11-i, 0x000000); // Second eye (flipped)
+void setPixelAllStrips(uint8_t pixel, uint32_t color) {
+  for(int j=0; j<NUMSTRIPS; j++) {
+    strips[j].setPixelColor( directions[j] == LEFT? pixel : (NUMLEDS-(pixel+1)) , color);
   }
 }
 
-void animStart(uint8_t offset, uint32_t color) {
-  drums = false;
-  uint32_t c;
-  for(int offset=0; offset<NUMLEDS; offset++) {
-      for(uint8_t i=0; i<NUMLEDS; i++) {
-        if(i==offset || i==offset+(NUMLEDS/2) || i==offset-(NUMLEDS/2))
-          c = color;
-        else
-          c = 0x000000;
-        left.setPixelColor (   i, c); // First eye
-        right.setPixelColor(11-i, c); // Second eye (flipped)
-    }
+void animOff() {
+  for(int i=0; i<NUMLEDS; i++) {
+    setPixelAllStrips(i, 0x000000);
   }
 }
 
 void animAllOn(uint8_t offset, uint32_t color) {
   drums = false;
-  for(uint8_t i=0; i<NUMLEDS; i++) {
-    left.setPixelColor (   i, color); // First eye
-    right.setPixelColor(11-i, color); // Second eye
+  for(int i=0; i<NUMLEDS; i++) {
+    setPixelAllStrips(i, color);
   }
 }
 
@@ -218,32 +209,29 @@ void animPulsating(uint8_t offset, uint32_t color) {
   drums = false;
   float fade = sin( ((float) millis())/1200 );
   fade *= fade;
-  for(uint8_t i=0; i<NUMLEDS; i++) {
+  for(int i=0; i<NUMLEDS; i++) {
     uint32_t c = dimColor(color, fade);
-    left.setPixelColor (   i, c); // First eye
-    right.setPixelColor(11-i, c); // Second eye
+    setPixelAllStrips(i, c);
   }
 }
 
 void animRotating(uint8_t offset, uint32_t color) {
   drums = false;
-  for(uint8_t i=0; i<NUMLEDS; i++) {
+  for(int i=0; i<NUMLEDS; i++) {
     uint32_t c = 0;
     if(i==offset || i==offset+(NUMLEDS/2) || i==offset-(NUMLEDS/2))
       c = color;
-    left.setPixelColor (   i, c); // First eye
-    right.setPixelColor(11-i, c); // Second eye (flipped)
+    setPixelAllStrips(i, c);
   }
 }
 
 void animPulsatingRotating(uint8_t offset, uint32_t color) {
   drums = false;
-  for(uint8_t i=0; i<NUMLEDS; i++) {
+  for(int i=0; i<NUMLEDS; i++) {
     float fade = sin( (float)(i+offset)/4 );
     fade *= fade;
     uint32_t c = dimColor(color, fade);
-    left.setPixelColor (11-i, c); // First eye
-    right.setPixelColor(   i, c); // Second eye
+    setPixelAllStrips(i, c);
   }
 }
 
@@ -253,29 +241,27 @@ void animAlternatingColors(uint8_t offset, uint32_t color) {
   float fade2 = cos( ((float) millis())/1200 );
   fade  *= fade;
   fade2 *= fade2;
-  for(uint8_t i=0; i<NUMLEDS; i++) {
+  for(int i=0; i<NUMLEDS; i++) {
     uint32_t c = dimColor(color, fade, 0, fade2);
-    left.setPixelColor (   i, c); // First eye
-    right.setPixelColor(11-i, c); // Second eye
+    setPixelAllStrips(i, c);
   }
 }
 
 void animDrums(uint8_t offset, uint32_t color, uint8_t colorCount) {
   drums = true;
-  for(uint8_t i=0; i<NUMLEDS; i++) {
+  for(int i=0; i<NUMLEDS; i++) {
     uint32_t c = 0;
     fade = (float) colorCount / maxCount;
     fade *= fade;
     if(colorCount > 0)
       c = dimColor(color, fade);
-    left.setPixelColor (   i, c); // First eye
-    right.setPixelColor(11-i, c); // Second eye (flipped)
+    setPixelAllStrips(i, c);
   }
 }
 
 void animRotatingAndDrums(uint8_t offset, uint32_t color, uint8_t colorCount) {
   drums = true;
-  for(uint8_t i=0; i<NUMLEDS; i++) {
+  for(int i=0; i<NUMLEDS; i++) {
     uint32_t c = 0;
     float fade = (float) colorCount / 3;
     fade *= fade;
@@ -286,8 +272,7 @@ void animRotatingAndDrums(uint8_t offset, uint32_t color, uint8_t colorCount) {
     } else if(i==offset || i==offset+(NUMLEDS/2) || i==offset-(NUMLEDS/2)) {
       c = color;
     }
-    left.setPixelColor (   i, c); // First eye
-    right.setPixelColor(11-i, c); // Second eye (flipped)
+    setPixelAllStrips(i, c);
   }
 }
 
@@ -301,9 +286,8 @@ void animStrobe(uint8_t offset, uint32_t color) {
     c = 0x000000;
     strobeOn = false;
   }
-  for(uint8_t i=0; i<NUMLEDS; i++) {
-    left.setPixelColor (   i, c); // First eye
-    right.setPixelColor(11-i, c); // Second eye
+  for(int i=0; i<NUMLEDS; i++) {
+    setPixelAllStrips(i, c);
   }
 }
 

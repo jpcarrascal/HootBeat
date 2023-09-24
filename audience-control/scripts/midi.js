@@ -29,6 +29,7 @@ function listDevices(midi) {
                 document.getElementById("status-pedalboard").innerText = "online";
                 input.value.onmidimessage = pedalboardHandler;
                 break; 
+            case "IAC Driver Bus 2":
             case "IAC Driver Bus 2: notes":
                 document.getElementById("status-iac").classList.add("online");
                 document.getElementById("status-iac").innerText = "online";
