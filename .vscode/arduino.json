@@ -3,5 +3,6 @@
     "board": "esp32:esp32:lolin32",
     "port": "/dev/tty.usbserial-1420",
     "sketch": "Devices/Goggles/Goggles.ino",
-    "programmer": "esptool"
+    "programmer": "esptool",
+    "output": "../ArduinoOutput"
 }

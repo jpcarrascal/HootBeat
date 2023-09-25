@@ -11,12 +11,42 @@ uint32_t connColor      = 0x080808,
          sdColor        = 0xFF0000;
 bool drums = false, strobeOn = true;
 
-HootBeat::HootBeat(uint8_t numStrips, uint16_t numLeds) {
-  // Constructor
-  this->numStrips = numStrips;
+HootBeat::HootBeat(uint16_t numLeds, int pin1, int pin2) {
+  this->numStrips = 2;
   this->numLeds = numLeds;
   setColor1(disconnColor);
   this->isRunning = true;
+  /*
+  // This should work but doesn't... it causes strange cycling
+  for(int i=0; i<this->numStrips; i++) {
+    this->strips[i] = Adafruit_NeoPixel(this->numLeds, *pins+i);
+    this->directions[i] = i%2;
+    this->strips[i].begin();
+    this->strips[i].setBrightness(100);
+  }
+  */
+  Adafruit_NeoPixel aStrip  = Adafruit_NeoPixel(this->numLeds, pin1);
+  this->strips[0] = aStrip;
+  this->directions[0] = 0;
+  this->strips[0].begin();
+  this->strips[0].setBrightness(100);
+  Adafruit_NeoPixel aStrip2  = Adafruit_NeoPixel(this->numLeds, pin2);
+  this->strips[1] = aStrip2;
+  this->directions[1] = 1;
+  this->strips[1].begin();
+  this->strips[1].setBrightness(100);
+
+}
+
+HootBeat::HootBeat(uint16_t numLeds, int pin) {
+  this->numStrips = 1;
+  this->numLeds = numLeds;
+  setColor1(disconnColor);
+  this->isRunning = true;
+  this->strips[0] = Adafruit_NeoPixel(this->numLeds, pin);
+  this->directions[0] = 0;
+  this->strips[0].begin();
+  this->strips[0].setBrightness(100);
 }
 
 void HootBeat::setColor1(uint32_t color) {
@@ -24,14 +54,26 @@ void HootBeat::setColor1(uint32_t color) {
 }
 
 void HootBeat::step() {
+  if(!this->isRunning) {
+    animAllOff();
+  }
+  for(int i=0; i<this->numStrips; i++) {
+    this->strips[i].show();
+  }
   this->offset++;
   if(this->offset >= this->numLeds) this->offset = 0;
   if(this->colorCount>0) this->colorCount--;
   delay(this->dly);
 }
 
-void HootBeat::setColorCount() {
+void HootBeat::triggerFlash() {
+  this->maxCount = this->normalMaxCount;
   this->colorCount = this->maxCount;
+}
+
+void HootBeat::triggerFlash(uint8_t length) {
+  this->maxCount = length;
+  this->colorCount = length;
 }
 
 void HootBeat::setColor1(uint8_t r, uint8_t g, uint8_t b) {
@@ -40,11 +82,11 @@ void HootBeat::setColor1(uint8_t r, uint8_t g, uint8_t b) {
 
 void HootBeat::setPixelAllStrips(uint8_t pixel, uint32_t color) {
   for(int j=0; j<this->numStrips; j++) {
-    strips[j].setPixelColor( directions[j] == LEFT? pixel : (this->numLeds-(pixel+1)) , color);
+    this->strips[j].setPixelColor( this->directions[j] == LEFT? pixel : (this->numLeds-(pixel+1)) , color );
   }
 }
 
-void HootBeat::animOff() {
+void HootBeat::animAllOff() {
   for(int i=0; i<this->numLeds; i++) {
     setPixelAllStrips(i, 0x000000);
   }

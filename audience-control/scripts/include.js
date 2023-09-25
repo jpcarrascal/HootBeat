@@ -17,17 +17,21 @@ function hexTo7bitDec(hex) {
       });
 }
 
-const animations = {"allOn": 0,
-                    "pulsating": 1,
-                    "pulsatingRotating": 2,
-                    "rotating": 3,
-                    "drums": 4,
-                    "alternatingColors": 5,
-                    "strobe": 6,
-                    "rotatingAndDrums": 7};
+const animations = {"allOff": 0,
+                    "allOn": 1,
+                    "pulsating": 2,
+                    "pulsatingRotating": 3,
+                    "rotating": 4,
+                    "drums": 5,
+                    "alternatingColors": 6,
+                    "strobe": 7,
+                    "rotatingAndDrums": 8
+                };
 
 function getAnimIcon(anim) {
     switch(anim) {
+        case "allOff":
+            return "";
         case "allOn":
             return "●";
         case "pulsating":

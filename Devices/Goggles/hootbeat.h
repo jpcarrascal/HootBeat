@@ -12,8 +12,8 @@
 #define LEFT 0
 #define RIGHT 1
 
-extern Adafruit_NeoPixel strips[];
-extern uint8_t directions[];
+//extern Adafruit_NeoPixel strips[];
+//extern uint8_t directions[];
 
 extern uint8_t  anim, offset, dly;
 extern float fade, fade2, fade3; // Color intensities
@@ -24,13 +24,15 @@ extern bool drums, strobeOn;
 
 class HootBeat {
   public:
-    HootBeat(uint8_t numStrips, uint16_t numLeds);
+    HootBeat(uint16_t numLeds, int pin1, int pin2);
+    HootBeat(uint16_t numLeds, int pin);
     void step();
-    void setColorCount();
+    void triggerFlash();
+    void triggerFlash(uint8_t length);
     void setColor1(uint32_t color);
     void setColor1(uint8_t r, uint8_t g, uint8_t b);
     void setPixelAllStrips(uint8_t pixel, uint32_t color);
-    void animOff();
+    void animAllOff();
     void animAllOn();
     void animPulsating();
     void animRotating();
@@ -47,8 +49,11 @@ class HootBeat {
     uint8_t dly = 41;
     uint8_t colorCount = 4;
     uint8_t maxCount = 4;
+    uint8_t normalMaxCount = 4;
     uint8_t numStrips;
     uint16_t numLeds;
+    Adafruit_NeoPixel strips[8]; // Max number of strips is 8 for now
+    uint8_t directions[8]; // Max number of strips is 8 for now
     uint32_t dimColor(uint32_t color, float fade);
     uint32_t dimColor(uint32_t color, float fade1, float fade2, float fade3);
 };

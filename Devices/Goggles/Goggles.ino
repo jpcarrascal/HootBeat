@@ -20,17 +20,81 @@
 #define PINL 16
 #define PINR 17
 #define NUMLEDS 12
-#define NUMSTRIPS 2
 
 // Hardware-specific
-
-Adafruit_NeoPixel left  = Adafruit_NeoPixel(NUMLEDS, PINL);
-Adafruit_NeoPixel right = Adafruit_NeoPixel(NUMLEDS, PINR);
-Adafruit_NeoPixel strips[] = {left, right};
-uint8_t directions[] = {LEFT, RIGHT};
-HootBeat hb = HootBeat(NUMSTRIPS, NUMLEDS);
+HootBeat hb = HootBeat(NUMLEDS, PINL, PINR);
 
 String addr;
+
+void setup() {
+  Serial.begin(115200);
+  addr = WiFi.macAddress();
+  Serial.println(addr);
+  if(addr == BOARD2) {
+      BLEMidiServer.begin("BT Goggle 2");
+  } else if(addr == BOARD3) {
+    BLEMidiServer.begin("BT Goggle 3");
+  } else {
+    BLEMidiServer.begin("BT Goggle 1");
+  }
+  BLEMidiServer.setOnConnectCallback([](){
+    Serial.println("Connected");
+    hb.setColor1(connColor);
+    anim = 100;
+  });
+  BLEMidiServer.setOnDisconnectCallback([](){ // callback with a lambda function
+    Serial.println("Disconnected");
+    hb.setColor1(disconnColor);
+    hb.isRunning = true;
+    anim = 100;
+  });
+  BLEMidiServer.setNoteOnCallback(onNoteOn);
+  BLEMidiServer.setNoteOffCallback(onNoteOff);
+  BLEMidiServer.setControlChangeCallback(onControlChange);
+  BLEMidiServer.setProgramChangeCallback(onProgramChange);
+  //BLEMidiServer.enableDebugging();
+}
+
+void loop() {
+  if (BLEMidiServer.isConnected()) {
+
+  }
+  switch (anim) {
+    case 0: // All leds on
+      hb.animAllOff();
+      break;
+    case 1: // All leds on
+      hb.animAllOn();
+      break;
+    case 2: // Pulsating
+      hb.animPulsating();
+      break;
+    case 3: // Pulsating+rotating
+      hb.animPulsatingRotating();
+      break;
+    case 4: // Rotation, no drums
+      hb.animRotating();
+      break;
+    case 5: // Drums only
+      hb.animDrums();
+      break;
+    case 6: // Alternating colors
+      hb.animAlternatingColors();
+      break;
+    case 7:
+      hb.animStrobe();
+      break;
+    case 8:
+      hb.animRotatingAndDrums();
+      break;
+    default: // Rotation + BD + SD
+      hb.animRotatingAndDrums();
+      break;
+  }
+  hb.step();
+}
+
+// MIDI Callbacks:
 
 void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
 {
@@ -38,14 +102,17 @@ void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestam
   if(velocity > 0 && drums) {
     if(note == 36 && bdColor > 0) {
       hb.setColor1(bdColor);
-      hb.setColorCount();  
+      hb.triggerFlash();  
     }
     else if(note == 38 && sdColor > 0) {
       hb.setColor1(sdColor);
-      hb.setColorCount();
+      hb.triggerFlash();
+    } else if(note == 49) {
+      hb.setColor1(bdColor);
+      hb.triggerFlash(24);
     }
   }
-  //Serial.printf("Received note on : channel %d, note %d, velocity %d (timestamp %dms)\n", channel, note, velocity, timestamp);
+  Serial.printf("Received note on : channel %d, note %d, velocity %d (timestamp %dms)\n", channel, note, velocity, timestamp);
 }
 
 void onNoteOff(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
@@ -88,86 +155,3 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
     Serial.print("Anim: ");
     Serial.println(anim);
 }
-
-void setup() {
-  Serial.begin(115200);
-  addr = WiFi.macAddress();
-  Serial.println(addr);
-  if(addr == BOARD2) {
-      BLEMidiServer.begin("BT Goggle 2");
-  } else if(addr == BOARD3) {
-    BLEMidiServer.begin("BT Goggle 3");
-  } else {
-    BLEMidiServer.begin("BT Goggle 1");
-  }
-  BLEMidiServer.setOnConnectCallback([](){
-    Serial.println("Connected");
-    hb.setColor1(connColor);
-    anim = 100;
-  });
-  BLEMidiServer.setOnDisconnectCallback([](){ // callback with a lambda function
-    Serial.println("Disconnected");
-    hb.setColor1(disconnColor);
-    hb.isRunning = true;
-    anim = 100;
-  });
-  BLEMidiServer.setNoteOnCallback(onNoteOn);
-  BLEMidiServer.setNoteOffCallback(onNoteOff);
-  BLEMidiServer.setControlChangeCallback(onControlChange);
-  BLEMidiServer.setProgramChangeCallback(onProgramChange);
-  //BLEMidiServer.enableDebugging();
-
-  for(int i=0; i<NUMSTRIPS; i++) {
-    strips[i].begin();
-    strips[i].setBrightness(100);
-  }
-}
-
-void loop() {
-  if (BLEMidiServer.isConnected()) {
-      /*
-      BLEMidiServer.noteOn(0, 69, 127);
-      delay(1000);
-      BLEMidiServer.noteOff(0, 69, 127);
-      delay(1000);
-      */
-  }
-  switch (anim) {
-    case 0: // All leds on
-      hb.animAllOn();
-      break;
-    case 1: // Pulsating
-      hb.animPulsating();
-      break;
-    case 2: // Pulsating+rotating
-      hb.animPulsatingRotating();
-      break;
-    case 3: // Rotation, no drums
-      hb.animRotating();
-      break;
-    case 4: // Drums only
-      hb.animDrums();
-      break;
-    case 5: // Alternating colors
-      hb.animAlternatingColors();
-      break;
-    case 6:
-      hb.animStrobe();
-      break;
-    case 7:
-      hb.animRotatingAndDrums();
-      break;
-    default: // Rotation + BD + SD
-      hb.animRotatingAndDrums();
-      break;
-  }
-  if(!hb.isRunning) {
-    hb.animOff();
-  }
-  for(int i=0; i<NUMSTRIPS; i++) {
-    strips[i].show();
-  }
-  hb.step();
-}
-
-

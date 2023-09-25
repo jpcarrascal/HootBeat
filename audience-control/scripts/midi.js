@@ -102,7 +102,7 @@ function triggersHandler(midiMsg) {
     if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == 60 || midiMsg.data[1] == 62) ) {
         midiMsg.data[1] = midiMsg.data[1] - 24;
     }
-    if( isNoteOn(midiMsg.data[0])  && (midiMsg.data[1] == 36 || midiMsg.data[1] == 38) ) {
+    if( isNoteOn(midiMsg.data[0]) ){//}  && (midiMsg.data[1] == 36 || midiMsg.data[1] == 38) ) {
         if(!songsForGoggles.includes(current.pc)) {
             sendToGoggles(midiMsg.data);
         }
