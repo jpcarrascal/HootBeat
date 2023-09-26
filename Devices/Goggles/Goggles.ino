@@ -21,10 +21,17 @@
 #define PINR 17
 #define NUMLEDS 12
 
-// Hardware-specific
-HootBeat hb = HootBeat(NUMLEDS, PINL, PINR);
-
 String addr;
+
+uint8_t anim = 100;
+uint8_t r1=0, g1=0, b1=0;
+uint8_t r2=0, g2=0, b2=0;
+uint32_t connColor      = 0x080808,
+         disconnColor   = 0x080000,
+         bdColor        = 0x0044FF,
+         sdColor        = 0xFF0000;
+
+HootBeat hb = HootBeat(NUMLEDS, PINL, PINR);
 
 void setup() {
   Serial.begin(115200);
@@ -39,12 +46,12 @@ void setup() {
   }
   BLEMidiServer.setOnConnectCallback([](){
     Serial.println("Connected");
-    hb.setColor1(connColor);
+    hb.setColor(connColor);
     anim = 100;
   });
   BLEMidiServer.setOnDisconnectCallback([](){ // callback with a lambda function
     Serial.println("Disconnected");
-    hb.setColor1(disconnColor);
+    hb.setColor(disconnColor);
     hb.isRunning = true;
     anim = 100;
   });
@@ -59,39 +66,7 @@ void loop() {
   if (BLEMidiServer.isConnected()) {
 
   }
-  switch (anim) {
-    case 0: // All leds on
-      hb.animAllOff();
-      break;
-    case 1: // All leds on
-      hb.animAllOn();
-      break;
-    case 2: // Pulsating
-      hb.animPulsating();
-      break;
-    case 3: // Pulsating+rotating
-      hb.animPulsatingRotating();
-      break;
-    case 4: // Rotation, no drums
-      hb.animRotating();
-      break;
-    case 5: // Drums only
-      hb.animDrums();
-      break;
-    case 6: // Alternating colors
-      hb.animAlternatingColors();
-      break;
-    case 7:
-      hb.animStrobe();
-      break;
-    case 8:
-      hb.animRotatingAndDrums();
-      break;
-    default: // Rotation + BD + SD
-      hb.animRotatingAndDrums();
-      break;
-  }
-  hb.step();
+  hb.step(anim);
 }
 
 // MIDI Callbacks:
@@ -99,16 +74,16 @@ void loop() {
 void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
 {
   hb.isRunning = true;
-  if(velocity > 0 && drums) {
+  if(velocity > 0) {// && hb.drums) {
     if(note == 36 && bdColor > 0) {
-      hb.setColor1(bdColor);
+      hb.setColor(bdColor);
       hb.triggerFlash();  
     }
     else if(note == 38 && sdColor > 0) {
-      hb.setColor1(sdColor);
+      hb.setColor(sdColor);
       hb.triggerFlash();
     } else if(note == 49) {
-      hb.setColor1(bdColor);
+      hb.setColor(bdColor);
       hb.triggerFlash(24);
     }
   }
@@ -129,7 +104,7 @@ void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_
   if(controller == 122)
     b1 = value*2;
   bdColor = hb.rgb2color(r1, g1, b1);
-  hb.setColor1(r1, g1, b1);
+  hb.setColor(r1, g1, b1);
   if(controller == 123)
     r2 = value*2;
   if(controller == 124)
@@ -139,11 +114,11 @@ void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_
   sdColor = hb.rgb2color(r2, g2, b2);
   //Serial.printf("Received control change : channel %d, controller %d, value %d (timestamp %dms)\n", channel, controller, value, timestamp);
   if(controller == 122) {
-    Serial.print("BD color: ");
+    Serial.print("BD color: #");
     Serial.println(bdColor, HEX);
   }
   if(controller == 125) {
-    Serial.print("SD color: ");
+    Serial.print("SD color: #");
     Serial.println(sdColor, HEX);
   }
 }

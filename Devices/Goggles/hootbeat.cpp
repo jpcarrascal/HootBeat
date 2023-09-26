@@ -1,20 +1,14 @@
+/*
+  HootBeat.cpp - Neopixel animations to use with BLE MIDI
+  Created by JP Carrascal (https://github.com/jpcarrascal).
+  Released into the public domain.
+*/
 #include "hootbeat.h"
-
-uint8_t anim = 100;
-float fade = 0, fade2 = 0, fade3 = 0; // Color intensities
-uint8_t r1=0, g1=0, b1=0;
-uint8_t r2=0, g2=0, b2=0;
-uint32_t connColor      = 0x080808,
-         disconnColor   = 0x080000,
-         color1         = 0x080000,
-         bdColor        = 0x0044FF,
-         sdColor        = 0xFF0000;
-bool drums = false, strobeOn = true;
 
 HootBeat::HootBeat(uint16_t numLeds, int pin1, int pin2) {
   this->numStrips = 2;
   this->numLeds = numLeds;
-  setColor1(disconnColor);
+  setColor(DISCONNCOLOR);
   this->isRunning = true;
   /*
   // This should work but doesn't... it causes strange cycling
@@ -41,7 +35,7 @@ HootBeat::HootBeat(uint16_t numLeds, int pin1, int pin2) {
 HootBeat::HootBeat(uint16_t numLeds, int pin) {
   this->numStrips = 1;
   this->numLeds = numLeds;
-  setColor1(disconnColor);
+  setColor(DISCONNCOLOR);
   this->isRunning = true;
   this->strips[0] = Adafruit_NeoPixel(this->numLeds, pin);
   this->directions[0] = 0;
@@ -49,11 +43,43 @@ HootBeat::HootBeat(uint16_t numLeds, int pin) {
   this->strips[0].setBrightness(100);
 }
 
-void HootBeat::setColor1(uint32_t color) {
+void HootBeat::setColor(uint32_t color) {
   this->color1 = color;
 }
 
-void HootBeat::step() {
+void HootBeat::step(uint8_t anim) {
+  switch (anim) {
+    case 0: // All leds on
+      animAllOff();
+      break;
+    case 1: // All leds on
+      animAllOn();
+      break;
+    case 2: // Pulsating
+      animPulsating();
+      break;
+    case 3: // Pulsating+rotating
+      animPulsatingRotating();
+      break;
+    case 4: // Rotation, no drums
+      animRotating();
+      break;
+    case 5: // Drums only
+      animDrums();
+      break;
+    case 6: // Alternating colors
+      animAlternatingColors();
+      break;
+    case 7:
+      animStrobe();
+      break;
+    case 8:
+      animRotatingAndDrums();
+      break;
+    default: // Rotation + BD + SD
+      animRotatingAndDrums();
+      break;
+  }
   if(!this->isRunning) {
     animAllOff();
   }
@@ -67,16 +93,20 @@ void HootBeat::step() {
 }
 
 void HootBeat::triggerFlash() {
-  this->maxCount = this->normalMaxCount;
-  this->colorCount = this->maxCount;
+  if(this->drums) {
+    this->maxCount = this->normalMaxCount;
+    this->colorCount = this->maxCount;
+  }
 }
 
 void HootBeat::triggerFlash(uint8_t length) {
-  this->maxCount = length;
-  this->colorCount = length;
+  if(this->drums) {
+    this->maxCount = length;
+    this->colorCount = length;
+  }
 }
 
-void HootBeat::setColor1(uint8_t r, uint8_t g, uint8_t b) {
+void HootBeat::setColor(uint8_t r, uint8_t g, uint8_t b) {
   this->color1 = rgb2color(r, g, b);
 }
 
@@ -93,14 +123,14 @@ void HootBeat::animAllOff() {
 }
 
 void HootBeat::animAllOn() {
-  drums = false;
+  this->drums = false;
   for(int i=0; i<this->numLeds; i++) {
     setPixelAllStrips(i, this->color1);
   }
 }
 
 void HootBeat::animPulsating() {
-  drums = false;
+  this->drums = false;
   float fade = sin( ((float) millis())/1200 );
   fade *= fade;
   for(int i=0; i<this->numLeds; i++) {
@@ -110,7 +140,7 @@ void HootBeat::animPulsating() {
 }
 
 void HootBeat::animRotating() {
-  drums = false;
+  this->drums = false;
   for(int i=0; i<this->numLeds; i++) {
     uint32_t c = 0;
     if(i==this->offset || i==this->offset+(this->numLeds/2) || i==this->offset-(this->numLeds/2))
@@ -120,7 +150,7 @@ void HootBeat::animRotating() {
 }
 
 void HootBeat::animPulsatingRotating() {
-  drums = false;
+  this->drums = false;
   for(int i=0; i<this->numLeds; i++) {
     float fade = sin( (float)(i+this->offset)/4 );
     fade *= fade;
@@ -130,7 +160,7 @@ void HootBeat::animPulsatingRotating() {
 }
 
 void HootBeat::animAlternatingColors() {
-  drums = false;
+  this->drums = false;
   float fade =  sin( ((float) millis())/1200 );
   float fade2 = cos( ((float) millis())/1200 );
   fade  *= fade;
@@ -142,10 +172,10 @@ void HootBeat::animAlternatingColors() {
 }
 
 void HootBeat::animDrums() {
-  drums = true;
+  this->drums = true;
   for(int i=0; i<this->numLeds; i++) {
     uint32_t c = 0;
-    fade = (float) this->colorCount / this->maxCount;
+    float fade = (float) this->colorCount / this->maxCount;
     fade *= fade;
     if(this->colorCount > 0)
       c = dimColor(this->color1, fade);
@@ -154,7 +184,7 @@ void HootBeat::animDrums() {
 }
 
 void HootBeat::animRotatingAndDrums() {
-  drums = true;
+  this->drums = true;
   for(int i=0; i<this->numLeds; i++) {
     uint32_t c = 0;
     float fade = (float) this->colorCount / this->maxCount;
@@ -171,20 +201,28 @@ void HootBeat::animRotatingAndDrums() {
 }
 
 void HootBeat::animStrobe() {
-  drums = false;
+  this->drums = false;
   uint32_t c;
-  if(!strobeOn) {
+  if(!this->strobeOn) {
     c = this->color1;
-    strobeOn = true;
+    this->strobeOn = true;
   } else {
     c = 0x000000;
-    strobeOn = false;
+    this->strobeOn = false;
   }
   for(int i=0; i<this->numLeds; i++) {
     setPixelAllStrips(i, c);
   }
 }
-
+/*
+uint8_t HootBeat::animIndex(String anim) {
+  for(int i=0; i<this->numAnimations; i++) {
+    if( this->animations[i] == anim )
+      return i;
+  }
+  return -1;
+}
+*/
 uint32_t HootBeat::dimColor(uint32_t color, float fade) {
     uint8_t r = fade * (float) ((color >> 16) & 0x0000FF);
     uint8_t g = fade * (float) ((color >> 8) & 0x0000FF);
