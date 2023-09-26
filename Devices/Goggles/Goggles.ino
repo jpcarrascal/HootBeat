@@ -6,7 +6,7 @@
 #include <Arduino.h>
 #include <BLEMidi.h>
 #include <Adafruit_NeoPixel.h>
-#include "hootbeat.h"
+#include <HootBeat.h>
 
 #ifdef ESP32
   #include <WiFi.h>
