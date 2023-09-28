@@ -75,6 +75,7 @@ void loop() {
 void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
 {
   hb.isRunning = true;
+  Serial.println("Running");
   if(velocity > 0) {// && hb.drums) {
     if(note == 36 && bdColor > 0) {
       hb.setColor(bdColor);
@@ -113,7 +114,7 @@ void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_
   if(controller == 125)
     b2 = value*2;
   sdColor = hb.rgb2color(r2, g2, b2);
-  //Serial.printf("Received control change : channel %d, controller %d, value %d (timestamp %dms)\n", channel, controller, value, timestamp);
+  Serial.printf("Received control change : channel %d, controller %d, value %d (timestamp %dms)\n", channel, controller, value, timestamp);
   if(controller == 122) {
     Serial.print("BD color: #");
     Serial.println(bdColor, HEX);
@@ -122,17 +123,14 @@ void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_
     Serial.print("SD color: #");
     Serial.println(sdColor, HEX);
   }
-  if(controller = 127) {
-    anim = value;
-    Serial.print("Anim change. New anim: ");
-    Serial.println(anim);
-  }
 }
 
 void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
 {
     hb.isRunning = false;
+    Serial.println("paused");
     anim = value;
     Serial.print("Anim: ");
     Serial.println(anim);
+    Serial.printf("Received PC change : channel %d, value %d (timestamp %dms)\n", channel, value, timestamp);
 }

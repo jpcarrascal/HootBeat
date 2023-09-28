@@ -1,6 +1,10 @@
 const PCBYTE = 0xC0;
 const CCBYTE = 0xB0;
 const NOTEONBYTE = 0x90;
+const GOGGLESCENECC = 126;
+const TUBESCENECC = 127;
+const NOTETOPLEFT = 12;
+const NOTETOPRIGHT = 13;
 const BDMSG = [NOTEONBYTE, 36, 0x7f];
 const SDMSG = [NOTEONBYTE, 38, 0x7f];
 //const NOTETOPLEFT = 12;

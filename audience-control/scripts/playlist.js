@@ -23,170 +23,169 @@ const playlist = [
 
 const goggleScenes = [
     {"pc":0,  "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "220099", "color2": "220099", "anim": "pulsating"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "220099", "color2": "220099", "anim": "pulsating"}	
         ]
     },
     {"pc":1,  "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "FF0000", "color2": "000000", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "FF0000", "color2": "000000", "anim": "drums"}	
         ]
     },
     {"pc":2,  "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "00FF00", "color2": "00FFFF", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "00FF00", "color2": "00FFFF", "anim": "drums"}	
         ]
     },
     {"pc":3,  "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "FF7700", "color2": "FF1100", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "FF7700", "color2": "FF1100", "anim": "drums"}	
         ]
     },
     {"pc":4,  "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "FF0000", "color2": "FF0000", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "FF0000", "color2": "FF0000", "anim": "drums"}	
         ]
     },
     {"pc":5,  "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "8800FF", "color2": "8800FF", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "8800FF", "color2": "8800FF", "anim": "drums"}	
         ]
     },
     {"pc":6,  "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "00FFFF", "color2": "00FFFF", "anim": "pulsatingRotating"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "00FFFF", "color2": "00FFFF", "anim": "pulsatingRotating"}	
         ]
     },
     {"pc":7,  "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "000000", "color2": "4600FF", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "000000", "color2": "4600FF", "anim": "drums"}	
         ]
     },
     {"pc":8,  "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "FF0000", "color2": "FF0000", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "FF0000", "color2": "FF0000", "anim": "drums"}	
         ]
     },
     {"pc":9,  "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "FF00FF", "color2": "FF00FF", "anim": "alternatingColors"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "FF00FF", "color2": "FF00FF", "anim": "alternatingColors"}	
         ]
     },
     {"pc":10, "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "0000FF", "color2": "0000FF", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "0000FF", "color2": "0000FF", "anim": "drums"}	
         ]
     },
     {"pc":11, "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "FF5500", "color2": "FF5500", "anim": "pulsating"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "FF5500", "color2": "FF5500", "anim": "pulsating"}	
         ]
     },
     {"pc":12, "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "0000FF", "color2": "0000FF", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "0000FF", "color2": "0000FF", "anim": "drums"}	
         ]
     },
     {"pc":13, "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "drums"}	
         ]
     },
     {"pc":14, "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "drums"}	
         ]
     },
     {"pc":15, "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "drums"}	
         ]
     },
     {"pc":16, "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "drums"}	
         ]
     },
     {"pc":17, "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "drums"}	
         ]
     },
     {"pc":18, "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "FF5500", "color2": "FF5500", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "FF5500", "color2": "FF5500", "anim": "drums"}	
         ]
     },
     {"pc":19, "scenes": [
-        {"name": "Default", "cc": 127, "value": 0, "color1": "00FF00", "color2": "DDDD00", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "00FF00", "color2": "DDDD00", "anim": "drums"}	
         ]
     },
 ];
 
 const tubeScenes = [
     {"pc": 0, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
-            {"name": "All off",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"}
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"}
         ]
     },
     {"pc": 1, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "FF0000", "color2": "000000", "anim": "allOff"},
-            {"name": "Strobe on SADTF",                 "cc": 127, "value": 7, "color1": "FF0000", "color2": "000000", "anim": "strobe"}
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Strobe on SADTF",                 "cc": 127, "id": 1, "color1": "FF0000", "color2": "000000", "anim": "strobe"}
         ]
     },
     {"pc": 2, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
-            {"name": "Synth on One with the machine",   "cc": 127, "value": 1, "color1": "FF0000", "color2": "000000", "anim": "strobe"},
-            {"name": "Chorus on One with the machine",  "cc": 127, "value": 2, "color1": "FF0000", "color2": "000000", "anim": "pulsatingRotating"}
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Synth on One with the machine",   "cc": 127, "id": 1, "color1": "FF0000", "color2": "000000", "anim": "strobe"},
+            {"name": "Chorus on One with the machine",  "cc": 127, "id": 2, "color1": "FF0000", "color2": "000000", "anim": "pulsatingRotating"}
         ]
     },
     {"pc": 3, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 4, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 5, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 6, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 7, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 8, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 9, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 10, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 11, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 12, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 13, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 14, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 15, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 16, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 17, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 18, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     },
     {"pc": 19, "scenes": [
-            {"name": "Default",                         "cc": 127, "value": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
         ]
     }
 ];
@@ -239,10 +238,10 @@ const defaultTubeScenes = [
 
 /*
 const altTubeScenes = [
-    {"pc": 0, "name": "All off",                         "cc": 127, "value": 0, "color": "000000", "anim": "allOff"},
-    {"pc": 1, "name": "Strobe on SADTF",                 "cc": 127, "value": 1, "color": "FF0000", "anim": "strobe"},
-    {"pc": 2, "name": "Synth on One with the machine",   "cc": 127, "value": 2, "color": "FF0000", "anim": "strobe"},
-    {"pc": 2, "name": "Chorus on One with the machine",  "cc": 127, "value": 3, "color": "FF0000", "anim": "pulsatingRotating"},
+    {"pc": 0, "name": "All off",                         "cc": 127, "id": 0, "color": "000000", "anim": "allOff"},
+    {"pc": 1, "name": "Strobe on SADTF",                 "cc": 127, "id": 1, "color": "FF0000", "anim": "strobe"},
+    {"pc": 2, "name": "Synth on One with the machine",   "cc": 127, "id": 2, "color": "FF0000", "anim": "strobe"},
+    {"pc": 2, "name": "Chorus on One with the machine",  "cc": 127, "id": 3, "color": "FF0000", "anim": "pulsatingRotating"},
 ];
 */
 

@@ -1,16 +1,18 @@
 var devices = [null, null, null, null, null];
-var currentScene = { "pc": -1,
+var currentGoggleScene = { "pc": -1,
                 "anim": "drums",
                 "color1": "050008",
                 "color2": "050008"};
-const nullScene = { "pc": 0,
-                "anim": "allOff",
-                "color1": "000000",
+var currentTubeScene = { "pc": -1,
+                "anim": "drums",
+                "color1": "050008",
                 "color2": "000000"};
+
+var currentSongScenes = {goggles: [], tubes: []};
 
 function compileSceneData(sceneTable) {
     for (var i=0; i<sceneTable.length; i++) {
-        pc = sceneTable[i].pc;
+        var pc = sceneTable[i].pc;
         for(var j=0; j<sceneTable[i].scenes.length; j++) {
             sceneTable[i].scenes[j].pc = pc;
             const animName = sceneTable[i].scenes[j].anim;
@@ -67,21 +69,21 @@ function listDevices(midi) {
                 document.getElementById("status-jp").innerText = "online";
                 devices[0] = midi.outputs.get(output.value.id);
                 devices[0].send([PCBYTE, 0]); // Initializing to 0 as currentPC is -1
-                sendColor(devices[0], currentScene.color1, currentScene.color2);
+                sendColor(devices[0], currentGoggleScene.color1, currentGoggleScene.color2);
                 break;
             case "BT Goggle 2 Bluetooth":
                 document.getElementById("status-daniel").classList.add("online");
                 document.getElementById("status-daniel").innerText = "online";
                 devices[1] = midi.outputs.get(output.value.id);
                 devices[1].send([PCBYTE, 0]); // Initializing to 0 as currentPC is -1
-                sendColor(devices[1], currentScene.color1, currentScene.color2);
+                sendColor(devices[1], currentGoggleScene.color1, currentGoggleScene.color2);
                 break;
             case "BT Goggle 3 Bluetooth":
                 document.getElementById("status-mauro").classList.add("online");
                 document.getElementById("status-mauro").innerText = "online";
                 devices[2] = midi.outputs.get(output.value.id);
                 devices[2].send([PCBYTE, 0]);  // Initializing to 0 as currentPC is -1
-                sendColor(devices[2], currentScene.color1, currentScene.color2);
+                sendColor(devices[2], currentGoggleScene.color1, currentGoggleScene.color2);
                 break;
             case "Left Tube Bluetooth":
                 document.getElementById("status-left-tube").classList.add("online");
@@ -119,10 +121,10 @@ function triggersHandler(midiMsg) {
         midiMsg.data[1] = midiMsg.data[1] - 24;
     }
     if( isNoteOn(midiMsg.data[0]) ){//}  && (midiMsg.data[1] == 36 || midiMsg.data[1] == 38) ) {
-        if(!songsForGoggles.includes(currentScene.pc)) {
+        if(!songsForGoggles.includes(currentGoggleScene.pc)) {
             sendToGoggles(midiMsg.data);
         }
-        if(!songsForTubes.includes(currentScene.pc)) {
+        if(!songsForTubes.includes(currentGoggleScene.pc)) {
             sendToTubes(midiMsg.data);
         }
     }
@@ -131,23 +133,28 @@ function triggersHandler(midiMsg) {
 function pedalboardHandler(midiMsg) {
     if ( isPC(midiMsg.data[0]) && (midiMsg.data[0] & 0x0F) == 12 ) { // Program Change
         selectRowAndLoadSongData(midiMsg.data[1]);
-    } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == 127 ) {
+    } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == GOGGLESCENECC ) {
+        sendScene(currentSongScenes.goggles[midiMsg.data[2]], "goggles");
+    } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == TUBESCENECC ) {
+        sendScene(currentSongScenes.tubes[midiMsg.data[2]], "tubes");
+    } else if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == NOTETOPLEFT || midiMsg.data[1] == NOTETOPRIGHT) ) {
         sendToTubes(midiMsg.data);
-        printMIDImsg(midiMsg.data);
-    } /*else if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == NOTETOPLEFT || midiMsg.data[1] == NOTETOPRIGHT) ) {
-        playSample(midiMsg.data);
-    }*/
+        //console.log("received top note");
+        //console.log(midiMsg.data);
+    }
 }
 
 function transparentHandler(midiMsg) {
-    if( isNoteOn(midiMsg.data[0]) ) {
-        playSample(midiMsg.data);
+    if(USEAUDIO) {
+        if( isNoteOn(midiMsg.data[0]) ) {
+            playSample(midiMsg.data);
+        }
     }
 }
 
 function audienceHandler(what, msg) {
     var index = -1;
-    if(songsForGoggles.includes(currentScene.pc)) {
+    if(songsForGoggles.includes(currentGoggleScene.pc)) {
         switch (msg.who) {
             case "jp":
                 index = 0;
@@ -159,10 +166,10 @@ function audienceHandler(what, msg) {
                 index = 2;
                 break;   
         }
-        currentScene.anim = animations["drums"];
-        sendToAllDevices([PCBYTE, currentScene.anim]);
+        currentGoggleScene.anim = animations["drums"];
+        sendToAllDevices([PCBYTE, currentGoggleScene.anim]);
     }
-    if(songsForTubes.includes(currentScene.pc)) {
+    if(songsForTubes.includes(currentGoggleScene.pc)) {
         switch (msg.who) {
             case "left-tube":
                 index = 3;
@@ -173,7 +180,7 @@ function audienceHandler(what, msg) {
         }
     }
     console.log("INDEX: " + index)
-    console.log(currentScene)
+    console.log(currentGoggleScene)
     if(index >= 0) {
         if(what == "flash") {
             if (devices[index] !== null) {
@@ -218,7 +225,6 @@ function sendToAllDevices(message) {
             }
         }
     } else {
-        console.log(message);
         for(var i=0; i<5; i++) {
             if(devices[i] !== null)
                 devices[i].send(message);
@@ -229,14 +235,15 @@ function sendToAllDevices(message) {
 function selectRowAndLoadSongData(pc) {
     document.querySelectorAll(".song").forEach(song => {
         if(song.getAttribute("pc") == pc) {
-            currentScene = getSceneData(pc, goggleScenes)[0];
-            console.log(getSceneData(pc, goggleScenes));
-            var tubeScene = getSceneData(pc, tubeScenes)[0];
+            currentSongScenes.goggles = getSceneData(pc, goggleScenes);
+            currentSongScenes.tubes = getSceneData(pc, tubeScenes);
+            currentGoggleScene = currentSongScenes.goggles[0];
+            currentTubeScene = currentSongScenes.tubes[0];
             song.parentElement.style.backgroundColor = "white";
             song.parentElement.style.color = "black";
-            sendScene(currentScene, "goggles");
-            sendScene(tubeScene, "tubes");
-            if(!songsForGoggles.includes(currentScene.pc)) {
+            sendScene(currentGoggleScene, "goggles");
+            sendScene(currentTubeScene, "tubes");
+            if(!songsForGoggles.includes(currentGoggleScene.pc)) {
                 socket.emit('kick-all-out', {} );
             }
         }
@@ -264,25 +271,13 @@ function sendColor(device, color1, color2) {
 function getSceneData(pc, sceneTable) {
     for (var i = 0; i < sceneTable.length; i++) {
       if (sceneTable[i].pc === pc) {
-/*        for(var j=0; j<sceneTable[i].scenes.length; j++) {
-            sceneTable[i].scenes[j].pc = pc;
-            const animName = sceneTable[i].scenes[j].anim;
-            sceneTable[i].scenes[j].anim = animations[animName];
-        }
-*/
         return sceneTable[i].scenes;
-//        let scene = scenes[Math.floor(Math.random() * scenes.length)];
-//        scene.pc = pc;
-//        scene.color1 = sceneTable[i].color1;
-//        scene.color2 = sceneTable[i].color2;
-//        scene.anim = animations[sceneTable[i].anim];
       }
     }
     return null;
 }
 
 function sendScene(scene, sendTo) {
-    console.log(scene);
     let devs2send = [];
     if(typeof sendTo === 'Array') {
         devs2send = sendTo;
@@ -298,8 +293,8 @@ function sendScene(scene, sendTo) {
     }
     for(var i=0; i<devs2send.length; i++) {
         if(devs2send[i] !== null) {
-            devs2send[i].send([PCBYTE, scene.anim]);
             sendColor(devs2send[i], scene.color1, scene.color2);
+            devs2send[i].send([PCBYTE, scene.anim]);
         }
     }
 }

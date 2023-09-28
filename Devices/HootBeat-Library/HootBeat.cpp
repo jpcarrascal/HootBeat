@@ -23,12 +23,12 @@ HootBeat::HootBeat(uint16_t numLeds, int pin1, int pin2) {
   this->strips[0] = aStrip;
   this->directions[0] = 0;
   this->strips[0].begin();
-  this->strips[0].setBrightness(100);
+  this->strips[0].setBrightness(255);
   Adafruit_NeoPixel aStrip2  = Adafruit_NeoPixel(this->numLeds, pin2);
   this->strips[1] = aStrip2;
   this->directions[1] = 1;
   this->strips[1].begin();
-  this->strips[1].setBrightness(100);
+  this->strips[1].setBrightness(255);
 
 }
 
