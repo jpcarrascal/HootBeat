@@ -122,6 +122,11 @@ void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_
     Serial.print("SD color: #");
     Serial.println(sdColor, HEX);
   }
+  if(controller = 127) {
+    anim = value;
+    Serial.print("Anim change. New anim: ");
+    Serial.println(anim);
+  }
 }
 
 void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)

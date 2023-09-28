@@ -1,9 +1,25 @@
-
 var devices = [null, null, null, null, null];
-var current = { "pc": -1,
+var currentScene = { "pc": -1,
                 "anim": "drums",
                 "color1": "050008",
                 "color2": "050008"};
+const nullScene = { "pc": 0,
+                "anim": "allOff",
+                "color1": "000000",
+                "color2": "000000"};
+
+function compileSceneData(sceneTable) {
+    for (var i=0; i<sceneTable.length; i++) {
+        pc = sceneTable[i].pc;
+        for(var j=0; j<sceneTable[i].scenes.length; j++) {
+            sceneTable[i].scenes[j].pc = pc;
+            const animName = sceneTable[i].scenes[j].anim;
+            sceneTable[i].scenes[j].anim = animations[animName];
+        }
+    }
+}
+compileSceneData(goggleScenes);
+compileSceneData(tubeScenes);
 
 function listDevices(midi) {
     console.log("Scanning devices...");
@@ -51,21 +67,21 @@ function listDevices(midi) {
                 document.getElementById("status-jp").innerText = "online";
                 devices[0] = midi.outputs.get(output.value.id);
                 devices[0].send([PCBYTE, 0]); // Initializing to 0 as currentPC is -1
-                sendColorToDevice(0, current.color1, current.color2);
+                sendColor(devices[0], currentScene.color1, currentScene.color2);
                 break;
             case "BT Goggle 2 Bluetooth":
                 document.getElementById("status-daniel").classList.add("online");
                 document.getElementById("status-daniel").innerText = "online";
                 devices[1] = midi.outputs.get(output.value.id);
                 devices[1].send([PCBYTE, 0]); // Initializing to 0 as currentPC is -1
-                sendColorToDevice(1, current.color1, current.color2);
+                sendColor(devices[1], currentScene.color1, currentScene.color2);
                 break;
             case "BT Goggle 3 Bluetooth":
                 document.getElementById("status-mauro").classList.add("online");
                 document.getElementById("status-mauro").innerText = "online";
                 devices[2] = midi.outputs.get(output.value.id);
                 devices[2].send([PCBYTE, 0]);  // Initializing to 0 as currentPC is -1
-                sendColorToDevice(2, current.color1, current.color2);
+                sendColor(devices[2], currentScene.color1, currentScene.color2);
                 break;
             case "Left Tube Bluetooth":
                 document.getElementById("status-left-tube").classList.add("online");
@@ -103,10 +119,10 @@ function triggersHandler(midiMsg) {
         midiMsg.data[1] = midiMsg.data[1] - 24;
     }
     if( isNoteOn(midiMsg.data[0]) ){//}  && (midiMsg.data[1] == 36 || midiMsg.data[1] == 38) ) {
-        if(!songsForGoggles.includes(current.pc)) {
+        if(!songsForGoggles.includes(currentScene.pc)) {
             sendToGoggles(midiMsg.data);
         }
-        if(!songsForTubes.includes(current.pc)) {
+        if(!songsForTubes.includes(currentScene.pc)) {
             sendToTubes(midiMsg.data);
         }
     }
@@ -115,8 +131,9 @@ function triggersHandler(midiMsg) {
 function pedalboardHandler(midiMsg) {
     if ( isPC(midiMsg.data[0]) && (midiMsg.data[0] & 0x0F) == 12 ) { // Program Change
         selectRowAndLoadSongData(midiMsg.data[1]);
-    } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == 123 ) {
+    } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == 127 ) {
         sendToTubes(midiMsg.data);
+        printMIDImsg(midiMsg.data);
     } /*else if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == NOTETOPLEFT || midiMsg.data[1] == NOTETOPRIGHT) ) {
         playSample(midiMsg.data);
     }*/
@@ -130,7 +147,7 @@ function transparentHandler(midiMsg) {
 
 function audienceHandler(what, msg) {
     var index = -1;
-    if(songsForGoggles.includes(current.pc)) {
+    if(songsForGoggles.includes(currentScene.pc)) {
         switch (msg.who) {
             case "jp":
                 index = 0;
@@ -142,10 +159,10 @@ function audienceHandler(what, msg) {
                 index = 2;
                 break;   
         }
-        current.anim = animations["drums"];
-        sendToDevices([PCBYTE, current.anim]);
+        currentScene.anim = animations["drums"];
+        sendToAllDevices([PCBYTE, currentScene.anim]);
     }
-    if(songsForTubes.includes(current.pc)) {
+    if(songsForTubes.includes(currentScene.pc)) {
         switch (msg.who) {
             case "left-tube":
                 index = 3;
@@ -156,7 +173,7 @@ function audienceHandler(what, msg) {
         }
     }
     console.log("INDEX: " + index)
-    console.log(current)
+    console.log(currentScene)
     if(index >= 0) {
         if(what == "flash") {
             if (devices[index] !== null) {
@@ -167,23 +184,25 @@ function audienceHandler(what, msg) {
             if (devices[index] !== null) {
                 console.log("set-color")
                 console.log(msg.color);
-                sendColorToDevice(index, msg.color, msg.color);
+                sendColor(devices[index], msg.color, msg.color);
             }
         }
     }
     return 0;
 }
 
-function sendToDevices(message) {
+function sendToAllDevices(message) {
     if( isPC(message[0]) ) {
         receivedPC = message[1];
-        let altMessage = [message[0], 127];
-        altMessage[1] = 4; // Drums, to be controlled by audience
+        let altMsgDrums = [message[0], 4]; // Drums, to be controlled by audience
+        let altMsgAllOff = [message[0], 0]; // All leds off
+        //let altMessage = [message[0], 127];
+        //altMessage[1] = 4; // Drums, to be controlled by audience
         // Goggles:
         for(var i=0; i<3; i++) {
             if(devices[i] !== null) {
                 if(songsForGoggles.includes(receivedPC))
-                    devices[i].send(altMessage);
+                    devices[i].send(altMsgDrums);
                 else
                     devices[i].send(message);
             }
@@ -192,12 +211,14 @@ function sendToDevices(message) {
         for(var i=3; i<5; i++) {
             if(devices[i] !== null) {
                 if(songsForTubes.includes(receivedPC))
-                    devices[i].send(altMessage);
+                    devices[i].send(altMsgDrums);
                 else
-                    devices[i].send(message);
+                    devices[i].send(altMsgAllOff); // Tubes' default is all off
+                    //devices[i].send(message);
             }
         }
     } else {
+        console.log(message);
         for(var i=0; i<5; i++) {
             if(devices[i] !== null)
                 devices[i].send(message);
@@ -208,23 +229,14 @@ function sendToDevices(message) {
 function selectRowAndLoadSongData(pc) {
     document.querySelectorAll(".song").forEach(song => {
         if(song.getAttribute("pc") == pc) {
-            current.pc = pc;
-            console.log("currentPC: " + current.pc)
-            current.anim = animations[song.getAttribute("anim")];
-            current.color1 = song.getAttribute("color1");
-            current.color2 = song.getAttribute("color2");
+            currentScene = getSceneData(pc, goggleScenes)[0];
+            console.log(getSceneData(pc, goggleScenes));
+            var tubeScene = getSceneData(pc, tubeScenes)[0];
             song.parentElement.style.backgroundColor = "white";
             song.parentElement.style.color = "black";
-            sendToDevices([PCBYTE, current.anim]);
-            const c1 = hexTo7bitDec(current.color1);
-            const c2 = hexTo7bitDec(current.color2);
-            c1.forEach((value, index) => {
-                sendToDevices([0xB0, 120 + index, value]);
-            });
-            c2.forEach((value, index) => {
-                sendToDevices([0xB0, 123 + index, value]);
-            });
-            if(!songsForGoggles.includes(current.pc)) {
+            sendScene(currentScene, "goggles");
+            sendScene(tubeScene, "tubes");
+            if(!songsForGoggles.includes(currentScene.pc)) {
                 socket.emit('kick-all-out', {} );
             }
         }
@@ -235,19 +247,61 @@ function selectRowAndLoadSongData(pc) {
     });
 }
 
-function sendColorToDevice(device, color1, color2) {
-    if(color1.charAt(0) === '#')
-        color1 = color1.substring(1);
-    if(color2.charAt(0) === '#')
-        color2 = color2.substring(1);
+function sendColor(device, color1, color2) {
+    if(typeof device === 'Integer') {
+        device = devices[device];
+    }
     const c1 = hexTo7bitDec(color1);
     const c2 = hexTo7bitDec(color2);
     c1.forEach((value, index) => {
-        devices[device].send([0xB0, 120 + index, value]);
+        device.send([0xB0, 120 + index, value]);
     });
     c2.forEach((value, index) => {
-        devices[device].send([0xB0, 123 + index, value]);
+        device.send([0xB0, 123 + index, value]);
     });
+}
+
+function getSceneData(pc, sceneTable) {
+    for (var i = 0; i < sceneTable.length; i++) {
+      if (sceneTable[i].pc === pc) {
+/*        for(var j=0; j<sceneTable[i].scenes.length; j++) {
+            sceneTable[i].scenes[j].pc = pc;
+            const animName = sceneTable[i].scenes[j].anim;
+            sceneTable[i].scenes[j].anim = animations[animName];
+        }
+*/
+        return sceneTable[i].scenes;
+//        let scene = scenes[Math.floor(Math.random() * scenes.length)];
+//        scene.pc = pc;
+//        scene.color1 = sceneTable[i].color1;
+//        scene.color2 = sceneTable[i].color2;
+//        scene.anim = animations[sceneTable[i].anim];
+      }
+    }
+    return null;
+}
+
+function sendScene(scene, sendTo) {
+    console.log(scene);
+    let devs2send = [];
+    if(typeof sendTo === 'Array') {
+        devs2send = sendTo;
+    } else if(sendTo == "all" || sendTo === undefined) {
+        devs2send = devices;
+    } else if(sendTo == "goggles") {
+        devs2send = devices.slice(0, 3);
+    } else if(sendTo == "tubes") {
+        devs2send = devices.slice(3, 5);
+    } else {
+        console.log("ERROR: sendTo must be an array or 'all', 'goggles' or 'tubes'");
+        return;
+    }
+    for(var i=0; i<devs2send.length; i++) {
+        if(devs2send[i] !== null) {
+            devs2send[i].send([PCBYTE, scene.anim]);
+            sendColor(devs2send[i], scene.color1, scene.color2);
+        }
+    }
 }
 
 function sendToGoggles(message) {

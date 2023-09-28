@@ -9,6 +9,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const USEAUDIO = urlParams.get('audio') == "true"? true : false;
 
 function hexTo7bitDec(hex) {
+    if(hex.charAt(0) === '#') hex = hex.substring(1);
     const r = parseInt(hex.substring(0, 2), 16);
     const g = parseInt(hex.substring(2, 4), 16);
     const b = parseInt(hex.substring(4, 6), 16);
@@ -30,21 +31,34 @@ const animations = {"allOff": 0,
 
 function getAnimIcon(anim) {
     switch(anim) {
+        case 0:
         case "allOff":
             return "";
+        case 1:
         case "allOn":
             return "●";
+        case 2:
         case "pulsating":
             return "❤";
+        case 3:
         case "pulsatingRotating":
             return "☯";
+        case 3:
+        case "rotating":
+            return "⚇";
+        case 5:
         case "drums":
             return "♩";
+        case 6:
         case "alternatingColors":
             return "∞";
+        case 7:
         case "strobe":
             return "✺";
+        case 8:
         case "rotatingAndDrums":
             return "♪";
+        default:
+            return "";
     }
 }

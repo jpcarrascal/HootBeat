@@ -24,13 +24,16 @@ body {
 }
 
 .color-div {
-    width: 1.1em;
-    height: 1.1em;
+    width: 1em;
+    height: 1em;
     margin-left: .2em;
+    padding: .1em;
+    font-size: .8em;
     text-align: center;
-    line-height: 1.1em;
+    line-height: 1em;
     border-radius: .6em;
     color: black;
+    border: 1px solid black;
 }
 
 .anim-icon {

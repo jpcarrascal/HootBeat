@@ -36,7 +36,7 @@ socket.on('audience-exit', function(msg) {
 });
 
 if(USEAUDIO) document.getElementById("samples").style.display = "block";
-var table = document.getElementById("playlist");
+var playlistTable = document.getElementById("playlist");
 //playlist.sort((a, b) => {
 //  return a.order - b.order;
 //});
@@ -44,22 +44,23 @@ var table = document.getElementById("playlist");
 playlist.forEach( item => {
   if(item.show) {
     // Colors:
-    let row = table.insertRow();
+    let row = playlistTable.insertRow();
     row.setAttribute("pc", item.pc);
     row.classList.add("song-row");
     let color = row.insertCell(0);
     color.classList.add("goggle-colors");
-    
+    var goggleScene = getSceneData(item.pc, goggleScenes)[0];
+    var tubeScene = getSceneData(item.pc, tubeScenes)[0];
     // Animation colors
-    var icon = getAnimIcon(item.anim);
+    var icon = getAnimIcon(goggleScene.anim);
     var c1 = document.createElement('div');
     c1.classList.add("color-div");
-    c1.style.backgroundColor = "#" + item.color1;
+    c1.style.backgroundColor = "#" + goggleScene.color1;
     c1.innerHTML ="<span class='anim-icon'>" + icon + "</span>";
     color.appendChild(c1);
     let c2 = document.createElement('div');
     c2.classList.add("color-div");
-    c2.style.backgroundColor = "#" + item.color2;
+    c2.style.backgroundColor = "#" + goggleScene.color2;
     c2.innerHTML ="<span class='anim-icon'>" + icon + "</span>";
     color.appendChild(c2);
 
@@ -67,9 +68,9 @@ playlist.forEach( item => {
     let name = row.insertCell(1);
     name.classList.add("song");
     name.setAttribute("pc", item.pc);
-    name.setAttribute("anim", item.anim);
-    name.setAttribute("color1", item.color1);
-    name.setAttribute("color2", item.color2);
+    name.setAttribute("anim", goggleScene.anim);
+    name.setAttribute("color1", goggleScene.color1);
+    name.setAttribute("color2", goggleScene.color2);
     name.innerHTML = item.name;
     if(item.samples !== "none") {
       name.innerHTML += " *";
@@ -88,7 +89,7 @@ playlist.forEach( item => {
     checkbox.value = item.audience;
     //checkbox.id = "id";
     checkbox.setAttribute("pc",item.pc);
-    checkbox.setAttribute("anim",item.anim);
+    checkbox.setAttribute("anim",goggleScene.anim);
     if(item.audience_goggles) {
       checkbox.checked = true;
       songsForGoggles.push(item.pc);
@@ -116,7 +117,6 @@ document.querySelectorAll(".pc-send").forEach(item => {
   item.addEventListener("click", function() {
     var pc = parseInt(this.getAttribute("pc"));
     selectRowAndLoadSongData(pc);
-    //sendToDevices([PCMSG, pc]);
     if(USEAUDIO) {
     // Load samples, if any. First stop all samples being played
       players.forEach(player => {
@@ -143,18 +143,18 @@ document.querySelectorAll(".goggles-checkbox").forEach(item => {
     const anim = parseInt(animations[this.getAttribute("anim")]);
     if (this.checked) {
       songsForGoggles.push(pc);
-      if(pc == current.pc) {
-        current.anim = animations["drums"];
-        sendToDevices([PCBYTE, current.anim]);
+      if(pc == currentScene.pc) {
+        currentScene.anim = animations["drums"];
+        sendToAllDevices([PCBYTE, currentScene.anim]);
       }
     } else {
       const index = songsForGoggles.indexOf(pc);
       if (index > -1) { // only splice array when item is found
         songsForGoggles.splice(index, 1); // 2nd parameter means remove one item only
       }
-      if(pc == current.pc) {
-        current.anim = anim;
-        sendToDevices([PCBYTE, current.anim]);
+      if(pc == currentScene.pc) {
+        currentScene.anim = anim;
+        sendToAllDevices([PCBYTE, currentScene.anim]);
       }
     }
   });
@@ -177,8 +177,7 @@ document.querySelectorAll(".tubes-checkbox").forEach(item => {
 document.querySelectorAll(".test-devices").forEach(item => {
   item.addEventListener("click", function() {
     var note = this.getAttribute("note");
-    console.log("Note on:  " + note);
-    sendToDevices([NOTEONBYTE, note, 127]);
+    sendToAllDevices([NOTEONBYTE, note, 127]);
   });
 });
 
