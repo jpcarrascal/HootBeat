@@ -47,6 +47,10 @@ void HootBeat::setColor(uint32_t color) {
   this->color1 = color;
 }
 
+void HootBeat::dim(float fade) {
+  this->color1 = dimColor(this->color1, fade);
+}
+
 void HootBeat::step(uint8_t anim) {
   switch (anim) {
     case 0: // All leds on

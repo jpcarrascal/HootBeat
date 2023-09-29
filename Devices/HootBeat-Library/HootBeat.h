@@ -35,6 +35,7 @@ class HootBeat {
     void triggerFlash(uint8_t length);
     void setColor(uint32_t color);
     void setColor(uint8_t r, uint8_t g, uint8_t b);
+    void dim(float fade);
     void setPixelAllStrips(uint8_t pixel, uint32_t color);
     void animAllOff();
     void animAllOn();
