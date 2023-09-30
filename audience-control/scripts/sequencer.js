@@ -154,7 +154,7 @@ document.querySelectorAll(".goggles-checkbox").forEach(item => {
       }
       if(pc == currentGoggleScene.pc) {
         currentGoggleScene.anim = anim;
-        sendToAllDevices([PCBYTE, currentGoggleScene.anim]);
+        sendToGoggles([PCBYTE, currentGoggleScene.anim]);
       }
     }
   });
@@ -169,6 +169,10 @@ document.querySelectorAll(".tubes-checkbox").forEach(item => {
       const index = songsForTubes.indexOf(pc);
       if (index > -1) { // only splice array when item is found
         songsForTubes.splice(index, 1); // 2nd parameter means remove one item only
+      }
+      if(pc == currentGoggleScene.pc) {
+        currentGoggleScene.anim = anim;
+        sendToTubes([PCBYTE, currentGoggleScene.anim]);
       }
     }
   });

@@ -16,6 +16,7 @@ function compileSceneData(sceneTable) {
         for(var j=0; j<sceneTable[i].scenes.length; j++) {
             sceneTable[i].scenes[j].pc = pc;
             const animName = sceneTable[i].scenes[j].anim;
+            sceneTable[i].scenes[j].animName = sceneTable[i].scenes[j].anim;
             sceneTable[i].scenes[j].anim = animations[animName];
         }
     }
@@ -135,8 +136,13 @@ function pedalboardHandler(midiMsg) {
         selectRowAndLoadSongData(midiMsg.data[1]);
     } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == GOGGLESCENECC ) {
         sendScene(currentSongScenes.goggles[midiMsg.data[2]], "goggles");
+        document.getElementById("current-scene-goggles").innerText = (currentSongScenes.goggles[midiMsg.data[2]].animName);
     } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == TUBESCENECC ) {
         sendScene(currentSongScenes.tubes[midiMsg.data[2]], "tubes");
+        document.getElementById("current-scene-tubes").innerText = (currentSongScenes.tubes[midiMsg.data[2]].animName);
+    } else if (isCC(midiMsg.data[0]) && (midiMsg.data[1]) == TUBEFADEECC ) {
+        //sendScene(currentSongScenes.tubes[midiMsg.data[2]], "tubes");
+        sendToTubes(midiMsg.data);
     } else if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == NOTETOPLEFT || midiMsg.data[1] == NOTETOPRIGHT) ) {
         sendToTubes(midiMsg.data);
         //console.log("received top note");
@@ -180,7 +186,6 @@ function audienceHandler(what, msg) {
         }
     }
     console.log("INDEX: " + index)
-    console.log(currentGoggleScene)
     if(index >= 0) {
         if(what == "flash") {
             if (devices[index] !== null) {
@@ -239,6 +244,8 @@ function selectRowAndLoadSongData(pc) {
             currentSongScenes.tubes = getSceneData(pc, tubeScenes);
             currentGoggleScene = currentSongScenes.goggles[0];
             currentTubeScene = currentSongScenes.tubes[0];
+            document.getElementById("current-scene-goggles").innerText = (currentGoggleScene.animName);
+            document.getElementById("current-scene-tubes").innerText = (currentTubeScene.animName);
             song.parentElement.style.backgroundColor = "white";
             song.parentElement.style.color = "black";
             sendScene(currentGoggleScene, "goggles");
