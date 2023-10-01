@@ -220,6 +220,7 @@
                 "/Users/jp/Documents/Arduino/libraries/ESP32-BLE-MIDI/src",
                 "/Users/jp/Documents/Arduino/libraries/NimBLE-Arduino/src",
                 "/Users/jp/Documents/Arduino/libraries/Adafruit_NeoPixel",
+                "/Users/jp/Documents/Arduino/libraries/HootBeat",
                 "/Users/jp/Library/Arduino15/packages/esp32/hardware/esp32/2.0.11/libraries/WiFi/src",
                 "/Users/jp/Library/Arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/esp-2021r2-patch5-8.4.0/xtensa-esp32-elf/include/c++/8.4.0",
                 "/Users/jp/Library/Arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/esp-2021r2-patch5-8.4.0/xtensa-esp32-elf/include/c++/8.4.0/xtensa-esp32-elf",

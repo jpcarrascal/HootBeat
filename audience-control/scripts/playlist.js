@@ -17,7 +17,8 @@ const playlist = [
 
 const tubeScenes = [
     {"pc": 0, "scenes": [
-            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"}
+            {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
+            {"name": "This Body Shimmer",               "cc": 127, "id": 1, "color1": "FF00FF", "color2": "000000", "anim": "allOn"}
         ]
     },
     {"pc": 1, "scenes": [
@@ -35,7 +36,8 @@ const tubeScenes = [
     {"pc": 3, "scenes": [
             {"name": "Default",                         "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "allOff"},
             {"name": "Spider man talks",                "cc": 127, "id": 1, "color1": "000000", "color2": "FFFF00", "anim": "drums"},
-            {"name": "Spinning thing",                  "cc": 127, "id": 2, "color1": "FF0000", "color2": "000000", "anim": "strobe"}
+            {"name": "Spinning thing",                  "cc": 127, "id": 2, "color1": "00FF00", "color2": "000000", "anim": "strobe"},
+            {"name": "End, distortion",                 "cc": 127, "id": 3, "color1": "FF0000", "color2": "FF0000", "anim": "drums"}
         ]
     },
     {"pc": 4, "scenes": [
