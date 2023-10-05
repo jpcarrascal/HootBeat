@@ -140,7 +140,6 @@ document.querySelectorAll(".pc-send").forEach(item => {
 document.querySelectorAll(".goggles-checkbox").forEach(item => {
   item.addEventListener("click", function() {
     const pc = parseInt(this.getAttribute("pc"));
-    const anim = parseInt(animations[this.getAttribute("anim")]);
     if (this.checked) {
       songsForGoggles.push(pc);
     } else {
@@ -149,7 +148,6 @@ document.querySelectorAll(".goggles-checkbox").forEach(item => {
         songsForGoggles.splice(index, 1); // 2nd parameter means remove one item only
       }
       if(pc == currentGoggleScene.pc) {
-        //sendToGoggles([PCBYTE, currentGoggleScene.anim]);
         sendScene(currentGoggleScene,"goggles");
       }
     }
@@ -158,7 +156,7 @@ document.querySelectorAll(".goggles-checkbox").forEach(item => {
 
 document.querySelectorAll(".tubes-checkbox").forEach(item => {
   item.addEventListener("click", function() {
-    var pc = parseInt(this.getAttribute("pc"));
+    const pc = parseInt(this.getAttribute("pc"));
     if (this.checked) {
       songsForTubes.push(pc);
     } else {
@@ -167,7 +165,6 @@ document.querySelectorAll(".tubes-checkbox").forEach(item => {
         songsForTubes.splice(index, 1); // 2nd parameter means remove one item only
       }
       if(pc == currentTubeScene.pc) {
-        //sendToTubes([PCBYTE, currentTubeScene.anim]);
         sendScene(currentTubeScene,"tubes");
       }
     }
