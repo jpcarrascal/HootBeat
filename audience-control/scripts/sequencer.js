@@ -143,18 +143,14 @@ document.querySelectorAll(".goggles-checkbox").forEach(item => {
     const anim = parseInt(animations[this.getAttribute("anim")]);
     if (this.checked) {
       songsForGoggles.push(pc);
-      if(pc == currentGoggleScene.pc) {
-        currentGoggleScene.anim = animations["drums"];
-        sendToAllDevices([PCBYTE, currentGoggleScene.anim]);
-      }
     } else {
       const index = songsForGoggles.indexOf(pc);
       if (index > -1) { // only splice array when item is found
         songsForGoggles.splice(index, 1); // 2nd parameter means remove one item only
       }
       if(pc == currentGoggleScene.pc) {
-        currentGoggleScene.anim = anim;
-        sendToGoggles([PCBYTE, currentGoggleScene.anim]);
+        //sendToGoggles([PCBYTE, currentGoggleScene.anim]);
+        sendScene(currentGoggleScene,"goggles");
       }
     }
   });
@@ -170,9 +166,9 @@ document.querySelectorAll(".tubes-checkbox").forEach(item => {
       if (index > -1) { // only splice array when item is found
         songsForTubes.splice(index, 1); // 2nd parameter means remove one item only
       }
-      if(pc == currentGoggleScene.pc) {
-        currentGoggleScene.anim = anim;
-        sendToTubes([PCBYTE, currentGoggleScene.anim]);
+      if(pc == currentTubeScene.pc) {
+        //sendToTubes([PCBYTE, currentTubeScene.anim]);
+        sendScene(currentTubeScene,"tubes");
       }
     }
   });

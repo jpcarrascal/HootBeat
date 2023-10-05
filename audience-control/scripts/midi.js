@@ -172,8 +172,8 @@ function audienceHandler(what, msg) {
                 index = 2;
                 break;   
         }
-        currentGoggleScene.anim = animations["drums"];
-        sendToAllDevices([PCBYTE, currentGoggleScene.anim]);
+        //currentGoggleScene.anim = animations["drums"];
+        //sendToAllDevices([PCBYTE, currentGoggleScene.anim]);
     }
     if(songsForTubes.includes(currentGoggleScene.pc)) {
         switch (msg.who) {
@@ -185,6 +185,7 @@ function audienceHandler(what, msg) {
                 break;    
         }
     }
+    devices[index].send([PCBYTE, animations["drums"]]);
     console.log("INDEX: " + index)
     if(index >= 0) {
         if(what == "flash") {
