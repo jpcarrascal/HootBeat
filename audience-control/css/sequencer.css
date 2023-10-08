@@ -5,6 +5,10 @@ body {
     height: 100%;
 }
 
+a {
+    color: white;
+}
+
 .status {
     color: #222;
     background-color: #888;

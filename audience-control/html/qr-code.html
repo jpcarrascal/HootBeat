@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HootBeat - Audience Control - QR Code</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/qr-code.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?class=G-HK8NRYFJ92"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-HK8NRYFJ92');
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      
+      <div class="column" id="left-column">
+        <div class="qr-code" id="qr-code1">
+        </div>
+        <span class="url"></span>
+        <img class="logo" src="images/spacebarman-logo.png" alt="spacebarman-logo">
+        <span class="who"></span>
+        <span class="room"></span>
+      </div>
+
+      <div class="column" id="right-column">
+        <div class="qr-code" id="qr-code2">
+        </div>
+        <span class="url"></span>
+        <img class="logo" src="images/spacebarman-logo.png" alt="spacebarman-logo">
+        <span class="who"></span>
+        <span class="room"></span>
+      </div>
+
+    </div>
+
+    <script src="scripts/qrcode.min.js"></script>
+    <script src="scripts/qr-code.js" ></script>
+  </body>
+</html>

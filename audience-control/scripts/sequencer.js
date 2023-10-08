@@ -1,6 +1,14 @@
 var who = "sequencer"
 var room = findGetParameter("room") || "spacebarman";
 var socket = io("", {query:{room: room, who:who}});
+document.querySelectorAll(".device-url").forEach(item => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const destWho = item.getAttribute("who");
+  let baseUrl = window.location.origin;
+  item.setAttribute("href", baseUrl + "/qr-code?room=" + room + "&who=" + destWho);
+});
+
+
 var songsForGoggles = [];
 var songsForTubes = [];
 

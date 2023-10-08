@@ -68,6 +68,11 @@ app.get('/latency', (req, res) => {
     res.sendFile(__dirname + page);
 });
 
+app.get('/qr-code', (req, res) => {
+    var page = '/html/qr-code.html';
+    res.sendFile(__dirname + page);
+});
+
 app.use('/scripts', express.static(__dirname + '/scripts/'));
 app.use('/css', express.static(__dirname + '/css/'));
 app.use('/images', express.static(__dirname + '/images/'));

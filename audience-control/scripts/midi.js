@@ -185,12 +185,14 @@ function audienceHandler(what, msg) {
                 break;    
         }
     }
+    // TODO: check if device exists before sending
     devices[index].send([PCBYTE, animations["drums"]]);
     console.log("INDEX: " + index)
     if(index >= 0) {
         if(what == "flash") {
             if (devices[index] !== null) {
                 console.log("flash");
+                // TODO: check if device exists before sending
                 devices[index].send(BDMSG);
             }
         } else if(what == "set-color") {
