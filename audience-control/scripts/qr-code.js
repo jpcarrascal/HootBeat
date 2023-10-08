@@ -1,8 +1,8 @@
 const localNetUrl = "http://jina.local:3000";
 const urlParams = new URLSearchParams(window.location.search);
-let who = urlParams.get('who') || "Missing WHO!!!";
+const who = urlParams.get('who') || "Missing WHO!!!";
 // Show only first character
-who = who.split("-").map((el) => el.charAt(0).toUpperCase()).join("_");
+const displayWho = who.split("-").map((el) => el.charAt(0).toUpperCase()).join("_");
 const room = urlParams.get('room') || "Missing room!!!";
 let baseUrl = window.location.origin;
 
@@ -14,7 +14,7 @@ document.querySelectorAll(".url").forEach((el) => {
 });
 
 document.querySelectorAll(".who").forEach((el) => {
-    el.textContent = who;
+    el.textContent = displayWho;
 });
 
 document.querySelectorAll(".room").forEach((el) => {
