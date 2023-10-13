@@ -63,6 +63,7 @@ body {
 
 #click-me-text {
     visibility: hidden;
+    text-shadow: 2px 2px 4px #000000;
 }
 
 .jp {
@@ -72,13 +73,15 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+
 .daniel {
-    background-image: url(/images/bg-daniel.jpg);
+    background-image: url(/images/bg-laura.jpg);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
+
 .mauro {
     background-image: url(/images/bg-mauro.jpg);
     -webkit-background-size: cover;
@@ -86,6 +89,15 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+
+.laura {
+    background-image: url(/images/bg-laura.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .left-tube, .right-tube {
     background-image: url(/images/tube.jpg);
     -webkit-background-size: cover;

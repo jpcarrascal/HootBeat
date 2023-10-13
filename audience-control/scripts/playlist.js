@@ -11,6 +11,7 @@ const playlist = [
     {"pc":10,"name": "Lockdown",                   "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
     {"pc":11,"name": "No place for us",            "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
     {"pc":12,"name": "Never let me down",          "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
+    {"pc":14,"name": "Sin Fin",                   "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
     {"pc":18,"name": "Si un día te vas",   "samples": "SiUnDiaTeVas", "audience_goggles": false, "audience_tubes": false, "show": true},
     {"pc":19,"name": "El Ansia",                "samples": "ElAnsia", "audience_goggles": false, "audience_tubes": false, "show": true}
 ];
@@ -178,7 +179,7 @@ const goggleScenes = [
         ]
     },
     {"pc":14, "scenes": [
-        {"name": "Default", "cc": 127, "id": 0, "color1": "000000", "color2": "000000", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "00DD55", "color2": "00DD55", "anim": "pulsating"}	
         ]
     },
     {"pc":15, "scenes": [
