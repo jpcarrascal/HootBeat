@@ -200,7 +200,7 @@ const goggleScenes = [
     },
     {"pc":19, "scenes": [
         {"name": "Default", "cc": 127, "id": 0, "color1": "33FF00", "color2": "33FF00", "anim": "allOn"},
-        {"name": "Default", "cc": 127, "id": 1, "color1": "33FF00", "color2": "33FF00", "anim": "strobe"}
+        {"name": "Default", "cc": 127, "id": 1, "color1": "FFFF00", "color2": "FFFF00", "anim": "drums"}
         ]
     },
 ];
