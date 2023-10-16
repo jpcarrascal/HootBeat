@@ -115,7 +115,7 @@ const tubeScenes = [
         ]
     },
     {"pc": 19, "scenes": [
-            {"name": "Default - Ansia Drums",           "cc": 127, "id": 0, "color1": "33FF00", "color2": "33FF00", "anim": "drums"},
+            {"name": "Default - Ansia Drums",           "cc": 127, "id": 0, "color1": "104000", "color2": "104000", "anim": "drums"},
             {"name": "El Ansia distortion",             "cc": 127, "id": 1, "color1": "33FF00", "color2": "33FF00", "anim": "drums"}
         ]
     }
@@ -199,7 +199,8 @@ const goggleScenes = [
         ]
     },
     {"pc":19, "scenes": [
-        {"name": "Default", "cc": 127, "id": 0, "color1": "33FF00", "color2": "33FF00", "anim": "drums"}	
+        {"name": "Default", "cc": 127, "id": 0, "color1": "33FF00", "color2": "33FF00", "anim": "allOn"},
+        {"name": "Default", "cc": 127, "id": 1, "color1": "33FF00", "color2": "33FF00", "anim": "strobe"}
         ]
     },
 ];
