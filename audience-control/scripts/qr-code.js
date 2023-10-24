@@ -8,6 +8,7 @@ if (baseUrl.includes("localhost:3000")) baseUrl = localNetUrl;
 
 const whos = whoString.split(",").filter(i => i);
 
+document.querySelector("title").innerHTML += ( "-" + room);
 
 let string = "";
 if(whos.length % 2 != 0) whos.push(" ");
