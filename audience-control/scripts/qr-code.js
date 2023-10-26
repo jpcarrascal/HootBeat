@@ -1,10 +1,10 @@
-const localNetUrl = "http://jina.local:3000";
+const localNetUrl = "http://jina.local:3001";
 const urlParams = new URLSearchParams(window.location.search);
 const whoString = urlParams.get('who') || "Missing WHO!!!";
 // Show only first character
 const room = urlParams.get('room') || "Missing room!!!";
 let baseUrl = window.location.origin;
-if (baseUrl.includes("localhost:3000")) baseUrl = localNetUrl;
+if (baseUrl.includes("localhost")) baseUrl = localNetUrl;
 
 const whos = whoString.split(",").filter(i => i);
 

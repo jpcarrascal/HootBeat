@@ -153,6 +153,7 @@ function pedalboardHandler(midiMsg) {
                 console.log("Attempting to start CountMeIn")
                 cmiSocket.emit('play', {  } );
             } catch(e) {
+                console.log(e.message);
             }
         }
     } else if(isCC(midiMsg.data[0]) && (midiMsg.data[1]) == 71) {
@@ -161,6 +162,16 @@ function pedalboardHandler(midiMsg) {
                 console.log("Attempting to stop CountMeIn")
                 cmiSocket.emit('stop', {  } );
             } catch(e) {
+                console.log("CountMeIn not running");
+            }
+        }
+    } else if(isCC(midiMsg.data[0]) && (midiMsg.data[1]) == 73) {
+        if(midiMsg.data[2] == 0) {
+            try {
+                console.log("Attempting to rise the QR code veil in CountMeIn")
+                cmiSocket.emit('veil-up', {  } );
+            } catch(e) {
+                console.log("CountMeIn not running");
             }
         }
     }

@@ -1,6 +1,7 @@
+/*
 var who = "sequencer"
 var room = findGetParameter("room") || "spacebarman";
-var socket = io("", {query:{room: room, who:who}});
+*/
 let destWho = "";
 document.querySelectorAll(".device").forEach(item => {
   destWho += item.getAttribute("who") + ",";
@@ -12,20 +13,25 @@ document.getElementById("qr-print").setAttribute("href", qrUrl);
 
 var songsForGoggles = [];
 var songsForTubes = [];
-
+/*
+var socket = io("", {query:{room: room, who:who}});
 var mySocketID;
+var cmiSocketID;
 socket.on("connect", () => {
   console.log("Connected, my socketid:" + socket.id);
   mySocketID = socket.id;
 
-  //const cmiURL = "http://localhost:3000/";
-  const cmiURL = "https://count-me-in.azurewebsites.net/";
+  let cmiURL = "https://count-me-in.azurewebsites.net/";
+  let baseUrl = window.location.origin;
+  if (baseUrl.includes("localhost"))
+    cmiURL = "http://localhost:3000/";
   var cmiSocket = io(cmiURL, {'max reconnection attempts' : 3, query:{room: room, initials: "HB", hootbeat: "hootbeat"}});
   cmiSocket.on("connect", () => {
     console.log("Connected to Count-Me-In, my socketid:" + cmiSocket.id);
     cmiSocketID = cmiSocket.id;
   });
 });
+*/
 
 socket.on('flash', function(msg) {
   audienceHandler('flash', msg);
@@ -195,15 +201,3 @@ document.querySelectorAll(".test-devices").forEach(item => {
   });
 });
 
-function findGetParameter(parameterName) {
-  var result = null,
-      tmp = [];
-  location.search
-      .substr(1)
-      .split("&")
-      .forEach(function (item) {
-        tmp = item.split("=");
-        if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-      });
-  return result;
-}
