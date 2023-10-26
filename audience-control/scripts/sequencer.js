@@ -17,6 +17,13 @@ var mySocketID;
 socket.on("connect", () => {
   console.log("Connected, my socketid:" + socket.id);
   mySocketID = socket.id;
+
+  const cmiURL = "http://localhost:3000/";
+  var cmiSocket = io(cmiURL, {'max reconnection attempts' : 3, query:{room: room, initials: "HB", hootbeat: "hootbeat"}});
+  cmiSocket.on("connect", () => {
+    console.log("Connected to Count-Me-In, my socketid:" + cmiSocket.id);
+    cmiSocketID = cmiSocket.id;
+  });
 });
 
 socket.on('flash', function(msg) {

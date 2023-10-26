@@ -142,7 +142,7 @@ io.on('connection', (socket) => {
 
 });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 server.listen(port, () => {
   logger.info('listening on *:' + port);
 });

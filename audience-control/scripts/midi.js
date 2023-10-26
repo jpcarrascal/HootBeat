@@ -147,6 +147,22 @@ function pedalboardHandler(midiMsg) {
         sendToTubes(midiMsg.data);
         //console.log("received top note");
         //console.log(midiMsg.data);
+    } else if(isCC(midiMsg.data[0]) && (midiMsg.data[1]) == 70) {
+        if(midiMsg.data[2] == 0) {
+            try {
+                console.log("Attempting to start CountMeIn")
+                cmiSocket.emit('play', {  } );
+            } catch(e) {
+            }
+        }
+    } else if(isCC(midiMsg.data[0]) && (midiMsg.data[1]) == 71) {
+        if(midiMsg.data[2] == 0) {
+            try {
+                console.log("Attempting to stop CountMeIn")
+                cmiSocket.emit('stop', {  } );
+            } catch(e) {
+            }
+        }
     }
 }
 
