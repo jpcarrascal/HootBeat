@@ -18,7 +18,8 @@ socket.on("connect", () => {
   console.log("Connected, my socketid:" + socket.id);
   mySocketID = socket.id;
 
-  const cmiURL = "http://localhost:3000/";
+  //const cmiURL = "http://localhost:3000/";
+  const cmiURL = "https://count-me-in.azurewebsites.net/";
   var cmiSocket = io(cmiURL, {'max reconnection attempts' : 3, query:{room: room, initials: "HB", hootbeat: "hootbeat"}});
   cmiSocket.on("connect", () => {
     console.log("Connected to Count-Me-In, my socketid:" + cmiSocket.id);
