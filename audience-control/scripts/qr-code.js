@@ -1,4 +1,4 @@
-const localNetUrl = "http://jina.local:3001";
+const localNetUrl = "http://jina.local:3000";
 const urlParams = new URLSearchParams(window.location.search);
 const whoString = urlParams.get('who') || "Missing WHO!!!";
 // Show only first character

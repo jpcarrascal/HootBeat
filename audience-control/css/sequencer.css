@@ -18,13 +18,13 @@ a {
 }
 
 .color-status {
+    background-color: black;
     width: 4em;
     border: .4em solid #222;
 }
 
 .goggle-colors {
     display: flex;
-    
 }
 
 .color-div {
@@ -77,9 +77,6 @@ a {
     overflow-y: scroll;
 }
 
-.color-status {
-    background-color: black;
-}
 
 #left-container, #right-container {
     padding: .5em;
@@ -89,14 +86,12 @@ a {
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    
 }
 
-td, th {
-    border: .2em solid transparent;
+td {
     background-color: transparent;
-    border-color: transparent;
-    margin: .3em;
+    border: 0;
 }
 
 
@@ -118,7 +113,16 @@ button {
     font-size: .7em;
 }
 
+
 #thead-playlist, #tbody-playlist { display: block; }
+
+table#playlist {
+    border-collapse: collapse;
+}
+
+table#playlist td {
+    margin: .4em;
+}
 
 #tbody-playlist {
     height: 100px;       /* Just for the demo          */

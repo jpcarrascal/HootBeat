@@ -41,23 +41,27 @@ function listDevices(midi) {
             case "USB MIDI Interface":
                 document.getElementById("status-triggers").classList.add("online");
                 document.getElementById("status-triggers").innerText = "online";
+                document.getElementById("activity-triggers").setAttribute("data-devid", input.value.id);
                 input.value.onmidimessage = triggersHandler;
                 break;
             case "WIDI Jack Bluetooth":
                 document.getElementById("status-pedalboard").classList.add("online");
                 document.getElementById("status-pedalboard").innerText = "online";
+                document.getElementById("activity-pedalboard").setAttribute("data-devid", input.value.id);
                 input.value.onmidimessage = pedalboardHandler;
                 break; 
             case "IAC Driver Bus 2":
             case "IAC Driver Bus 2: notes":
                 document.getElementById("status-iac").classList.add("online");
                 document.getElementById("status-iac").innerText = "online";
+                document.getElementById("activity-iac").setAttribute("data-devid", input.value.id);
                 input.value.onmidimessage = triggersHandler;
                 break;
             case "Transparent Bluetooth":
                 if(USEAUDIO) {
                     document.getElementById("status-transparent").classList.add("online");
                     document.getElementById("status-transparent").innerText = "online";
+                    document.getElementById("activity-transparent").setAttribute("data-devid", input.value.id);
                     input.value.onmidimessage = transparentHandler;
                 }
         }
@@ -118,6 +122,8 @@ function success(midi) {
 function failure(){ console.log("MIDI not supported by browser :(")};
 
 function triggersHandler(midiMsg) {
+    const selectString = '[data-devid="' + midiMsg.currentTarget.id + '"]';
+    const elem = document.querySelector(selectString);
     if( isNoteOn(midiMsg.data[0]) && (midiMsg.data[1] == 60 || midiMsg.data[1] == 62) ) {
         midiMsg.data[1] = midiMsg.data[1] - 24;
     }
@@ -128,6 +134,11 @@ function triggersHandler(midiMsg) {
         if(!songsForTubes.includes(currentGoggleScene.pc)) {
             sendToTubes(midiMsg.data);
         }
+        elem.classList.add("flash-border");
+        setTimeout(function(){
+            elem.classList.remove("flash-border");
+          }
+          ,300);
     }
 }
 
