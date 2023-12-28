@@ -49,6 +49,11 @@ for(var i = 0; i < whos.length; i++) {
     if(whos[i] == " ") continue;
     let qrId = "qr-code-" + i;
     let url = baseUrl + "?room=" + room + "&who=" + whos[i];
+    // Switched to QR code generator API:
+    let imgURL = "https://qrcode.azurewebsites.net/qr?string=" + encodeURIComponent(url);
+    document.getElementById(qrId).innerHTML = '<img src="' + imgURL + '">';
+    console.log(imgURL);
+    /* Original QR code generator:
     const qrcode = new QRCode(qrId, {
         text: url,
         width: 250,
@@ -57,5 +62,5 @@ for(var i = 0; i < whos.length; i++) {
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });
-    
+    */
 }
