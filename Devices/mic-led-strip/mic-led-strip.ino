@@ -59,17 +59,17 @@ void onNoteOff(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timesta
 
 void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_t timestamp)
 {
-    if(controller == 120) {
+    if(controller == 100) {
       r = value*2;
       //color = rgb2color(r,g,b);
       Serial.println("r");
     }
-    if(controller == 121) {
+    if(controller == 101) {
       g = value*2;
       //color = rgb2color(r,g,b);
       Serial.println("g");
     }
-    if(controller == 122) {
+    if(controller == 102) {
       b = value*2;
       //color = rgb2color(r,g,b);
       Serial.println("b");

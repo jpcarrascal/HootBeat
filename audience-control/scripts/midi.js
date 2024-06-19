@@ -309,10 +309,10 @@ function sendColor(device, color1, color2) {
     const c1 = hexTo7bitDec(color1);
     const c2 = hexTo7bitDec(color2);
     c1.forEach((value, index) => {
-        device.send([0xB0, 120 + index, value]);
+        device.send([0xB0, 100 + index, value]);
     });
     c2.forEach((value, index) => {
-        device.send([0xB0, 123 + index, value]);
+        device.send([0xB0, 103 + index, value]);
     });
 }
 

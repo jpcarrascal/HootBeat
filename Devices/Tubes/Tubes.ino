@@ -99,27 +99,27 @@ void onNoteOff(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timesta
 
 void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_t timestamp)
 {
-  if(controller == 120)
+  if(controller == 100)
     r1 = value*2;
-  if(controller == 121)
+  if(controller == 101)
     g1 = value*2;
-  if(controller == 122)
+  if(controller == 102)
     b1 = value*2;
   bdColor = hb.rgb2color(r1, g1, b1);
   hb.setColor(r1, g1, b1);
-  if(controller == 123)
+  if(controller == 103)
     r2 = value*2;
-  if(controller == 124)
+  if(controller == 104)
     g2 = value*2;
-  if(controller == 125)
+  if(controller == 105)
     b2 = value*2;
   sdColor = hb.rgb2color(r2, g2, b2);
   Serial.printf("Received control change : channel %d, controller %d, value %d (timestamp %dms)\n", channel, controller, value, timestamp);
-  if(controller == 122) {
+  if(controller == 102) {
     Serial.print("BD color: #");
     Serial.println(bdColor, HEX);
   }
-  if(controller == 125) {
+  if(controller == 105) {
     Serial.print("SD color: #");
     Serial.println(sdColor, HEX);
   }
