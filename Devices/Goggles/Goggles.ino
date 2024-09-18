@@ -121,6 +121,11 @@ void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_
     Serial.print("SD color: #");
     Serial.println(sdColor, HEX);
   }
+  if(controller == 111) {
+    hb.isRunning = true;
+    float fade = (float) value / 127;
+    hb.dim(fade);
+  }
 }
 
 void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
