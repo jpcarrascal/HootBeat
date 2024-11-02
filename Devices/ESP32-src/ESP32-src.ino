@@ -68,11 +68,11 @@ void onNoteOff(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timesta
 
 void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_t timestamp)
 {
-    if(controller == 120)
-      r = value*2;
-    if(controller == 101)
-      g = value*2;
     if(controller == 102)
+      r = value*2;
+    if(controller == 103)
+      g = value*2;
+    if(controller == 104)
       b = value*2;
     bdColor = rgb2color(r,g,b);
     sdColor = rgb2color(r,g,b);
