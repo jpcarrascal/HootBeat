@@ -8,6 +8,8 @@
 HootBeat::HootBeat(uint16_t numLeds, int pin1, int pin2) {
   this->numStrips = 2;
   this->numLeds = numLeds;
+  this->onLeds = 0;
+  this->wereOnLeds = 0;
   setColor(DISCONNCOLOR);
   this->isRunning = true;
   /*
@@ -47,6 +49,16 @@ void HootBeat::setColor(uint32_t color) {
   this->color1 = color;
 }
 
+void HootBeat::setDelay(uint8_t dly) {
+  this->dly = dly;
+}
+
+void HootBeat::setSomeOn(uint16_t onLeds) {
+  this->onLeds = onLeds;
+  if(onLeds > 0)
+    this->wereOnLeds = onLeds;
+}
+
 void HootBeat::dim(float fade) {
   this->color1 = dimColor(this->color1, fade);
 }
@@ -79,6 +91,9 @@ void HootBeat::step(uint8_t anim) {
       break;
     case 8:
       animRotatingAndDrums();
+      break;
+    case 9: // Some on
+      animSomeOn();
       break;
     default: // Rotation + BD + SD
       animRotatingAndDrums();
@@ -130,6 +145,31 @@ void HootBeat::animAllOn() {
   this->drums = false;
   for(int i=0; i<this->numLeds; i++) {
     setPixelAllStrips(i, this->color1);
+  }
+}
+
+void HootBeat::animSomeOn() {
+  this->drums = true;
+  if(this->onLeds > 0) {
+    for(int i=0; i<this->numLeds; i++) {
+      if(i < this->onLeds)
+        setPixelAllStrips(i, this->color1);
+      else
+        setPixelAllStrips(i, 0x000000);
+    }
+  } else {
+    for(int i=0; i<this->numLeds; i++) {
+      if(i < this->wereOnLeds) {
+        uint32_t c = 0;
+        float fade = (float) this->colorCount / this->maxCount;
+        fade *= fade;
+        if(this->colorCount > 0)
+          c = dimColor(this->color1, fade);
+        setPixelAllStrips(i, c);
+      } else {
+        setPixelAllStrips(i, 0x000000);
+      }
+    }
   }
 }
 

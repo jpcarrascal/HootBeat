@@ -35,10 +35,13 @@ class HootBeat {
     void triggerFlash(uint8_t length);
     void setColor(uint32_t color);
     void setColor(uint8_t r, uint8_t g, uint8_t b);
+    void setDelay(uint8_t dly);
+    void setSomeOn(uint16_t onLeds);
     void dim(float fade);
     void setPixelAllStrips(uint8_t pixel, uint32_t color);
     void animAllOff();
     void animAllOn();
+    void animSomeOn();
     void animPulsating();
     void animRotating();
     void animPulsatingRotating();
@@ -58,6 +61,8 @@ class HootBeat {
     uint8_t normalMaxCount = 4;
     uint8_t numStrips;
     uint16_t numLeds;
+    uint16_t onLeds;
+    uint16_t wereOnLeds;
     Adafruit_NeoPixel strips[2]; // Max 2 for now
     uint8_t directions[2]; // Max 2 for now
     bool strobeOn = true;
