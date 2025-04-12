@@ -42,6 +42,7 @@ class HootBeat {
     void animAllOff();
     void animAllOn();
     void animSomeOn();
+    void animBounce();
     void animPulsating();
     void animRotating();
     void animPulsatingRotating();
@@ -55,6 +56,8 @@ class HootBeat {
   private:
     uint32_t color1;
     uint8_t offset = 0;
+    uint8_t offsetBounce = 0;
+    uint8_t bounceDirection = 0;
     uint8_t dly = 41;
     uint8_t colorCount = 4;
     uint8_t maxCount = 4;

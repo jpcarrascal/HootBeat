@@ -95,6 +95,9 @@ void HootBeat::step(uint8_t anim) {
     case 9: // Some on
       animSomeOn();
       break;
+    case 10: // Some on
+      animBounce();
+      break;
     default: // Rotation + BD + SD
       animRotatingAndDrums();
       break;
@@ -107,6 +110,21 @@ void HootBeat::step(uint8_t anim) {
   }
   this->offset++;
   if(this->offset >= this->numLeds) this->offset = 0;
+  
+  if(this->bounceDirection == 0) {
+    this->offsetBounce++;
+    if(this->offsetBounce >= this->numLeds) {
+      this->bounceDirection = 1;
+      this->offsetBounce = this->numLeds-1;
+    }
+  } else {
+    this->offsetBounce--;
+    if(this->offsetBounce <= 0) {
+      this->bounceDirection = 0;
+      this->offsetBounce = 0;
+    }
+  }
+
   if(this->colorCount>0) this->colorCount--;
   delay(this->dly);
 }
@@ -239,6 +257,21 @@ void HootBeat::animRotatingAndDrums() {
         c = dimColor(this->color1, fade);
     } else if(i==this->offset || i==this->offset+(this->numLeds/2) || i==this->offset-(this->numLeds/2)) {
       c = this->color1;
+    }
+    setPixelAllStrips(i, c);
+  }
+}
+
+void HootBeat::animBounce() {
+  this->drums = false;
+  for(int i=0; i<this->numLeds; i++) {
+    uint32_t c = 0;
+    if(i==this->offsetBounce) {
+      c = this->color1;
+    } else if(bounceDirection == 0 && i==this->offsetBounce-1 && this->offsetBounce > 0) {
+      c = dimColor(this->color1, 0.3);
+    } else if(bounceDirection == 1 && i==this->offsetBounce+1 && this->offsetBounce < this->numLeds-1) {
+      c = dimColor(this->color1, 0.3);
     }
     setPixelAllStrips(i, c);
   }
