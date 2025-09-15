@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "Personal lighting with audience participation",
     "dependencies": {
-        "cookie": "^0.4.2",
+        "cookie": "^1.0.2",
         "express": "^4.17.1",
         "socket.io": "^4.4.0",
         "tone": "^14.7.77",
