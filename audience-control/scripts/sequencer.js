@@ -134,6 +134,9 @@ playlist.forEach( item => {
     let audience2 = row.insertCell(4);
     audience2.appendChild(checkbox2);
   }
+  // Send first song to start with:
+  selectRowAndLoadSongData(playlist[0].pc);
+  document.querySelector(".pc-send").click();
 });
 
 document.querySelectorAll(".pc-send").forEach(item => {
