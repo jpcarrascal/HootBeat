@@ -1,19 +1,19 @@
 const playlist = [
-    {"pc":0, "name": "Clone",                      "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":1, "name": "Si algun día todo falla",    "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":2, "name": "One with the machine",       "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":3, "name": "Lullaby",                    "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":4, "name": "Bad boy",                  "samples": "BadBoy", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":5, "name": "FOMO",                       "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":6, "name": "Tantra",                     "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":7, "name": "Sex tape",                   "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":9, "name": "This body",                  "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":10,"name": "Lockdown",                   "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":11,"name": "No place for us",            "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":12,"name": "Never let me down",          "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":14,"name": "Sin Fin",                   "samples": "none", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":18,"name": "Si un día te vas",   "samples": "SiUnDiaTeVas", "audience_goggles": false, "audience_tubes": false, "show": true},
-    {"pc":19,"name": "El Ansia",                "samples": "ElAnsia", "audience_goggles": false, "audience_tubes": false, "show": true}
+    {"pc":0, "name": "Clone",                      "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":1, "name": "Si algun día todo falla",    "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":2, "name": "One with the machine",       "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":3, "name": "Lullaby",                    "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":4, "name": "Bad boy",                  "samples": "BadBoy", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":5, "name": "FOMO",                       "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":6, "name": "Tantra",                     "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":7, "name": "Sex tape",                   "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":9, "name": "This body",                  "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":10,"name": "Lockdown",                   "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":11,"name": "No place for us",            "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":12,"name": "Never let me down",          "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":14,"name": "Sin Fin",                   "samples": "none", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":18,"name": "Si un día te vas",   "samples": "SiUnDiaTeVas", "audience_goggles": true, "audience_tubes": false, "show": true},
+    {"pc":19,"name": "El Ansia",                "samples": "ElAnsia", "audience_goggles": true, "audience_tubes": false, "show": true}
 ];
 
 const tubeScenes = [
