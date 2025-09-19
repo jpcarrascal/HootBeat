@@ -8,13 +8,14 @@
  #include <Adafruit_NeoPixel.h>
  #include <HootBeat.h>
  
- #define PINL 32
+ #define PINSTRIP 32
+ #define PINREED 25
  #define NUMLEDS 13
  
  
  uint8_t disconnAnim = 10;
  uint8_t connAnim = 0;
- uint8_t anim = disconnAnim;
+ uint8_t anim = 3;
  uint8_t r1=0, g1=0, b1=0;
  uint8_t r2=0, g2=0, b2=0;
  uint32_t connColor      = 0x080808,
@@ -22,37 +23,42 @@
           bdColor        = 0x0044FF,
           sdColor        = 0xFF0000;
  
- HootBeat sidebar = HootBeat(NUMLEDS, PINL);
+ HootBeat sidebar = HootBeat(NUMLEDS, PINSTRIP);
  
- void setup() {
-   Serial.begin(115200);
-   sidebar.setDelay(2);
-   sidebar.setColor(disconnColor);
-   BLEMidiServer.begin("2barHat");
-   BLEMidiServer.setOnConnectCallback([](){
-     Serial.println("Connected");
-     sidebar.setColor(connColor);
-     anim = connAnim;
-   });
-   BLEMidiServer.setOnDisconnectCallback([](){ // callback with a lambda function
-     Serial.println("Disconnected");
-     sidebar.setColor(disconnColor);
-     sidebar.isRunning = true;
-     anim = disconnAnim;
-   });
-   BLEMidiServer.setNoteOnCallback(onNoteOn);
-   BLEMidiServer.setNoteOffCallback(onNoteOff);
-   BLEMidiServer.setControlChangeCallback(onControlChange);
-   BLEMidiServer.setProgramChangeCallback(onProgramChange);
+void setup() {
+  pinMode(PINREED,INPUT_PULLUP);
+  Serial.begin(115200);
+  sidebar.setDelay(0);
+  sidebar.setColor(disconnColor);
+  BLEMidiServer.begin("2barHat");
+  BLEMidiServer.setOnConnectCallback([](){
+    Serial.println("Connected");
+    sidebar.setColor(connColor);
+    anim = connAnim;
+  });
+  BLEMidiServer.setOnDisconnectCallback([](){ // callback with a lambda function
+    Serial.println("Disconnected");
+    sidebar.setColor(disconnColor);
+    sidebar.isRunning = true;
+    anim = disconnAnim;
+  });
+  BLEMidiServer.setNoteOnCallback(onNoteOn);
+  BLEMidiServer.setNoteOffCallback(onNoteOff);
+  BLEMidiServer.setControlChangeCallback(onControlChange);
+  BLEMidiServer.setProgramChangeCallback(onProgramChange);
    //BLEMidiServer.enableDebugging();
  }
  
  void loop() {
-   if (BLEMidiServer.isConnected()) {
- 
-   }
-   sidebar.step(anim);
-   delay(40);
+  if (BLEMidiServer.isConnected()) {
+
+  }
+  Serial.println(digitalRead(PINREED));
+  if(!digitalRead(PINREED))
+    sidebar.step(0);
+  else
+    sidebar.step(anim);
+  delay(60);
  }
  
  // MIDI Callbacks:

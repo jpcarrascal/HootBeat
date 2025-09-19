@@ -23,11 +23,12 @@
 
 String addr;
 
-uint8_t anim = 100;
+uint8_t disconnectAnim = 100;
+uint8_t anim = disconnectAnim;
 uint8_t r1=0, g1=0, b1=0;
 uint8_t r2=0, g2=0, b2=0;
 uint32_t connColor      = 0x080808,
-         disconnColor   = 0x080000,
+         disconnColor   = 0x040000,
          bdColor        = 0x0044FF,
          sdColor        = 0xFF0000;
 
@@ -47,13 +48,13 @@ void setup() {
   BLEMidiServer.setOnConnectCallback([](){
     Serial.println("Connected");
     hb.setColor(connColor);
-    anim = 100;
+    anim = disconnectAnim;
   });
   BLEMidiServer.setOnDisconnectCallback([](){ // callback with a lambda function
     Serial.println("Disconnected");
     hb.setColor(disconnColor);
     hb.isRunning = true;
-    anim = 100;
+    anim = disconnectAnim;
   });
   BLEMidiServer.setNoteOnCallback(onNoteOn);
   BLEMidiServer.setNoteOffCallback(onNoteOff);
@@ -135,3 +136,18 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
     Serial.print("Anim: ");
     Serial.println(anim);
 }
+
+/*
+ Index	Animation Name
+0	All LEDs Off
+1	All LEDs On
+2	Pulsating
+3	Pulsating + Rotating
+4	Rotating (no drums)
+5	Drums Only
+6	Alternating Colors
+7	Strobe
+8	Rotating And Drums
+9	Some On
+10	Bounce
+ */
