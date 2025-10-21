@@ -7,6 +7,7 @@
 #include <BLEMidi.h>
 #include <Adafruit_NeoPixel.h>
 #include <HootBeat.h>
+#include <PushButton.h>
 
 #ifdef ESP32
   #include <WiFi.h>
@@ -17,7 +18,7 @@
 #define PINL 16
 #define PINR 17
 #define NUMLEDS 12
-#define NAME "Claire's Goggles"
+#define NAME "Spacebarman Goggles"
 
 String addr;
 
@@ -30,8 +31,24 @@ uint32_t connColor      = 0x080808,
          disconnColor   = 0x040000,
          bdColor        = 0x0044FF,
          sdColor        = 0xFF0000;
+uint8_t currentColorIndex = 0;
+uint8_t maxNumColors = 7;
+const uint32_t colors[7] = {
+  0xF00000, // RED
+  0x00F000, // GREEN
+  0x0000F0, // BLUE
+  0x00F0F0, // CYAN
+  0xF000F0, // MAGENTA
+  0xF0F000, // YELLOW
+  0xF0F0F0  // WHITE
+};
+uint8_t currentAnimIndex = -1;
+uint8_t maxNumAnims = 5;
+const uint8_t anims[5] = {1, 2, 7, 4, 10};
+
 
 HootBeat hb = HootBeat(NUMLEDS, PINL, PINR);
+PushButton click = PushButton(12, ENABLE_INTERNAL_PULLUP);
 
 void setup() {
   pinMode(GPIO_NUM_33, INPUT_PULLUP); 
@@ -58,6 +75,8 @@ void setup() {
 
   esp_sleep_enable_ext0_wakeup(GPIO_NUM_33,1);
   shouldISleepOrShouldIGo();
+  click.onRelease(0, 2000, changeColor);
+  click.onHold(2000, changeAnim);
 }
 
 void loop() {
@@ -67,6 +86,7 @@ void loop() {
   hb.step(anim);
   
   shouldISleepOrShouldIGo();
+  click.update();
 }
 
 void shouldISleepOrShouldIGo() {
@@ -161,6 +181,21 @@ void print_wakeup_reason(){
     default : Serial.printf("Wakeup was not caused by deep sleep: %d\n",wakeup_reason); break;
   }
 }
+
+void changeColor(Button& btn, short unsigned duration)
+{
+  currentColorIndex++;
+  if(currentColorIndex >= maxNumColors) currentColorIndex = 0;
+  hb.setColor(colors[currentColorIndex]);
+}
+
+void changeAnim(Button& btn, short unsigned duration)
+{
+  currentAnimIndex++;
+  if(currentAnimIndex >= maxNumAnims) currentAnimIndex = 0;
+  anim = anims[currentAnimIndex];
+}
+
 
 /*
  Index	Animation Name
