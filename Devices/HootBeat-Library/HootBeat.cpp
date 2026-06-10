@@ -5,41 +5,31 @@
 */
 #include "hootbeat.h"
 
-HootBeat::HootBeat(uint16_t numLeds, int pin1, int pin2) {
+HootBeat::HootBeat(uint16_t numLeds, int pin1, int pin2)
+  : strips{ Adafruit_NeoPixel(numLeds, pin1, NEO_GRB + NEO_KHZ800),
+            Adafruit_NeoPixel(numLeds, pin2, NEO_GRB + NEO_KHZ800) }
+{
   this->numStrips = 2;
   this->numLeds = numLeds;
   this->onLeds = 0;
   this->wereOnLeds = 0;
   setColor(DISCONNCOLOR);
   this->isRunning = true;
-  /*
-  // This should work but doesn't... it causes strange cycling
-  for(int i=0; i<this->numStrips; i++) {
-    this->strips[i] = Adafruit_NeoPixel(this->numLeds, *pins+i);
-    this->directions[i] = i%2;
-    this->strips[i].begin();
-    this->strips[i].setBrightness(100);
-  }
-  */
-  Adafruit_NeoPixel aStrip  = Adafruit_NeoPixel(this->numLeds, pin1);
-  this->strips[0] = aStrip;
   this->directions[0] = 0;
-  this->strips[0].begin();
-  this->strips[0].setBrightness(255);
-  Adafruit_NeoPixel aStrip2  = Adafruit_NeoPixel(this->numLeds, pin2);
-  this->strips[1] = aStrip2;
   this->directions[1] = 1;
-  this->strips[1].begin();
-  this->strips[1].setBrightness(255);
-
+  for (int i = 0; i < this->numStrips; i++) {
+    this->strips[i].begin();
+    this->strips[i].setBrightness(255);
+  }
 }
 
-HootBeat::HootBeat(uint16_t numLeds, int pin) {
+HootBeat::HootBeat(uint16_t numLeds, int pin)
+  : strips{ Adafruit_NeoPixel(numLeds, pin, NEO_GRB + NEO_KHZ800) }
+{
   this->numStrips = 1;
   this->numLeds = numLeds;
   setColor(DISCONNCOLOR);
   this->isRunning = true;
-  this->strips[0] = Adafruit_NeoPixel(this->numLeds, pin);
   this->directions[0] = 0;
   this->strips[0].begin();
   this->strips[0].setBrightness(100);

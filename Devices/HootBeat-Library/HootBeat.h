@@ -3,7 +3,7 @@
   Created by JP Carrascal (https://github.com/jpcarrascal).
   Released into the public domain.
 */
-#ifndef HoootBeat_h
+#ifndef HootBeat_h
 #define HootBeat_h
 
 #include "Arduino.h"
