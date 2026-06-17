@@ -13,13 +13,13 @@
  #define NUMLEDS 5
  
  
- uint8_t disconnAnim = 10;
- uint8_t connAnim = 0;
+ uint8_t disconnAnim = 1;
+ uint8_t connAnim = 1;
  uint8_t anim = disconnAnim;
  uint8_t r1=0, g1=0, b1=0;
  uint8_t r2=0, g2=0, b2=0;
- uint32_t connColor      = 0x080808,
-          disconnColor   = 0xFF0000,
+ uint32_t connColor     = 0x9008F0,
+          disconnColor   = 0x0000F0,
           bdColor        = 0x0044FF,
           sdColor        = 0xFF0000;
  
@@ -46,6 +46,8 @@
    BLEMidiServer.setNoteOffCallback(onNoteOff);
    BLEMidiServer.setControlChangeCallback(onControlChange);
    BLEMidiServer.setProgramChangeCallback(onProgramChange);
+   hbL.setColor(disconnColor);
+   hbR.setColor(disconnColor);
    //BLEMidiServer.enableDebugging();
  }
  
