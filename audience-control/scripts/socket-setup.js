@@ -1,7 +1,7 @@
 var who = "sequencer"
 var room = findGetParameter("room") || "spacebarman";
 
-var socket = io("", {query:{room: room, who:who}});
+var socket = io("", {query:{session: room, role: "host", who: who}});
 var cmiSocket;
 var mySocketID;
 var cmiSocketID;

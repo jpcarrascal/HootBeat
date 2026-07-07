@@ -1,6 +1,12 @@
 var who = findGetParameter("who");
 var room = findGetParameter("room") || "spacebarman";
-var socket = io("", {query:{room: room, who:who}});
+var socket = io("", {query:{session: room, role: "participant", initials: who, who: who}});
+
+// The room only exists once the band's sequencer page has opened it;
+// retry until then.
+socket.on('session-unavailable', function() {
+  setTimeout(function() { window.location.reload(true); }, 2000);
+});
 
 var photo = document.getElementById("photo");
 photo.classList.add(who);
