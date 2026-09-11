@@ -33,6 +33,7 @@ uint32_t connColor      = 0x9008F0,
          sdColor        = 0xFF0000;
 
 HootBeat hb = HootBeat(NUMLEDS, PINL, PINR);
+uint8_t midiChannel = 9;
 
 void setup() {
   Serial.begin(115200);
@@ -75,6 +76,7 @@ void loop() {
 
 void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
 {
+  if(channel != midiChannel) return;
   hb.isRunning = true;
   if(velocity > 0) {// && hb.drums) {
     if(note == 36 && bdColor > 0) {
@@ -94,11 +96,13 @@ void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestam
 
 void onNoteOff(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
 {
+  if(channel != midiChannel) return;
   //Serial.printf("Received note off : channel %d, note %d, velocity %d (timestamp %dms)\n", channel, note, velocity, timestamp);
 }
 
 void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_t timestamp)
 {
+  if(channel != midiChannel) return;
   if(controller == 102)
     r1 = value*2;
   if(controller == 103)
@@ -132,10 +136,11 @@ void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_
 
 void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
 {
-    hb.isRunning = false;
-    anim = value;
-    Serial.print("Anim: ");
-    Serial.println(anim);
+  if(channel != midiChannel) return;
+  hb.isRunning = false;
+  anim = value;
+  Serial.print("Anim: ");
+  Serial.println(anim);
 }
 
 /*
