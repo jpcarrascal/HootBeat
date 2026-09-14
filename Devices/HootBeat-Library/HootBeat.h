@@ -35,6 +35,7 @@ class HootBeat {
     void triggerFlash(uint8_t length);
     void setColor(uint32_t color);
     void setColor(uint8_t r, uint8_t g, uint8_t b);
+    void setSecondaryColor(uint32_t color);
     void setDelay(uint8_t dly);
     void setSomeOn(uint16_t onLeds);
     void dim(float fade);
@@ -56,6 +57,7 @@ class HootBeat {
     bool drums;
   private:
     uint32_t primaryColor;
+    uint32_t dimmedPrimaryColor;
     uint32_t secondaryColor;
     uint32_t tmpColor;
     uint8_t offset = 0;

@@ -23,7 +23,7 @@
 
 String addr;
 
-uint8_t disconnectAnim = 1;
+uint8_t disconnectAnim = 11;
 uint8_t anim = disconnectAnim;
 uint8_t r1=0, g1=0, b1=0;
 uint8_t r2=0, g2=0, b2=0;
