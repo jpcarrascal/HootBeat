@@ -48,13 +48,16 @@ class HootBeat {
     void animPulsatingRotating();
     void animAlternatingColors();
     void animDrums();
+    void animDrumsNoOff();
     void animRotatingAndDrums();
     void animStrobe();
     uint32_t rgb2color(uint8_t r, uint8_t g, uint8_t b);
     bool isRunning;
     bool drums;
   private:
-    uint32_t color1;
+    uint32_t primaryColor;
+    uint32_t secondaryColor;
+    uint32_t tmpColor;
     uint8_t offset = 0;
     uint8_t offsetBounce = 0;
     uint8_t bounceDirection = 0;
@@ -74,6 +77,7 @@ class HootBeat {
     //uint8_t animIndex(String anim);
     uint32_t dimColor(uint32_t color, float fade);
     uint32_t dimColor(uint32_t color, float fade1, float fade2, float fade3);
+    uint32_t dimColor(uint32_t colorFrom, uint32_t colorTo, float fade);
 };
 
 #endif

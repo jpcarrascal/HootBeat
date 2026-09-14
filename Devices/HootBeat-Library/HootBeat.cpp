@@ -36,7 +36,13 @@ HootBeat::HootBeat(uint16_t numLeds, int pin)
 }
 
 void HootBeat::setColor(uint32_t color) {
-  this->color1 = color;
+  this->primaryColor = color;
+  this->secondaryColor = dimColor(color, 0.1);
+}
+
+void HootBeat::setColor(uint8_t r, uint8_t g, uint8_t b) {
+  this->primaryColor = rgb2color(r, g, b);
+  this->secondaryColor = dimColor(this->primaryColor, 0.1);
 }
 
 void HootBeat::setDelay(uint8_t dly) {
@@ -50,7 +56,7 @@ void HootBeat::setSomeOn(uint16_t onLeds) {
 }
 
 void HootBeat::dim(float fade) {
-  this->color1 = dimColor(this->color1, fade);
+  this->primaryColor = dimColor(this->primaryColor, fade);
 }
 
 void HootBeat::step(uint8_t anim) {
@@ -87,6 +93,9 @@ void HootBeat::step(uint8_t anim) {
       break;
     case 10: // Some on
       animBounce();
+      break;
+    case 11: // Drums no off
+      animDrumsNoOff();
       break;
     default: // Rotation + BD + SD
       animRotatingAndDrums();
@@ -133,10 +142,6 @@ void HootBeat::triggerFlash(uint8_t length) {
   }
 }
 
-void HootBeat::setColor(uint8_t r, uint8_t g, uint8_t b) {
-  this->color1 = rgb2color(r, g, b);
-}
-
 void HootBeat::setPixelAllStrips(uint8_t pixel, uint32_t color) {
   for(int j=0; j<this->numStrips; j++) {
     this->strips[j].setPixelColor( this->directions[j] == LEFT? pixel : (this->numLeds-(pixel+1)) , color );
@@ -152,7 +157,7 @@ void HootBeat::animAllOff() {
 void HootBeat::animAllOn() {
   this->drums = false;
   for(int i=0; i<this->numLeds; i++) {
-    setPixelAllStrips(i, this->color1);
+    setPixelAllStrips(i, this->primaryColor);
   }
 }
 
@@ -161,7 +166,7 @@ void HootBeat::animSomeOn() {
   if(this->onLeds > 0) {
     for(int i=0; i<this->numLeds; i++) {
       if(i < this->onLeds)
-        setPixelAllStrips(i, this->color1);
+        setPixelAllStrips(i, this->primaryColor);
       else
         setPixelAllStrips(i, 0x000000);
     }
@@ -172,7 +177,7 @@ void HootBeat::animSomeOn() {
         float fade = (float) this->colorCount / this->maxCount;
         fade *= fade;
         if(this->colorCount > 0)
-          c = dimColor(this->color1, fade);
+          c = dimColor(this->primaryColor, fade);
         setPixelAllStrips(i, c);
       } else {
         setPixelAllStrips(i, 0x000000);
@@ -186,7 +191,7 @@ void HootBeat::animPulsating() {
   float fade = sin( ((float) millis())/1200 );
   fade *= fade;
   for(int i=0; i<this->numLeds; i++) {
-    uint32_t c = dimColor(this->color1, fade);
+    uint32_t c = dimColor(this->primaryColor, fade);
     setPixelAllStrips(i, c);
   }
 }
@@ -196,7 +201,7 @@ void HootBeat::animRotating() {
   for(int i=0; i<this->numLeds; i++) {
     uint32_t c = 0;
     if(i==this->offset || i==this->offset+(this->numLeds/2) || i==this->offset-(this->numLeds/2))
-      c = this->color1;
+      c = this->primaryColor;
     setPixelAllStrips(i, c);
   }
 }
@@ -206,7 +211,7 @@ void HootBeat::animPulsatingRotating() {
   for(int i=0; i<this->numLeds; i++) {
     float fade = sin( (float)(i+this->offset)/4 );
     fade *= fade;
-    uint32_t c = dimColor(this->color1, fade);
+    uint32_t c = dimColor(this->primaryColor, fade);
     setPixelAllStrips(i, c);
   }
 }
@@ -218,7 +223,7 @@ void HootBeat::animAlternatingColors() {
   fade  *= fade;
   fade2 *= fade2;
   for(int i=0; i<this->numLeds; i++) {
-    uint32_t c = dimColor(this->color1, fade, 0, fade2);
+    uint32_t c = dimColor(this->primaryColor, fade, 0, fade2);
     setPixelAllStrips(i, c);
   }
 }
@@ -230,7 +235,19 @@ void HootBeat::animDrums() {
     float fade = (float) this->colorCount / this->maxCount;
     fade *= fade;
     if(this->colorCount > 0)
-      c = dimColor(this->color1, fade);
+      c = dimColor(this->primaryColor, fade);
+    setPixelAllStrips(i, c);
+  }
+}
+
+void HootBeat::animDrumsNoOff() {
+  this->drums = true;
+  for(int i=0; i<this->numLeds; i++) {
+    uint32_t c = this->secondaryColor;
+    float fade = (float) this->colorCount / this->maxCount;
+    fade *= fade;
+    if(this->colorCount > 0)
+      c = dimColor(this->primaryColor, this->secondaryColor, fade);
     setPixelAllStrips(i, c);
   }
 }
@@ -242,11 +259,11 @@ void HootBeat::animRotatingAndDrums() {
     float fade = (float) this->colorCount / this->maxCount;
     fade *= fade;
     if(this->colorCount > 0) {
-        c = dimColor(this->color1, fade);
+        c = dimColor(this->primaryColor, fade);
       if(i==this->offset || i==this->offset+(this->numLeds/2) || i==this->offset-(this->numLeds/2))
-        c = dimColor(this->color1, fade);
+        c = dimColor(this->primaryColor, fade);
     } else if(i==this->offset || i==this->offset+(this->numLeds/2) || i==this->offset-(this->numLeds/2)) {
-      c = this->color1;
+      c = this->primaryColor;
     }
     setPixelAllStrips(i, c);
   }
@@ -257,11 +274,11 @@ void HootBeat::animBounce() {
   for(int i=0; i<this->numLeds; i++) {
     uint32_t c = 0;
     if(i==this->offsetBounce) {
-      c = this->color1;
+      c = this->primaryColor;
     } else if(bounceDirection == 0 && i==this->offsetBounce-1 && this->offsetBounce > 0) {
-      c = dimColor(this->color1, 0.3);
+      c = dimColor(this->primaryColor, 0.3);
     } else if(bounceDirection == 1 && i==this->offsetBounce+1 && this->offsetBounce < this->numLeds-1) {
-      c = dimColor(this->color1, 0.3);
+      c = dimColor(this->primaryColor, 0.3);
     }
     setPixelAllStrips(i, c);
   }
@@ -271,7 +288,7 @@ void HootBeat::animStrobe() {
   this->drums = false;
   uint32_t c;
   if(!this->strobeOn) {
-    c = this->color1;
+    c = this->primaryColor;
     this->strobeOn = true;
   } else {
     c = 0x000000;
@@ -302,6 +319,15 @@ uint32_t HootBeat::dimColor(uint32_t color, float fade1, float fade2, float fade
     uint8_t r = fade1 * (float) ((color >> 16) & 0x0000FF);
     uint8_t g = fade2 * (float) ((color >> 8) & 0x0000FF);
     uint8_t b = fade3 * (float) (color & 0x0000FF);
+    uint32_t dimmedColor = (r<<16) + (g<<8) + (b);
+    return (dimmedColor);
+}
+// this overrides the previous dimColor function to interpolate between two colors based on the fade factor
+// when fade is 1, the result is colorFrom; when fade is 0, the result is colorTo:
+uint32_t HootBeat::dimColor(uint32_t colorFrom, uint32_t colorTo, float fade) {
+    uint8_t r = fade * (float) ((colorFrom >> 16) & 0x0000FF) + (1.0 - fade) * (float) ((colorTo >> 16) & 0x0000FF);
+    uint8_t g = fade * (float) ((colorFrom >> 8) & 0x0000FF) + (1.0 - fade) * (float) ((colorTo >> 8) & 0x0000FF);
+    uint8_t b = fade * (float) (colorFrom & 0x0000FF) + (1.0 - fade) * (float) (colorTo & 0x0000FF);
     uint32_t dimmedColor = (r<<16) + (g<<8) + (b);
     return (dimmedColor);
 }

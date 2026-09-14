@@ -19,33 +19,25 @@
 
 #define PINL 16
 #define PINR 17
-#define NUMLEDS 12
+#define NUMLEDS 24
 
 String addr;
 
-uint8_t disconnectAnim = 11;
+uint8_t disconnectAnim = 1;
 uint8_t anim = disconnectAnim;
 uint8_t r1=0, g1=0, b1=0;
 uint8_t r2=0, g2=0, b2=0;
-uint32_t connColor      = 0xFF00FF,//0x9008F0,
-         disconnColor   = 0x0000F0,
+uint32_t connColor      = 0x6000B0,
+         disconnColor   = 0xA00000,
          bdColor        = 0x0044FF,
          sdColor        = 0xFF0000;
 
-HootBeat hb = HootBeat(NUMLEDS, PINL, PINR);
+HootBeat hb = HootBeat(NUMLEDS, PINL);
 uint8_t midiChannel = 9;
 
 void setup() {
   Serial.begin(115200);
-  addr = WiFi.macAddress();
-  Serial.println(addr);
-  if(addr == BOARD2) {
-      BLEMidiServer.begin("BT Goggle 2");
-  } else if(addr == BOARD3) {
-    BLEMidiServer.begin("BT Goggle 3");
-  } else {
-    BLEMidiServer.begin("BT Goggle 1");
-  }
+  BLEMidiServer.begin("Glitchy monocule");
   BLEMidiServer.setOnConnectCallback([](){
     Serial.println("Connected");
     hb.setColor(connColor);
@@ -155,6 +147,6 @@ void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
 7	Strobe
 8	Rotating And Drums
 9	Some On
-10 Bounce
+10	Bounce
 11 Drums that don't completely go off
  */
