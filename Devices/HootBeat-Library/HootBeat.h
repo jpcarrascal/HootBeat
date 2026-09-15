@@ -36,6 +36,9 @@ class HootBeat {
     void setColor(uint32_t color);
     void setColor(uint8_t r, uint8_t g, uint8_t b);
     void setSecondaryColor(uint32_t color);
+    void setSecondaryColor(uint8_t r, uint8_t g, uint8_t b);
+    void setFlashLength(uint8_t maxCount);
+    void resetFlashLength();
     void setDelay(uint8_t dly);
     void setSomeOn(uint16_t onLeds);
     void dim(float fade);
@@ -57,9 +60,8 @@ class HootBeat {
     bool drums;
   private:
     uint32_t primaryColor;
-    uint32_t dimmedPrimaryColor;
     uint32_t secondaryColor;
-    uint32_t tmpColor;
+    uint8_t currentAnimation = 0;
     uint8_t offset = 0;
     uint8_t offsetBounce = 0;
     uint8_t bounceDirection = 0;
@@ -74,9 +76,6 @@ class HootBeat {
     Adafruit_NeoPixel strips[2]; // Max 2 for now
     uint8_t directions[2]; // Max 2 for now
     bool strobeOn = true;
-    //uint8_t numAnimations = 10;
-    //String animations[10] = {"allOff", "allOn", "pulsating", "pulsatingRotating", "rotating", "drums", "alternatingColors", "strobe", "rotatingAndDrums", ""};
-    //uint8_t animIndex(String anim);
     uint32_t dimColor(uint32_t color, float fade);
     uint32_t dimColor(uint32_t color, float fade1, float fade2, float fade3);
     uint32_t dimColor(uint32_t colorFrom, uint32_t colorTo, float fade);

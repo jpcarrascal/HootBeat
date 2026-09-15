@@ -19,16 +19,17 @@
 
 #define PINL 16
 #define PINR 17
-#define NUMLEDS 24
+#define NUMLEDS 16
 
 String addr;
 
 uint8_t disconnectAnim = 11;
 uint8_t anim = disconnectAnim;
+uint8_t defaultMaxCount = 4;
 uint8_t r1=0, g1=0, b1=0;
 uint8_t r2=0, g2=0, b2=0;
-uint32_t connColor      = 0x6000B0,
-         disconnColor   = 0xA00000,
+uint32_t connColor      = 0xA000F0,
+         disconnColor   = 0xF00000,
          bdColor        = 0x0044FF,
          sdColor        = 0xFF0000;
 
@@ -110,6 +111,8 @@ void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_
   if(controller == 107)
     b2 = value*2;
   sdColor = hb.rgb2color(r2, g2, b2);
+  if(controller == 108)
+    hb.setFlashLength(value);
   //Serial.printf("Received control change : channel %d, controller %d, value %d (timestamp %dms)\n", channel, controller, value, timestamp);
   if(controller == 102) {
     Serial.print("BD color: #");
@@ -129,6 +132,7 @@ void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_
 void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
 {
   if(channel != midiChannel) return;
+  hb.resetFlashLength();
   hb.isRunning = false;
   anim = value;
   Serial.print("Anim: ");

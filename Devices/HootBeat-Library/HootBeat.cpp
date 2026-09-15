@@ -14,7 +14,7 @@ HootBeat::HootBeat(uint16_t numLeds, int pin1, int pin2)
   this->onLeds = 0;
   this->wereOnLeds = 0;
   setColor(DISCONNCOLOR);
-  setSecondaryColor(0x0000FF);
+  setSecondaryColor(dimColor(DISCONNCOLOR, 0.1));
   this->isRunning = true;
   this->directions[0] = 0;
   this->directions[1] = 1;
@@ -38,16 +38,28 @@ HootBeat::HootBeat(uint16_t numLeds, int pin)
 
 void HootBeat::setColor(uint32_t color) {
   this->primaryColor = color;
-  this->dimmedPrimaryColor = dimColor(color, 0.1);
+  this->secondaryColor = dimColor(color, 0.1);
 }
 
 void HootBeat::setColor(uint8_t r, uint8_t g, uint8_t b) {
   this->primaryColor = rgb2color(r, g, b);
-  this->dimmedPrimaryColor = dimColor(this->primaryColor, 0.1);
+  this->secondaryColor = dimColor(this->primaryColor, 0.1);
 }
 
 void HootBeat::setSecondaryColor(uint32_t color) {
   this->secondaryColor = color;
+}
+
+void HootBeat::setSecondaryColor(uint8_t r, uint8_t g, uint8_t b) {
+  this->secondaryColor = rgb2color(r, g, b);
+}
+
+void HootBeat::setFlashLength(uint8_t maxCount) {
+  this->maxCount = maxCount;
+}
+
+void HootBeat::resetFlashLength() {
+  this->maxCount = this->normalMaxCount;
 }
 
 void HootBeat::setDelay(uint8_t dly) {
@@ -135,7 +147,6 @@ void HootBeat::step(uint8_t anim) {
 
 void HootBeat::triggerFlash() {
   if(this->drums) {
-    this->maxCount = this->normalMaxCount;
     this->colorCount = this->maxCount;
   }
 }
@@ -197,7 +208,7 @@ void HootBeat::animPulsating() {
   fade *= fade;
   for(int i=0; i<this->numLeds; i++) {
     //uint32_t c = dimColor(this->primaryColor, fade);
-    uint32_t c = dimColor(this->primaryColor, this->dimmedPrimaryColor, fade);
+    uint32_t c = dimColor(this->primaryColor, this->secondaryColor, fade);
     setPixelAllStrips(i, c);
   }
 }
@@ -247,11 +258,11 @@ void HootBeat::animDrums() {
 void HootBeat::animDrumsNoOff() {
   this->drums = true;
   for(int i=0; i<this->numLeds; i++) {
-    uint32_t c = this->dimmedPrimaryColor;
+    uint32_t c = this->secondaryColor;
     float fade = (float) this->colorCount / this->maxCount;
     fade *= fade;
     if(this->colorCount > 0)
-      c = dimColor(this->primaryColor, this->dimmedPrimaryColor, fade);
+      c = dimColor(this->primaryColor, this->secondaryColor, fade);
     setPixelAllStrips(i, c);
   }
 }
