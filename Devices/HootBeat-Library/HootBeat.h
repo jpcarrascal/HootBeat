@@ -46,6 +46,7 @@ class HootBeat {
     void animAllOff();
     void animAllOn();
     void animSomeOn();
+    void animSomeOnWithCC();
     void animBounce();
     void animPulsating();
     void animRotating();

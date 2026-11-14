@@ -114,6 +114,9 @@ void HootBeat::step(uint8_t anim) {
     case 11: // Drums no off
       animDrumsNoOff();
       break;
+    case 12: // Some on with CC
+      animSomeOnWithCC();
+      break;
     default: // Rotation + BD + SD
       animRotatingAndDrums();
       break;
@@ -199,6 +202,16 @@ void HootBeat::animSomeOn() {
         setPixelAllStrips(i, 0x000000);
       }
     }
+  }
+}
+
+void HootBeat::animSomeOnWithCC() {
+  this->drums = false;
+  for(int i=0; i<this->numLeds; i++) {
+    if(i < this->onLeds)
+      setPixelAllStrips(i, this->primaryColor);
+    else
+      setPixelAllStrips(i, 0x000000);
   }
 }
 

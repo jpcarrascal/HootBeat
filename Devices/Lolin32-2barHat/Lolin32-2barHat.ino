@@ -14,7 +14,7 @@
  
  
  uint8_t disconnAnim = 1;
- uint8_t connAnim = 1;
+ uint8_t connAnim = 9;
  uint8_t anim = disconnAnim;
  uint8_t r1=0, g1=0, b1=0;
  uint8_t r2=0, g2=0, b2=0;
@@ -22,6 +22,7 @@
           disconnColor   = 0x0000F0,
           bdColor        = 0x0044FF,
           sdColor        = 0xFF0000;
+ uint8_t midiChannel = 9;
  
  HootBeat hbL = HootBeat(NUMLEDS, PINL);
  HootBeat hbR = HootBeat(NUMLEDS, PINR);
@@ -63,6 +64,7 @@
  
  void onNoteOn(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
  {
+   if(channel != midiChannel) return;
    hbL.isRunning = true; hbR.isRunning = true;
    if(velocity > 0) {// && hb.drums) {
      if(note == 36 && bdColor > 0) {
@@ -82,11 +84,13 @@
  
  void onNoteOff(uint8_t channel, uint8_t note, uint8_t velocity, uint16_t timestamp)
  {
+  if(channel != midiChannel) return;
    //Serial.printf("Received note off : channel %d, note %d, velocity %d (timestamp %dms)\n", channel, note, velocity, timestamp);
  }
  
  void onControlChange(uint8_t channel, uint8_t controller, uint8_t value, uint16_t timestamp)
  {
+   if(channel != midiChannel) return;
    if(controller == 102)
      r1 = value*2;
    if(controller == 103)
@@ -111,6 +115,17 @@
      Serial.print("SD color: #");
      Serial.println(sdColor, HEX);
    }
+  if(controller == 108) {
+    hbL.setFlashLength(value);
+    hbR.setFlashLength(value);
+  }
+  if(controller == 109) { // A number of LEDs on, the rest off, depending on CC value
+    uint16_t numLEDsOn = map(value, 0, 127, 0, NUMLEDS);
+    Serial.print("num leds on: ");
+    Serial.println(numLEDsOn);
+    hbL.setSomeOn(numLEDsOn);
+    hbR.setSomeOn(numLEDsOn);
+  }
    if(controller == 111) {
      hbL.isRunning = true; hbR.isRunning = true;
      float fade = (float) value / 127;
@@ -120,6 +135,7 @@
  
  void onProgramChange(uint8_t channel, uint8_t value, uint16_t timestamp)
  {
+     if(channel != midiChannel) return;
      hbL.isRunning = false; hbR.isRunning = false;
      anim = value;
      Serial.print("Anim: ");
