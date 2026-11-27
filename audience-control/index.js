@@ -31,10 +31,6 @@ app.get('/sequencer', (req, res) => {
     res.sendFile(path.join(__dirname, allowed ? 'html/sequencer.html' : 'html/out.html'));
 });
 
-app.get('/latency', (req, res) => {
-    res.sendFile(path.join(__dirname, 'html/latency.html'));
-});
-
 app.get('/qr-code', (req, res) => {
     res.sendFile(path.join(__dirname, 'html/qr-code.html'));
 });
